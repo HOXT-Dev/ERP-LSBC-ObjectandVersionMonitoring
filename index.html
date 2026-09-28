@@ -1188,7 +1188,7 @@ function setView(v){
   // Lightweight, unauthenticated refresh of this source's synced data (no PAT
   // involved — see loadDevToolDataFromGithub) so the page shows the latest
   // GitHub Actions result without the person having to remember to refresh.
-  if(typeof DEV_SOURCES!=='undefined' && DEV_SOURCES[v]){
+  if(typeof SYNC_SOURCES!=='undefined' && SYNC_SOURCES[v]){
     loadDevToolDataFromGithub().then(loaded=>{ if(loaded && state.view===v) render(); }).catch(e=>console.warn('Dev-tool GitHub load failed:', e.message));
   }
 }
@@ -2032,11 +2032,18 @@ function hoxtData(kind){
   const store = HOXT_COLL[kind||'projects'].store;
   return DB.settings[store] || (DB.settings[store] = { repoLink:'', currentVersion:'', releaseNotes:[], projects:[] });
 }
-function hoxtLatestRemark(data, item){
+function hoxtLatestRemark(data, item, auto){
   const notes = (data.releaseNotes||[]).filter(n => n.version===item.latestVersion && (!n.projectCode || n.projectCode===item.code));
-  if(!notes.length) return '';
-  const specific = notes.find(n=>n.projectCode===item.code); // prefer a note tagged to this item over a general one
-  return (specific||notes[0]).remark || '';
+  if(notes.length){
+    const specific = notes.find(n=>n.projectCode===item.code); // prefer a note tagged to this item over a general one
+    return (specific||notes[0]).remark || '';
+  }
+  // nothing written by hand for this version -> use what GitHub says was deployed in it
+  const rel = (auto||[]).filter(n => n.version===item.latestVersion);
+  if(!rel.length) return '';
+  const nm = (item.name||'').toLowerCase();
+  const match = rel.find(n => nm && (n.appName||'').toLowerCase().includes(nm)) || rel[0];
+  return autoNoteHeadline(match);
 }
 const HOXT_STATUS_OPTS = [
   {v:'active', l:'Active'},
@@ -2076,7 +2083,7 @@ function viewHoxtColl(kind){
   const q = (state.search||'').trim().toLowerCase();
   const shown = q ? items.filter(p=>[p.name,p.code,p.latestVersion].join(' ').toLowerCase().includes(q)) : items;
   const rows = shown.map(p=>{
-    const remark = hoxtLatestRemark(data, p);
+    const remark = hoxtLatestRemark(data, p, autoNotesOf(kind));
     return `<tr data-hoxt-item="${p.id}" style="cursor:pointer;">
       <td>${escapeHtml(p.name||'')}</td>
       <td class="mono">${escapeHtml(p.code||'')}</td>
@@ -2103,6 +2110,8 @@ function viewHoxtColl(kind){
         <input type="text" id="hoxtCurrentVersion" value="${escapeAttr(data.currentVersion||'')}" placeholder="e.g. 26.9.2.1" ${canEdit?'':'disabled'}>
       </div>
     </div>
+    ${(()=>{ const src = devToolSyncSettings().sources[kind]; const last = autoNotesOf(kind)[0];
+      return (src&&src.version ? `<div class="hint" style="font-size:11.5px;color:var(--text-faint);margin-top:2px;">Version in GitHub: ${vchip(src.version)}${last?` · latest release: <b>${escapeHtml(autoNoteHeadline(last))}</b>`:''}</div>` : ''); })()}
     <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">
       <button class="btn" id="hoxtReleaseNotesBtn">${icon('history')} Release Notes</button>
       ${canEdit?`<button class="btn btn-primary" id="hoxtInfoSaveBtn">Save</button>`:''}
@@ -2133,7 +2142,7 @@ function openHoxtItemDetail(kind, id){
   const p = data.projects.find(x=>x.id===id);
   if(!p) return;
   const canEdit = can('projects','modify');
-  const remark = hoxtLatestRemark(data, p);
+  const remark = hoxtLatestRemark(data, p, autoNotesOf(kind));
   const objs = (p.objects||[]).slice().sort((a,b)=> String(a.objectType).localeCompare(String(b.objectType)) || (a.objectId-b.objectId));
   const objRows = objs.map(o=>{
     const t = typeById(o.objectType);
@@ -2318,18 +2327,30 @@ function hoxtNotesCtx(kind){
     persist: async ()=>{ saveDB(); },
     tagItems: data.projects, tagLabel: cc.singular,
     remarkHint: `short summary — shown as Latest Remark in the ${cc.plural} table`,
+    ...autoCtxFields(kind),
+  };
+}
+// what the Release Notes pop-up needs to show the GitHub-generated entries for a page
+function autoCtxFields(key){
+  const src = ()=> devToolSyncSettings().sources[key] || {};
+  return {
+    auto: ()=> autoNotesOf(key),
+    repoUrl: repoUrlOf(src()),
+    configured: !!(src().owner && src().repo),
+    notesError: src().notesError || '',
+    lastSyncedAt: src().lastSyncedAt || null,
   };
 }
 function openReleaseNotesModal(ctx){
   const canEdit = can('projects','modify');
-  const notesSorted = ctx.notes().slice().sort((a,b)=> (b.date||'').localeCompare(a.date||''));
-  const rows = notesSorted.map(n=>{
+  const manualItems = ctx.notes().map(n=>{
     const tagged = ctx.tagItems ? ctx.tagItems.find(p=>p.code===n.projectCode) : null;
-    return `<div class="card" style="margin-bottom:10px;padding:12px 14px;">
+    return { date: n.date||'', html: `<div class="card" style="margin-bottom:10px;padding:12px 14px;">
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
         <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
           ${n.version?vchip(n.version):''}
           ${ctx.tagItems?(tagged?`<span class="badge kind-project">${escapeHtml(tagged.name||'')}</span>`:(n.projectCode?`<span class="badge kind-project">${escapeHtml(n.projectCode)}</span>`:'<span class="badge">General</span>')):''}
+          <span class="badge">Added by hand</span>
           <span class="hint" style="color:var(--text-faint);">${n.date?new Date(n.date).toLocaleDateString():''}</span>
         </div>
         ${canEdit?`<div>
@@ -2339,8 +2360,30 @@ function openReleaseNotesModal(ctx){
       </div>
       <div style="font-weight:600;margin-top:6px;">${escapeHtml(n.remark||'')}</div>
       ${n.notes?`<div style="font-size:12.5px;color:var(--text-faint);margin-top:4px;white-space:pre-wrap;">${escapeHtml(n.notes)}</div>`:''}
-    </div>`;
-  }).join('');
+    </div>` };
+  });
+  // GitHub-generated: one card per deployed version, listing the commits that went into it
+  const autoList = ctx.auto ? ctx.auto() : [];
+  const autoItems = autoList.map(n=>({ date: n.date||'', html: `<div class="card" style="margin-bottom:10px;padding:12px 14px;border-left:3px solid var(--accent, #6366f1);">
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+        ${n.version?vchip(n.version):''}
+        ${n.appName?`<span class="badge kind-project">${escapeHtml(n.appName)}</span>`:''}
+        <span class="badge">From GitHub</span>
+        <span class="hint" style="color:var(--text-faint);">${n.date?new Date(n.date).toLocaleDateString():''} · ${(n.commits||[]).length} change(s)</span>
+      </div>
+      <ul style="margin:8px 0 0;padding-left:18px;">
+        ${(n.commits||[]).map(c=>`<li style="margin-bottom:6px;">
+          <span style="font-weight:600;">${escapeHtml(c.summary||'')}</span>
+          ${ctx.repoUrl?`<a href="${escapeAttr(ctx.repoUrl)}/commit/${escapeAttr(c.sha)}" target="_blank" rel="noopener" class="mono" style="font-size:11px;margin-left:6px;">${escapeHtml(String(c.sha).slice(0,7))}</a>`:''}
+          ${c.author?`<span class="hint" style="color:var(--text-faint);margin-left:6px;">${escapeHtml(c.author)}</span>`:''}
+          ${c.details?`<div style="font-size:12.5px;color:var(--text-faint);white-space:pre-wrap;">${escapeHtml(c.details)}</div>`:''}
+        </li>`).join('') || '<li class="hint">No commit messages recorded.</li>'}
+      </ul>
+    </div>` }));
+  const rows = manualItems.concat(autoItems).sort((a,b)=> (b.date||'').localeCompare(a.date||'')).map(x=>x.html).join('');
+  const empty = !ctx.configured
+    ? 'Not connected to GitHub yet — add this repository under Settings → Dev-tool Sync and release notes will fill in by themselves from each deployed version.'
+    : (ctx.lastSyncedAt ? 'No deployed versions found in the git history yet.' : 'Connected — release notes appear after the next GitHub sync.');
   swapModal(`
   <div class="modal modal-wide">
     <div class="modal-head">
@@ -2348,9 +2391,13 @@ function openReleaseNotesModal(ctx){
       <button class="close-x" id="modalClose">${icon('close')}</button>
     </div>
     <div style="padding:20px;">
-      ${canEdit?`<button class="btn btn-primary btn-sm" id="rnAddBtn" style="margin-bottom:14px;">${icon('plus')} Add Entry</button>`:''}
-      <div style="max-height:420px;overflow-y:auto;">
-        ${rows || `<div class="hint" style="color:var(--text-faint);text-align:center;padding:30px 0;">No release notes yet.</div>`}
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
+        <div class="hint" style="color:var(--text-faint);font-size:12px;">${ctx.configured?`Each version below lists the changes deployed in it, taken from git commits${ctx.lastSyncedAt?` · last read ${timeAgo(ctx.lastSyncedAt)}`:''}.`:''}</div>
+        ${canEdit?`<button class="btn btn-primary btn-sm" id="rnAddBtn">${icon('plus')} Add Entry</button>`:''}
+      </div>
+      ${ctx.notesError?`<div class="hint" style="color:var(--danger);font-size:12px;margin-bottom:10px;">Couldn't refresh release notes from GitHub: ${escapeHtml(ctx.notesError)}</div>`:''}
+      <div style="max-height:440px;overflow-y:auto;">
+        ${rows || `<div class="hint" style="color:var(--text-faint);text-align:center;padding:30px 0;">${empty}</div>`}
       </div>
     </div>
     <div class="modal-foot"><button class="btn" id="modalCancel">Close</button></div>
@@ -2436,16 +2483,44 @@ const DEV_SOURCES = {
   onpremenh: { label:'HOXT OnPrem Enhancements' },
   devtool:   { label:'HOXT Developers Tool' },
 };
+// HOXT Projects and HOXT Custom API keep their own hand-entered lists of
+// projects/APIs and objects, so GitHub only feeds them release notes + the
+// current version (no object scan) — hence "notes only".
+const NOTES_ONLY_SOURCES = {
+  projects: { label:'HOXT Projects' },
+  apis:     { label:'HOXT Custom API' },
+};
+const SYNC_SOURCES = { // order = order shown in Settings > Dev-tool Sync
+  projects:  NOTES_ONLY_SOURCES.projects,
+  cloudenh:  DEV_SOURCES.cloudenh,
+  onpremenh: DEV_SOURCES.onpremenh,
+  apis:      NOTES_ONLY_SOURCES.apis,
+  devtool:   DEV_SOURCES.devtool,
+};
 const DEVTOOL_DATA_PATH = 'dev-tool-data.json';
+function devSourceDefaults(key){
+  return { owner:'', repo:'', branch:'main', folder:'', objectMeta:{}, releaseNotes:[], ...(NOTES_ONLY_SOURCES[key]?{notesOnly:true}:{}) };
+}
 function devToolSyncSettings(){
-  return DB.settings.devToolSync || (DB.settings.devToolSync = {
-    sources: {
-      cloudenh:  { owner:'', repo:'', branch:'main', folder:'', objectMeta:{}, releaseNotes:[] },
-      onpremenh: { owner:'', repo:'', branch:'main', folder:'', objectMeta:{}, releaseNotes:[] },
-      devtool:   { owner:'', repo:'', branch:'main', folder:'', objectMeta:{}, releaseNotes:[] },
-    },
-    lastRunAt:null, lastRunStatus:'', lastRunError:'',
-  });
+  const dt = DB.settings.devToolSync || (DB.settings.devToolSync = { sources:{}, lastRunAt:null, lastRunStatus:'', lastRunError:'' });
+  dt.sources = dt.sources || {};
+  Object.keys(SYNC_SOURCES).forEach(k=>{ if(!dt.sources[k]) dt.sources[k] = devSourceDefaults(k); }); // also fills sources added after the data file was first saved
+  return dt;
+}
+function repoUrlOf(cfg){ return cfg && cfg.owner && cfg.repo ? `https://github.com/${cfg.owner}/${cfg.repo}` : ''; }
+// "https://github.com/org/repo/tree/branch/some/folder" -> its parts, so the repo link typed on the
+// Projects / Custom API page can pre-fill the sync settings
+function ghParseRepoUrl(url){
+  const m = /github\.com\/([^\/\s]+)\/([^\/\s#?]+?)(?:\.git)?(?:\/tree\/([^\/\s]+)(?:\/(.*))?)?\/?$/i.exec((url||'').trim());
+  return m ? { owner:m[1], repo:m[2], branch:m[3]||'main', folder:(m[4]||'').replace(/\/$/,'') } : null;
+}
+function autoNotesOf(key){
+  const src = devToolSyncSettings().sources[key];
+  return ((src&&src.autoNotes)||[]).slice().sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+}
+function autoNoteHeadline(n){
+  const c = n.commits||[];
+  return c.length ? c[0].summary + (c.length>1 ? ` (+${c.length-1} more)` : '') : '';
 }
 function devToolDataRawUrl(){
   const gh = ghSettings();
@@ -2465,16 +2540,12 @@ async function loadDevToolDataFromGithub(){
   if(!res.ok) throw new Error(`Could not read Dev-tool sync data from GitHub (HTTP ${res.status}).`);
   const data = await res.json();
   const local = devToolSyncSettings();
-  Object.keys(DEV_SOURCES).forEach(key=>{
+  Object.keys(SYNC_SOURCES).forEach(key=>{
     const remote = (data.sources||{})[key];
     if(!remote) return;
-    local.sources[key] = {
-      owner: remote.owner||'', repo: remote.repo||'', branch: remote.branch||'main', folder: remote.folder||'',
-      version: remote.version||null, objects: remote.objects||[], lastSyncedAt: remote.lastSyncedAt||null,
-      apps: remote.apps||[],
-      objectMeta: remote.objectMeta||{}, // manually-entered Status/Definition/Remarks — the sync script preserves this untouched, so trust whatever's committed
-      releaseNotes: remote.releaseNotes||[],
-    };
+    // defaults first, then everything committed (objects, apps, autoNotes, ...). objectMeta / releaseNotes are
+    // hand-entered and the sync script leaves them untouched, so whatever's committed is current.
+    local.sources[key] = { ...devSourceDefaults(key), ...remote, branch: remote.branch||'main', objectMeta: remote.objectMeta||{}, releaseNotes: remote.releaseNotes||[] };
   });
   local.lastRunAt = data.lastRunAt||null;
   local.lastRunStatus = data.lastRunStatus||'';
@@ -2501,17 +2572,18 @@ async function saveDevToolSyncToGithubImpl(commitMessage){
   let remoteData = null;
   try{ const loaded = await loadDevToolDataFromGithub(); if(loaded) remoteData = devToolSyncSettings(); }catch(e){ /* no remote copy yet, or unreachable — proceed with local-only data */ }
   const merged = { sources:{}, lastRunAt: remoteData?remoteData.lastRunAt:null, lastRunStatus: remoteData?remoteData.lastRunStatus:'', lastRunError: remoteData?remoteData.lastRunError:'' };
-  Object.keys(DEV_SOURCES).forEach(key=>{
+  Object.keys(SYNC_SOURCES).forEach(key=>{
     const remoteSrc = remoteData ? remoteData.sources[key] : null;
+    const loc = localSources[key] || devSourceDefaults(key);
     merged.sources[key] = {
-      owner: localSources[key].owner, repo: localSources[key].repo, branch: localSources[key].branch||'main', folder: localSources[key].folder||'',
-      version: remoteSrc?remoteSrc.version:null, objects: remoteSrc?remoteSrc.objects:[], lastSyncedAt: remoteSrc?remoteSrc.lastSyncedAt:null,
-      // Local wins for objectMeta — it's the thing actively being edited from
-      // this tab (Status/Definition/Remarks/Ticket Tag), so a save here should
-      // never lose an in-progress edit even if GitHub's copy is older.
-      objectMeta: localSources[key].objectMeta || (remoteSrc && remoteSrc.objectMeta) || {},
-      releaseNotes: localSources[key].releaseNotes || (remoteSrc && remoteSrc.releaseNotes) || [], // same reasoning: local is what's being edited
-      apps: remoteSrc ? (remoteSrc.apps||[]) : [],
+      // start from whatever GitHub Actions last wrote (version, objects, apps, autoNotes, ...) ...
+      ...(remoteSrc||{}),
+      // ... then local wins for what's edited on this tab: connection details, plus the hand-entered
+      // Status/Definition/Remarks and release notes, so a save here never loses an in-progress edit
+      owner: loc.owner, repo: loc.repo, branch: loc.branch||'main', folder: loc.folder||'',
+      objectMeta: loc.objectMeta || (remoteSrc && remoteSrc.objectMeta) || {},
+      releaseNotes: loc.releaseNotes || (remoteSrc && remoteSrc.releaseNotes) || [],
+      ...(NOTES_ONLY_SOURCES[key] ? {notesOnly:true} : {}),
     };
   });
   DB.settings.devToolSync = merged;
@@ -2588,11 +2660,109 @@ function parseAlObjects(text) {
   return out;
 }
 
+function encPath(p) { return p.split('/').map(encodeURIComponent).join('/'); }
+
+// One commit -> { summary, details, author, date }. Merge commits are dropped
+// (a "Merge pull request" keeps its PR title, which git stores in the body).
+function commitInfo(c) {
+  var msg = ((c.commit && c.commit.message) || '').replace(/\\r/g, '');
+  var lines = msg.split('\\n');
+  var summary = (lines[0] || '').trim();
+  var details = lines.slice(1).join('\\n').trim();
+  if (/^Merge (branch|remote-tracking)/i.test(summary)) return null;
+  if (/^Merge pull request/i.test(summary) && details) {
+    var dl = details.split('\\n');
+    summary = (dl[0] || '').trim();
+    details = dl.slice(1).join('\\n').trim();
+  }
+  if (!summary) return null;
+  var who = (c.commit && c.commit.author && c.commit.author.name) || '';
+  var when = (c.commit && c.commit.committer && c.commit.committer.date) || (c.commit && c.commit.author && c.commit.author.date) || '';
+  return { sha: c.sha, summary: summary.slice(0, 200), details: details.slice(0, 600), author: who, date: when };
+}
+
+// Release notes straight from git history. For each app: find the commits that
+// touched its app.json (each one is a possible version bump), read the version
+// out of app.json as it was at that commit, then hand every commit between one
+// bump and the next to the version that bump introduced — so 0.0.0.1 and
+// 0.0.0.2 each list exactly the changes deployed in them, with their commit
+// messages. Commits after the latest bump are not released yet and are left out.
+async function buildAutoNotes(cfg, apps) {
+  var owner = cfg.owner, repo = cfg.repo, branch = cfg.branch || 'main';
+  var cache = Object.assign({}, cfg.versionCache || {}); // commit sha -> version (commits never change, so this is safe to keep)
+  var groups = [];
+  for (var ai = 0; ai < apps.length; ai++) {
+    var app = apps[ai];
+    var jsonPath = app.dir ? app.dir + '/app.json' : 'app.json';
+    var bumps = await ghApi(owner, repo, '/commits?sha=' + encodeURIComponent(branch) + '&path=' + encPath(jsonPath) + '&per_page=60');
+    if (!Array.isArray(bumps) || !bumps.length) continue;
+    var truncated = bumps.length >= 60; // more bumps exist than we fetched
+    var oldestBump = bumps[bumps.length - 1].sha;
+    var bumpShas = {};
+    bumps.forEach(function (b) { bumpShas[b.sha] = true; });
+
+    var history = [];
+    for (var page = 1; page <= 5; page++) {
+      var batch = await ghApi(owner, repo, '/commits?sha=' + encodeURIComponent(branch) + (app.dir ? '&path=' + encPath(app.dir) : '') + '&per_page=100&page=' + page);
+      if (!Array.isArray(batch) || !batch.length) break;
+      history = history.concat(batch);
+      if (batch.length < 100) break;
+    }
+    if (truncated) {
+      var cut = history.findIndex(function (c) { return c.sha === oldestBump; });
+      if (cut >= 0) history = history.slice(0, cut + 1);
+    }
+    history.reverse(); // oldest first
+
+    for (var i = 0; i < history.length; i++) {
+      var hc = history[i];
+      if (bumpShas[hc.sha] && cache[hc.sha] === undefined) {
+        try {
+          var f = await ghApi(owner, repo, '/contents/' + encPath(jsonPath) + '?ref=' + hc.sha);
+          var j = JSON.parse(decodeB64Utf8(f.content).replace(/^\\uFEFF/, ''));
+          cache[hc.sha] = j.version || '';
+        } catch (_) { cache[hc.sha] = ''; }
+      }
+    }
+
+    var pending = [];
+    for (var k = 0; k < history.length; k++) {
+      var c = history[k];
+      var info = commitInfo(c);
+      if (info) pending.push(info);
+      if (bumpShas[c.sha] && cache[c.sha]) {
+        if (!(truncated && c.sha === oldestBump)) { // that oldest group would be missing its earlier commits, so skip it
+          groups.push({
+            id: c.sha, version: cache[c.sha], appName: app.name || '',
+            date: (info && info.date) || ((c.commit && c.commit.committer && c.commit.committer.date) || ''),
+            commits: pending.slice().reverse().slice(0, 30), // newest first
+          });
+        }
+        pending = [];
+      }
+    }
+  }
+  // the same app + version bumped twice (say a dependency edit) reads as one release
+  var byKey = {}, order = [];
+  groups.forEach(function (g) {
+    var key = g.appName + '|' + g.version;
+    if (!byKey[key]) { byKey[key] = g; order.push(key); }
+    else {
+      var ex = byKey[key];
+      ex.commits = g.commits.concat(ex.commits).slice(0, 30);
+      if (g.date > ex.date) { ex.date = g.date; ex.id = g.id; }
+    }
+  });
+  var out = order.map(function (key) { return byKey[key]; });
+  out.sort(function (a, b) { return (b.date || '').localeCompare(a.date || ''); });
+  return { notes: out.slice(0, 20), cache: cache };
+}
+
 async function syncOneSource(key, cfg) {
   if (!cfg.owner || !cfg.repo) { console.log(\`[\${key}] not configured yet — skipping.\`); return cfg; }
   const tree = await ghApi(cfg.owner, cfg.repo, \`/git/trees/\${encodeURIComponent(cfg.branch || 'main')}?recursive=1\`);
   const scoped = (tree.tree || []).filter(e => e.type === 'blob' && (!cfg.folder || e.path === cfg.folder || e.path.startsWith(cfg.folder + '/')));
-  const entries = scoped.filter(e => e.path.endsWith('.al') || /(^|\\/)app\\.json$/.test(e.path));
+  const entries = scoped.filter(e => (!cfg.notesOnly && e.path.endsWith('.al')) || /(^|\\/)app\\.json$/.test(e.path));
   const apps = []; // every app.json in scope: { dir, name, version }
   const alFiles = []; // { path, text }
   for (const e of entries) {
@@ -2621,6 +2791,16 @@ async function syncOneSource(key, cfg) {
       byKey[\`\${o.type}:\${o.id}\`] = { objectType: o.type, objectId: o.id, description: o.name, appName: app ? app.name : '', appVersion: app ? app.version : '' };
     }
   }
+  // Release notes from git history. Never fatal: if it fails, the previous notes stay and the reason is recorded.
+  var autoNotes = cfg.autoNotes || [], versionCache = cfg.versionCache || {}, notesError = '';
+  try {
+    var built = await buildAutoNotes(cfg, apps);
+    autoNotes = built.notes; versionCache = built.cache;
+  } catch (err) {
+    notesError = err.message;
+    console.error('::warning::' + key + ' release notes failed: ' + err.message);
+  }
+  console.log('[' + key + '] ' + autoNotes.length + ' release(s) found in git history' + (notesError ? ' (' + notesError + ')' : ''));
   // The source's own "current version" = the app closest to the top of the scanned folder
   const depth = a => a.dir.split('/').filter(Boolean).length;
   const mainApp = apps.slice().sort((a, b) => depth(a) - depth(b))[0] || null;
@@ -2630,7 +2810,8 @@ async function syncOneSource(key, cfg) {
     owner: cfg.owner, repo: cfg.repo, branch: cfg.branch || 'main', folder: cfg.folder || '',
     version: (mainApp && mainApp.version) || cfg.version || null,
     apps: apps.map(a => ({ name: a.name, version: a.version, path: a.dir })),
-    objects: Object.values(byKey),
+    objects: cfg.notesOnly ? [] : Object.values(byKey),
+    autoNotes: autoNotes, versionCache: versionCache, notesError: notesError,
     lastSyncedAt: new Date().toISOString(),
   };
 }
@@ -2759,18 +2940,22 @@ function settingsDevToolSync(){
 
   <div class="card" style="margin-bottom:18px;">
     <div class="section-title"><h3>${icon('cicd')} Source Repositories</h3><span class="hint">Same GitHub org as your CI/CD repo, different (private) repo — one row per sidebar page</span></div>
-    ${Object.keys(DEV_SOURCES).map(key=>{
+    ${Object.keys(SYNC_SOURCES).map(key=>{
       const src = dt.sources[key];
+      const notesOnly = !!NOTES_ONLY_SOURCES[key];
+      // Projects / Custom API: if nothing is set yet, offer what's in that page's Repository Link
+      const guess = (notesOnly && !src.owner && !src.repo) ? ghParseRepoUrl(hoxtData(key).repoLink) : null;
+      const shown = guess ? {...src, ...guess} : src;
       return `
       <div style="padding:12px 0;border-top:1px solid var(--border);">
-        <div style="font-weight:600;font-size:13px;margin-bottom:8px;">${escapeHtml(DEV_SOURCES[key].label)}</div>
+        <div style="font-weight:600;font-size:13px;margin-bottom:8px;">${escapeHtml(SYNC_SOURCES[key].label)} ${notesOnly?`<span class="hint" style="font-weight:400;">— release notes &amp; version only (the list stays as entered on that page)</span>`:''}${guess?` <span class="hint" style="font-weight:400;color:var(--success);">pre-filled from its Repository Link — click Save Connection</span>`:''}</div>
         <div class="form-grid">
-          <div class="form-row"><label>Owner / Org</label><input type="text" id="dts_${key}_owner" value="${escapeAttr(src.owner)}" placeholder="e.g. my-company" ${canEdit?'':'disabled'}></div>
-          <div class="form-row"><label>Repository</label><input type="text" id="dts_${key}_repo" value="${escapeAttr(src.repo)}" placeholder="e.g. bc-al-projects" ${canEdit?'':'disabled'}></div>
-          <div class="form-row"><label>Branch</label><input type="text" id="dts_${key}_branch" value="${escapeAttr(src.branch||'main')}" placeholder="main" ${canEdit?'':'disabled'}></div>
-          <div class="form-row"><label>Folder <span class="hint">(optional)</span></label><input type="text" id="dts_${key}_folder" value="${escapeAttr(src.folder||'')}" placeholder="apps/warehouse" ${canEdit?'':'disabled'}></div>
+          <div class="form-row"><label>Owner / Org</label><input type="text" id="dts_${key}_owner" value="${escapeAttr(shown.owner)}" placeholder="e.g. my-company" ${canEdit?'':'disabled'}></div>
+          <div class="form-row"><label>Repository</label><input type="text" id="dts_${key}_repo" value="${escapeAttr(shown.repo)}" placeholder="e.g. bc-al-projects" ${canEdit?'':'disabled'}></div>
+          <div class="form-row"><label>Branch</label><input type="text" id="dts_${key}_branch" value="${escapeAttr(shown.branch||'main')}" placeholder="main" ${canEdit?'':'disabled'}></div>
+          <div class="form-row"><label>Folder <span class="hint">(optional)</span></label><input type="text" id="dts_${key}_folder" value="${escapeAttr(shown.folder||'')}" placeholder="apps/warehouse" ${canEdit?'':'disabled'}></div>
         </div>
-        <div style="font-size:12px;color:var(--text-faint);">${src.lastSyncedAt?`Last synced ${timeAgo(src.lastSyncedAt)} — ${(src.objects||[]).length} object(s)${src.version?`, version ${escapeHtml(src.version)}`:''}`:'Never synced yet.'}</div>
+        <div style="font-size:12px;color:var(--text-faint);">${src.lastSyncedAt?`Last synced ${timeAgo(src.lastSyncedAt)} — ${notesOnly?'':`${(src.objects||[]).length} object(s), `}${(src.autoNotes||[]).length} release(s) in git history${src.version?`, version ${escapeHtml(src.version)}`:''}${src.notesError?` — <span style="color:var(--danger);">release notes: ${escapeHtml(src.notesError)}</span>`:''}`:'Never synced yet.'}</div>
       </div>`;
     }).join('')}
     <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;">
@@ -2859,6 +3044,7 @@ function devNotesCtx(key){
     persist: ()=> saveDevToolSyncToGithub(`Update ${label} release notes (${new Date().toISOString()})`),
     tagItems: null, tagLabel: '',
     remarkHint: 'short summary of the update',
+    ...autoCtxFields(key),
   };
 }
 function openDevObjectModal(sourceKey, objectType, objectId){
@@ -3018,6 +3204,7 @@ function viewDevSource(key){
         <div class="readonly-field">${cfg.version?vchip(cfg.version):`<span class="hint">Not synced yet</span>`} <span class="hint" style="margin-left:6px;">${cfg.lastSyncedAt?`Last synced ${timeAgo(cfg.lastSyncedAt)}`:''}</span></div>
       </div>
     </div>
+    ${autoNotesOf(key).length?`<div class="hint" style="font-size:11.5px;color:var(--text-faint);margin-top:2px;">Latest release: ${(()=>{ const n = autoNotesOf(key)[0]; return `${vchip(n.version)} <b>${escapeHtml(autoNoteHeadline(n))}</b>`; })()}</div>`:''}
     ${multiApps?`<div class="hint" style="font-size:11.5px;color:var(--text-faint);margin-top:2px;">Apps in this repo: ${cfg.apps.map(a=>`${escapeHtml(a.name||'(unnamed)')} <span class="mono">${escapeHtml(a.version||'')}</span>`).join(' · ')}</div>`:''}
     <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">
       <button class="btn" id="dsReleaseNotesBtn">${icon('history')} Release Notes</button>
@@ -4590,7 +4777,7 @@ function attachContentHandlers(){
   const saveDevToolSyncConn = document.getElementById('saveDevToolSyncConn');
   if(saveDevToolSyncConn) saveDevToolSyncConn.addEventListener('click', async ()=>{
     const dt = devToolSyncSettings();
-    Object.keys(DEV_SOURCES).forEach(key=>{
+    Object.keys(SYNC_SOURCES).forEach(key=>{
       const ownerEl = document.getElementById(`dts_${key}_owner`);
       if(!ownerEl) return; // section not rendered (view-only permissions)
       dt.sources[key].owner = ownerEl.value.trim();
