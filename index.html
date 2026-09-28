@@ -1212,11 +1212,13 @@ function renderSidebar(){
       {id:'dashboard', label:'Dashboard', icon:'dashboard'},
     ]},
     {group:'Work Items', items:[
-      {id:'projects', label:'HOXT Projects', icon:'project', count:DB.projects.length},
-      {id:'devtool', label:'Dev-tool', icon:'cicd'},
-      {id:'apis', label:'APIs', icon:'cicd'},
-      {id:'cloudenh', label:'Cloud-Enhancements', icon:'cicd'},
-      {id:'onpremenh', label:'OnPrem-Enhancements', icon:'cicd'},
+      {id:'projects', label:'HOXT Projects', icon:'project', count:hoxtData('projects').projects.length},
+      {id:'cloudenh', label:'HOXT Cloud Enhancements', icon:'cicd'},
+      {id:'onpremenh', label:'HOXT OnPrem Enhancements', icon:'cicd'},
+      {id:'apis', label:'HOXT Custom API', icon:'layers', count:hoxtData('apis').projects.length},
+      {id:'devtool', label:'HOXT Developers Tool', icon:'cicd'},
+    ]},
+    {group:'Other Items', items:[
       {id:'tickets', label:'Tickets', icon:'ticket', count:DB.tickets.length},
       {id:'storecust', label:'Store Customization', icon:'storecust', count:DB.storecust.length},
       {id:'objects', label:'Object ID Listing', icon:'objects'},
@@ -1269,11 +1271,11 @@ function initials(name){ return name.split(' ').map(s=>s[0]).slice(0,2).join('')
 function renderTopbar(){
   const titles = {
     dashboard:['Summary Dashboard',''],
-    projects:['HOXT Projects','Repository info, current version, release notes and per-project object counts'],
-    devtool:['Dev-tool','Objects, Object ID, Description & Version — synced from GitHub'],
-    apis:['APIs','Objects, Object ID, Description & Version — synced from GitHub'],
-    cloudenh:['Cloud-Enhancements','Objects, Object ID, Description & Version — synced from GitHub'],
-    onpremenh:['OnPrem-Enhancements','Objects, Object ID, Description & Version — synced from GitHub'],
+    projects:['HOXT Projects','Repository info, current version, release notes and the projects in the suite'],
+    cloudenh:['HOXT Cloud Enhancements','Objects, versions and tickets — read from the GitHub repo'],
+    onpremenh:['HOXT OnPrem Enhancements','Objects, versions and tickets — read from the GitHub repo'],
+    apis:['HOXT Custom API','Repository info, current version, release notes and the APIs in the suite'],
+    devtool:['HOXT Developers Tool','Objects, versions and applications — read from the GitHub repo'],
     tickets:['Tickets','Ticket Request from FreshService'],
     storecust:['Store Customization','Store Server Customizations'],
     objects:['Object ID Listing','Business Central Objects Range'],
@@ -1293,7 +1295,6 @@ function renderTopbar(){
     <div class="topbar-actions">
       <span id="syncBadge" style="font-size:11px;margin-right:4px;">${syncStatusLabel()}</span>
       <button class="btn btn-icon" id="themeToggle" title="Toggle theme">${icon(DB.settings.theme==='dark'?'sun':'moon')}</button>
-      ${state.view==='projects'&&can('projects','create')?`<button class="btn btn-primary" data-new="project">${icon('plus')}New Project</button>`:''}
       ${state.view==='tickets'&&can('tickets','create')?`<button class="btn btn-primary" data-new="ticket">${icon('plus')}New Ticket</button>`:''}
       ${state.view==='storecust'&&can('storecust','create')?`<button class="btn btn-primary" data-new="storecust">${icon('plus')}New storecust Extension</button>`:''}
       ${state.view==='users'&&can('setup','create')?`<button class="btn btn-primary" data-new="user">${icon('plus')}Add User</button>`:''}
@@ -1304,9 +1305,9 @@ function renderTopbar(){
 function renderView(){
   switch(state.view){
     case 'dashboard': return viewDashboard();
-    case 'projects': return viewHoxtProjects();
+    case 'projects': return viewHoxtColl('projects');
     case 'devtool': return viewDevSource('devtool');
-    case 'apis': return viewDevSource('apis');
+    case 'apis': return viewHoxtColl('apis');
     case 'cloudenh': return viewDevSource('cloudenh');
     case 'onpremenh': return viewDevSource('onpremenh');
     case 'tickets': return viewEntityList('ticket');
@@ -1751,6 +1752,14 @@ function settingsRanges(){
     </table>
     </div>
     ${locked?'':`<div style="margin-top:14px;"><button class="btn btn-primary" id="saveRanges">Save Ranges</button></div>`}
+  </div>
+  <div class="card" style="margin-top:18px;">
+    <div class="section-title"><h3>HOXT Custom API — Data Object ID Range</h3><span class="hint">Data (Table) objects on the HOXT Custom API page take their IDs from here, separate from the regular Table range above</span></div>
+    <div class="form-grid" style="max-width:420px;">
+      <div class="form-row"><label>From</label><input type="number" id="apiDataFrom" value="${hoxtApiDataRange().from}" ${locked?'disabled':''}></div>
+      <div class="form-row"><label>To</label><input type="number" id="apiDataTo" value="${hoxtApiDataRange().to}" ${locked?'disabled':''}></div>
+    </div>
+    ${locked?'':`<button class="btn btn-primary" id="saveApiDataRange">Save Data Range</button>`}
   </div>`;
 }
 function settingsPasswordPolicy(){
@@ -2000,35 +2009,33 @@ jobs:
             -H "Content-Type: application/json" \\
             -d '{"text":"Object ID collision detected in PR #\${{ github.event.number }}"}'`;
 }
-function escapeHtml(s){ return s.replace(/[&<>]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
+function escapeHtml(s){ return String(s==null?'':s).replace(/[&<>]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
 
 /* ======================================================================
-   DEV SOURCES — four independent sidebar pages (Dev-tool, APIs,
-   Cloud-Enhancements, OnPrem-Enhancements), each reading its own
-   Objects / Object ID / Description / Version straight from its own
-   Business Central AL repo on GitHub. These are standalone sources —
-   unrelated to the "Projects" work-item list elsewhere in the app.
-   Read-only, browser-side, via the GitHub Git Data API (tree + blobs) —
-   no GitHub Actions or CI/CD involved. Once a source's owner/repo/token
-   are saved, opening that page again auto-syncs in the background
-   (diffed by blob sha, so an unchanged repo costs one API call).
+   HOXT PROJECTS + HOXT CUSTOM API — project-style pages. Both use the same
+   layout: an Information panel (repository link, release notes, current
+   version) over a table of items — a "project" on the Projects page, an
+   "API" on the Custom API page — each clickable for a details pop-up
+   (version, status, latest remark, objects under it). These are kept by
+   hand in this app and saved with the rest of the database; Cloud / OnPrem
+   / Developers Tool (further down) are different — their objects are read
+   from their GitHub repos.
    ====================================================================== */
-/* ======================================================================
-   HOXT PROJECTS — two-panel view for the "HOXT - Developer's Tool"
-   extension: overall extension info (repo link, release notes, current
-   version) plus a table of the individual projects inside that suite
-   (e.g. Yogi / PR4), each with its own version, object count, status,
-   and the release-note remark matching its latest version. Manually
-   maintained for now; will be wired to the live HOXT Developer's Tool
-   BC API once the publisher/group/version/entity name are confirmed.
-   ====================================================================== */
-function hoxtData(){
-  return DB.settings.hoxtProjects || (DB.settings.hoxtProjects = { repoLink:'', currentVersion:'', releaseNotes:[], projects:[] });
+const HOXT_COLL = {
+  projects: { store:'hoxtProjects', title:'HOXT Projects',   infoTitle:'HOXT Project Information', singular:'Project', plural:'Projects', nameEx:'Yogi',             codeEx:'PR4'  },
+  apis:     { store:'hoxtApis',     title:'HOXT Custom API', infoTitle:'HOXT API Information',     singular:'API',     plural:'APIs',     nameEx:'Sales Orders API', codeEx:'API1' },
+};
+// (The array is called "projects" on both pages internally — on the Custom API
+// page each entry is an API. Kept as one name so Projects data saved earlier
+// still loads.)
+function hoxtData(kind){
+  const store = HOXT_COLL[kind||'projects'].store;
+  return DB.settings[store] || (DB.settings[store] = { repoLink:'', currentVersion:'', releaseNotes:[], projects:[] });
 }
-function hoxtLatestRemark(data, project){
-  const notes = (data.releaseNotes||[]).filter(n => n.version===project.latestVersion && (!n.projectCode || n.projectCode===project.code));
+function hoxtLatestRemark(data, item){
+  const notes = (data.releaseNotes||[]).filter(n => n.version===item.latestVersion && (!n.projectCode || n.projectCode===item.code));
   if(!notes.length) return '';
-  const specific = notes.find(n=>n.projectCode===project.code); // prefer a note tagged to this project over a general one
+  const specific = notes.find(n=>n.projectCode===item.code); // prefer a note tagged to this item over a general one
   return (specific||notes[0]).remark || '';
 }
 const HOXT_STATUS_OPTS = [
@@ -2039,18 +2046,42 @@ const HOXT_STATUS_OPTS = [
   {v:'danger', l:'Deprecated'},
 ];
 function hoxtStatusLabel(v){ const o = HOXT_STATUS_OPTS.find(o=>o.v===v); return o?o.l:cap(v||'Active'); }
+function hoxtObjCount(p){ return (p.objects && p.objects.length) ? p.objects.length : (p.objectCount||0); }
 
-function viewHoxtProjects(){
-  const data = hoxtData();
+// "Data" on the Custom API page = tables. Those take their IDs from their own
+// range (Settings > ID Ranges) instead of the regular Table range, so API data
+// tables never collide with the tables used elsewhere.
+function hoxtApiDataRange(){ return DB.settings.hoxtApiDataRange || (DB.settings.hoxtApiDataRange = {from:50150, to:50199}); }
+function hoxtIsDataType(kind, typeId){ return kind==='apis' && typeId==='tab'; }
+function hoxtRangeFor(kind, typeId){ return hoxtIsDataType(kind, typeId) ? hoxtApiDataRange() : (rangeFor(typeId)||null); }
+function hoxtObjectsElsewhere(kind, exceptItemId){
+  return (hoxtData(kind).projects||[]).filter(p=>p.id!==exceptItemId).flatMap(p=>p.objects||[]);
+}
+function hoxtNextFreeId(kind, typeId, draft, exceptItemId, exceptDraftId){
+  const range = hoxtRangeFor(kind, typeId);
+  if(!range) return null;
+  const used = new Set();
+  hoxtObjectsElsewhere(kind, exceptItemId).forEach(o=>{ if(o.objectType===typeId) used.add(o.objectId); });
+  draft.forEach(o=>{ if(o.objectType===typeId && o.objectId!=null && o.id!==exceptDraftId) used.add(o.objectId); });
+  for(let i=range.from; i<=range.to; i++) if(!used.has(i)) return i;
+  return null;
+}
+function swapModal(html){ closeModal(); openModal(html); } // openModal() stacks; closing first keeps one modal (and unique element ids) on screen
+
+function viewHoxtColl(kind){
+  const cc = HOXT_COLL[kind];
+  const data = hoxtData(kind);
   const canEdit = can('projects','modify');
-  const projects = data.projects||[];
-  const rows = projects.map(p=>{
+  const items = data.projects||[];
+  const q = (state.search||'').trim().toLowerCase();
+  const shown = q ? items.filter(p=>[p.name,p.code,p.latestVersion].join(' ').toLowerCase().includes(q)) : items;
+  const rows = shown.map(p=>{
     const remark = hoxtLatestRemark(data, p);
-    return `<tr data-hoxt-project="${p.id}" style="cursor:pointer;">
-      <td>${escapeHtml(p.name)}</td>
-      <td class="mono">${escapeHtml(p.code)}</td>
+    return `<tr data-hoxt-item="${p.id}" style="cursor:pointer;">
+      <td>${escapeHtml(p.name||'')}</td>
+      <td class="mono">${escapeHtml(p.code||'')}</td>
       <td>${p.latestVersion?vchip(p.latestVersion):'—'}</td>
-      <td>${p.objectCount||0}</td>
+      <td>${hoxtObjCount(p)}</td>
       <td><span class="badge ${p.status||'active'}"><span class="badge-dot"></span>${hoxtStatusLabel(p.status)}</span></td>
       <td>${remark?escapeHtml(remark):`<span class="hint" style="color:var(--text-faint);">—</span>`}</td>
       <td style="text-align:right;" onclick="event.stopPropagation()">${canEdit?`<button class="btn btn-sm" data-hoxt-update="${p.id}">${icon('edit')} Update</button>`:''}</td>
@@ -2058,18 +2089,18 @@ function viewHoxtProjects(){
   }).join('');
   return `
   <div class="card" style="margin-bottom:18px;">
-    <div class="section-title"><h3>${icon('layers')} HOXT Project Information</h3></div>
+    <div class="section-title"><h3>${icon('layers')} ${cc.infoTitle}</h3></div>
     <div class="form-grid">
       <div class="form-row">
         <label>Repository Link</label>
         <div style="display:flex;gap:8px;">
-          <input type="text" id="hoxtRepoLink" value="${escapeAttr(data.repoLink)}" placeholder="https://github.com/..." ${canEdit?'':'disabled'} style="flex:1;">
+          <input type="text" id="hoxtRepoLink" value="${escapeAttr(data.repoLink||'')}" placeholder="https://github.com/..." ${canEdit?'':'disabled'} style="flex:1;">
           ${data.repoLink?`<a href="${escapeAttr(data.repoLink)}" target="_blank" rel="noopener" class="btn btn-icon btn-ghost" title="Open repository">${icon('github')}</a>`:''}
         </div>
       </div>
       <div class="form-row">
         <label>Current Version</label>
-        <input type="text" id="hoxtCurrentVersion" value="${escapeAttr(data.currentVersion)}" placeholder="e.g. 26.9.2.1" ${canEdit?'':'disabled'}>
+        <input type="text" id="hoxtCurrentVersion" value="${escapeAttr(data.currentVersion||'')}" placeholder="e.g. 26.9.2.1" ${canEdit?'':'disabled'}>
       </div>
     </div>
     <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">
@@ -2079,79 +2110,226 @@ function viewHoxtProjects(){
   </div>
   <div class="card" style="padding:0;">
     <div class="section-title" style="padding:16px 18px 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
-      <h3>Projects <span class="hint" style="font-weight:400;">(${projects.length})</span></h3>
-      ${canEdit?`<button class="btn btn-primary btn-sm" id="hoxtAddProjectBtn">${icon('plus')} Add Project</button>`:''}
+      <h3>${cc.plural} <span class="hint" style="font-weight:400;">(${items.length})</span></h3>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+        <div class="search-input">${icon('search')}<input type="text" id="searchInput" placeholder="Search ${cc.plural.toLowerCase()}..." value="${escapeAttr(state.search||'')}"></div>
+        ${canEdit?`<button class="btn btn-primary btn-sm" id="hoxtAddItemBtn">${icon('plus')} Add ${cc.singular}</button>`:''}
+      </div>
     </div>
     <div class="table-wrap">
       <table>
-        <thead><tr><th>Project Name</th><th>Project Code</th><th>Latest Version</th><th># of Objects</th><th>Status</th><th>Latest Remark</th><th style="text-align:right;">Update</th></tr></thead>
-        <tbody>${rows || `<tr class="empty-row"><td colspan="7">${icon('search')}<br>No projects yet — click Add Project to create one.</td></tr>`}</tbody>
+        <thead><tr><th>${cc.singular} Name</th><th>${cc.singular} Code</th><th>Latest Version</th><th># of Objects</th><th>Status</th><th>Latest Remark</th><th style="text-align:right;">Update</th></tr></thead>
+        <tbody>${rows || `<tr class="empty-row"><td colspan="7">${icon('search')}<br>${q?'No matches.':`No ${cc.plural.toLowerCase()} yet — click Add ${cc.singular} to create one.`}</td></tr>`}</tbody>
       </table>
     </div>
   </div>`;
 }
-function openHoxtProjectModal(id){
-  const data = hoxtData();
-  const project = id ? data.projects.find(p=>p.id===id) : null;
+
+// What opens when a row is clicked: version, status, latest remark, and the
+// objects under it. "Update" jumps to the edit form.
+function openHoxtItemDetail(kind, id){
+  const cc = HOXT_COLL[kind];
+  const data = hoxtData(kind);
+  const p = data.projects.find(x=>x.id===id);
+  if(!p) return;
   const canEdit = can('projects','modify');
-  openModal(`
-  <div class="modal">
+  const remark = hoxtLatestRemark(data, p);
+  const objs = (p.objects||[]).slice().sort((a,b)=> String(a.objectType).localeCompare(String(b.objectType)) || (a.objectId-b.objectId));
+  const objRows = objs.map(o=>{
+    const t = typeById(o.objectType);
+    return `<tr><td class="mono">${t?escapeHtml(t.code):'—'}</td><td class="mono">${o.objectId}</td><td>${escapeHtml(o.description||'')}</td></tr>`;
+  }).join('');
+  const legacyNote = (!objs.length && p.objectCount) ? `<tr class="empty-row"><td colspan="3">${p.objectCount} object(s) counted, but no object list saved yet — click Update to add them.</td></tr>` : '';
+  swapModal(`
+  <div class="modal modal-wide">
     <div class="modal-head">
-      <h3>${project?'Update':'Add'} Project</h3>
+      <h3>${icon('layers')} ${escapeHtml(p.name||'')} <span class="mono" style="font-weight:400;color:var(--text-faint);">${escapeHtml(p.code||'')}</span></h3>
       <button class="close-x" id="modalClose">${icon('close')}</button>
     </div>
     <div style="padding:20px;">
-      <div class="form-row"><label>Project Name</label><input type="text" id="hpName" value="${escapeAttr(project?project.name:'')}" placeholder="e.g. Yogi" ${canEdit?'':'disabled'}></div>
-      <div class="form-row"><label>Project Code</label><input type="text" id="hpCode" value="${escapeAttr(project?project.code:'')}" placeholder="e.g. PR4" ${canEdit?'':'disabled'}></div>
-      <div class="form-row"><label>Latest Version</label><input type="text" id="hpVersion" value="${escapeAttr(project?project.latestVersion:'')}" placeholder="e.g. 26.9.2.1" ${canEdit?'':'disabled'}></div>
-      <div class="form-row"><label># of Objects</label><input type="number" min="0" id="hpObjCount" value="${project?(project.objectCount||0):0}" ${canEdit?'':'disabled'}></div>
-      <div class="form-row"><label>Status</label>
-        <select id="hpStatus" ${canEdit?'':'disabled'}>
-          ${HOXT_STATUS_OPTS.map(o=>`<option value="${o.v}" ${project&&project.status===o.v?'selected':''}>${o.l}</option>`).join('')}
-        </select>
+      <div class="form-grid" style="margin-bottom:6px;">
+        <div class="form-row"><label>Version</label><div class="readonly-field">${p.latestVersion?vchip(p.latestVersion):'—'}</div></div>
+        <div class="form-row"><label>Status</label><div class="readonly-field"><span class="badge ${p.status||'active'}"><span class="badge-dot"></span>${hoxtStatusLabel(p.status)}</span></div></div>
+      </div>
+      <div class="form-row"><label>Latest Remarks <span class="hint">(from the release note for this version)</span></label>
+        <div class="readonly-field">${remark?escapeHtml(remark):`<span class="hint">No release note for this version yet.</span>`}</div>
+      </div>
+      <div class="section-title" style="margin-top:14px;"><h3 style="font-size:13.5px;">Objects <span class="hint" style="font-weight:400;">(${hoxtObjCount(p)})</span></h3></div>
+      <div class="card" style="padding:0;">
+        <div class="table-wrap" style="max-height:300px;">
+          <table>
+            <thead><tr><th>Type</th><th>Object ID</th><th>Description</th></tr></thead>
+            <tbody>${objRows || legacyNote || `<tr class="empty-row"><td colspan="3">No objects listed for this ${cc.singular.toLowerCase()} yet.</td></tr>`}</tbody>
+          </table>
+        </div>
       </div>
     </div>
     <div class="modal-foot">
-      <button class="btn" id="modalCancel">Cancel</button>
-      ${project&&canEdit?`<button class="btn btn-danger" id="hpDeleteBtn">${icon('trash')} Delete</button>`:''}
-      ${canEdit?`<button class="btn btn-primary" id="hpSaveBtn">Save</button>`:''}
+      <button class="btn" id="modalCancel">Close</button>
+      ${canEdit?`<button class="btn btn-primary" id="hdUpdateBtn">${icon('edit')} Update</button>`:''}
     </div>
   </div>`);
   document.getElementById('modalClose').onclick = closeModal;
   document.getElementById('modalCancel').onclick = closeModal;
+  const upd = document.getElementById('hdUpdateBtn');
+  if(upd) upd.onclick = ()=> openHoxtItemModal(kind, id);
+}
+
+// Add / update form, including the objects under the item.
+let hoxtDraftObjects = [];
+function openHoxtItemModal(kind, id){
+  const cc = HOXT_COLL[kind];
+  const data = hoxtData(kind);
+  const item = id ? data.projects.find(p=>p.id===id) : null;
+  const canEdit = can('projects','modify');
+  hoxtDraftObjects = item ? (item.objects||[]).map(o=>({...o})) : [];
+  swapModal(`
+  <div class="modal modal-wide">
+    <div class="modal-head">
+      <h3>${item?'Update':'Add'} ${cc.singular}</h3>
+      <button class="close-x" id="modalClose">${icon('close')}</button>
+    </div>
+    <div style="padding:20px;">
+      <div class="form-grid">
+        <div class="form-row"><label>${cc.singular} Name</label><input type="text" id="hpName" value="${escapeAttr(item?item.name:'')}" placeholder="e.g. ${cc.nameEx}" ${canEdit?'':'disabled'}></div>
+        <div class="form-row"><label>${cc.singular} Code</label><input type="text" id="hpCode" value="${escapeAttr(item?item.code:'')}" placeholder="e.g. ${cc.codeEx}" ${canEdit?'':'disabled'}></div>
+        <div class="form-row"><label>Latest Version</label><input type="text" id="hpVersion" value="${escapeAttr(item?(item.latestVersion||''):'')}" placeholder="e.g. 26.9.2.1" ${canEdit?'':'disabled'}></div>
+        <div class="form-row"><label>Status</label>
+          <select id="hpStatus" ${canEdit?'':'disabled'}>
+            ${HOXT_STATUS_OPTS.map(o=>`<option value="${o.v}" ${item&&item.status===o.v?'selected':''}>${o.l}</option>`).join('')}
+          </select>
+        </div>
+      </div>
+      <div id="hpObjSection"></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn" id="modalCancel">Cancel</button>
+      ${item&&canEdit?`<button class="btn btn-danger" id="hpDeleteBtn">${icon('trash')} Delete</button>`:''}
+      ${canEdit?`<button class="btn btn-primary" id="hpSaveBtn">Save</button>`:''}
+    </div>
+  </div>`);
+  renderHoxtDraftObjects(kind, id, canEdit);
+  document.getElementById('modalClose').onclick = closeModal;
+  document.getElementById('modalCancel').onclick = ()=>{ if(item) openHoxtItemDetail(kind, id); else closeModal(); };
   const delBtn = document.getElementById('hpDeleteBtn');
   if(delBtn) delBtn.onclick = ()=>{
-    if(!confirm(`Delete project "${project.name}"?`)) return;
-    data.projects = data.projects.filter(p=>p.id!==project.id);
+    if(!confirm(`Delete ${cc.singular.toLowerCase()} "${item.name}"?`)) return;
+    data.projects = data.projects.filter(p=>p.id!==item.id);
     saveDB(); closeModal(); render();
   };
   const saveBtn = document.getElementById('hpSaveBtn');
   if(saveBtn) saveBtn.onclick = ()=>{
     const name = document.getElementById('hpName').value.trim();
     const code = document.getElementById('hpCode').value.trim();
-    if(!name || !code){ toast('Project Name and Project Code are required.', 'warning'); return; }
+    if(!name || !code){ toast(`${cc.singular} Name and ${cc.singular} Code are required.`, 'warning'); return; }
+    // objects: every row needs an ID, no repeats, and no clash with another item's objects
+    const elsewhere = hoxtObjectsElsewhere(kind, item?item.id:null);
+    const seen = new Set();
+    for(const o of hoxtDraftObjects){
+      const t = typeById(o.objectType);
+      const label = `${t?t.code:'?'} ${o.objectId}`;
+      if(o.objectId==null || isNaN(o.objectId)){ toast('Every object needs an Object ID.', 'warning'); return; }
+      const k = o.objectType+'#'+o.objectId;
+      if(seen.has(k)){ toast(`${label} is listed twice.`, 'warning'); return; }
+      seen.add(k);
+      if(elsewhere.some(x=>x.objectType===o.objectType && x.objectId===o.objectId)){ toast(`${label} is already used by another ${cc.singular.toLowerCase()}.`, 'warning'); return; }
+      if(hoxtIsDataType(kind, o.objectType)){
+        const r = hoxtApiDataRange();
+        if(o.objectId<r.from || o.objectId>r.to){ toast(`${label}: Data (Table) IDs must be within the Data range ${r.from}–${r.to}.`, 'warning'); return; }
+      }
+    }
+    const objects = hoxtDraftObjects.map(o=>({id:o.id, objectType:o.objectType, objectId:Number(o.objectId), description:(o.description||'').trim()}));
     const vals = {
       name, code,
       latestVersion: document.getElementById('hpVersion').value.trim(),
-      objectCount: Number(document.getElementById('hpObjCount').value)||0,
       status: document.getElementById('hpStatus').value,
+      objects, objectCount: objects.length,
     };
-    if(project){ Object.assign(project, vals); }
+    if(item){ Object.assign(item, vals); }
     else { data.projects.push({id:uid(), ...vals}); }
     saveDB(); closeModal(); render();
   };
 }
-function openHoxtReleaseNotesModal(){
-  const data = hoxtData();
+function renderHoxtDraftObjects(kind, itemId, canEdit){
+  const cc = HOXT_COLL[kind];
+  const host = document.getElementById('hpObjSection');
+  if(!host) return;
+  const types = DB.settings.objectTypes;
+  const rows = hoxtDraftObjects.map(o=>{
+    const inData = hoxtIsDataType(kind, o.objectType);
+    return `<tr data-do="${o.id}">
+      <td style="width:190px;"><select class="ho-type" ${canEdit?'':'disabled'}>${types.map(t=>`<option value="${t.id}" ${t.id===o.objectType?'selected':''}>${escapeHtml(t.name)} (${escapeHtml(t.code)})</option>`).join('')}</select></td>
+      <td style="width:120px;"><input type="number" class="ho-id mini-input" value="${o.objectId==null?'':o.objectId}" ${canEdit?'':'disabled'}>${inData?`<div class="hint" style="font-size:10.5px;">Data range</div>`:''}</td>
+      <td><input type="text" class="ho-desc" value="${escapeAttr(o.description||'')}" placeholder="Description" ${canEdit?'':'disabled'} style="width:100%;"></td>
+      <td style="width:40px;text-align:right;">${canEdit?`<button class="btn btn-icon btn-sm btn-ghost ho-del" title="Remove">${icon('trash')}</button>`:''}</td>
+    </tr>`;
+  }).join('');
+  const dr = hoxtApiDataRange();
+  host.innerHTML = `
+    <div class="section-title" style="margin-top:6px;display:flex;justify-content:space-between;align-items:center;">
+      <h3 style="font-size:13.5px;">Objects <span class="hint" style="font-weight:400;">(${hoxtDraftObjects.length})</span></h3>
+      ${canEdit?`<button class="btn btn-sm" id="hoAddBtn">${icon('plus')} Add Object</button>`:''}
+    </div>
+    ${kind==='apis'?`<div class="hint" style="font-size:11.5px;margin:0 0 8px;color:var(--text-faint);">Data (Table) objects use their own ID range: <b>${dr.from}–${dr.to}</b> (Settings → ID Ranges). Other types follow their normal range.</div>`:''}
+    <div class="card" style="padding:0;"><div class="table-wrap" style="max-height:260px;">
+      <table>
+        <thead><tr><th>Type</th><th>Object ID</th><th>Description</th><th></th></tr></thead>
+        <tbody>${rows || `<tr class="empty-row"><td colspan="4">No objects yet.${canEdit?' Click Add Object.':''}</td></tr>`}</tbody>
+      </table>
+    </div></div>`;
+  const find = el => hoxtDraftObjects.find(o=>o.id===el.closest('tr').dataset.do);
+  host.querySelectorAll('.ho-id').forEach(el=> el.addEventListener('input', ()=>{ const o=find(el); if(o) o.objectId = el.value===''?null:Number(el.value); }));
+  host.querySelectorAll('.ho-desc').forEach(el=> el.addEventListener('input', ()=>{ const o=find(el); if(o) o.description = el.value; }));
+  host.querySelectorAll('.ho-type').forEach(el=> el.addEventListener('change', ()=>{
+    const o = find(el); if(!o) return;
+    o.objectType = el.value;
+    const r = hoxtRangeFor(kind, o.objectType);
+    // keep an ID the person typed if it already fits the new type's range; otherwise offer the next free one
+    if(r && (o.objectId==null || o.objectId<r.from || o.objectId>r.to)){
+      const next = hoxtNextFreeId(kind, o.objectType, hoxtDraftObjects, itemId, o.id);
+      if(next!=null) o.objectId = next;
+    }
+    renderHoxtDraftObjects(kind, itemId, canEdit);
+  }));
+  host.querySelectorAll('.ho-del').forEach(el=> el.addEventListener('click', ()=>{
+    hoxtDraftObjects = hoxtDraftObjects.filter(o=>o.id!==el.closest('tr').dataset.do);
+    renderHoxtDraftObjects(kind, itemId, canEdit);
+  }));
+  const add = document.getElementById('hoAddBtn');
+  if(add) add.onclick = ()=>{
+    const firstType = types[0]; if(!firstType) return;
+    const draft = { id:uid(), objectType:firstType.id, objectId:null, description:'' };
+    draft.objectId = hoxtNextFreeId(kind, draft.objectType, hoxtDraftObjects, itemId, draft.id);
+    hoxtDraftObjects.push(draft);
+    renderHoxtDraftObjects(kind, itemId, canEdit);
+  };
+}
+
+/* ---- Release notes — one implementation shared by the HOXT Projects / Custom
+   API pages (stored with the database) and the Cloud / OnPrem / Developers Tool
+   pages (stored in their GitHub-backed data file). A "ctx" says where the notes
+   live and how to save them. ---- */
+function hoxtNotesCtx(kind){
+  const data = hoxtData(kind), cc = HOXT_COLL[kind];
+  return {
+    title: `${cc.title} — Release Notes`,
+    notes: ()=> data.releaseNotes || (data.releaseNotes=[]),
+    setNotes: arr => { data.releaseNotes = arr; },
+    persist: async ()=>{ saveDB(); },
+    tagItems: data.projects, tagLabel: cc.singular,
+    remarkHint: `short summary — shown as Latest Remark in the ${cc.plural} table`,
+  };
+}
+function openReleaseNotesModal(ctx){
   const canEdit = can('projects','modify');
-  const notesSorted = (data.releaseNotes||[]).slice().sort((a,b)=> (b.date||'').localeCompare(a.date||''));
+  const notesSorted = ctx.notes().slice().sort((a,b)=> (b.date||'').localeCompare(a.date||''));
   const rows = notesSorted.map(n=>{
-    const proj = data.projects.find(p=>p.code===n.projectCode);
+    const tagged = ctx.tagItems ? ctx.tagItems.find(p=>p.code===n.projectCode) : null;
     return `<div class="card" style="margin-bottom:10px;padding:12px 14px;">
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
         <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
           ${n.version?vchip(n.version):''}
-          ${proj?`<span class="badge kind-project">${escapeHtml(proj.name)}</span>`:(n.projectCode?`<span class="badge kind-project">${escapeHtml(n.projectCode)}</span>`:'<span class="badge">General</span>')}
+          ${ctx.tagItems?(tagged?`<span class="badge kind-project">${escapeHtml(tagged.name||'')}</span>`:(n.projectCode?`<span class="badge kind-project">${escapeHtml(n.projectCode)}</span>`:'<span class="badge">General</span>')):''}
           <span class="hint" style="color:var(--text-faint);">${n.date?new Date(n.date).toLocaleDateString():''}</span>
         </div>
         ${canEdit?`<div>
@@ -2163,14 +2341,14 @@ function openHoxtReleaseNotesModal(){
       ${n.notes?`<div style="font-size:12.5px;color:var(--text-faint);margin-top:4px;white-space:pre-wrap;">${escapeHtml(n.notes)}</div>`:''}
     </div>`;
   }).join('');
-  openModal(`
+  swapModal(`
   <div class="modal modal-wide">
     <div class="modal-head">
-      <h3>${icon('history')} Release Notes</h3>
+      <h3>${icon('history')} ${escapeHtml(ctx.title)}</h3>
       <button class="close-x" id="modalClose">${icon('close')}</button>
     </div>
     <div style="padding:20px;">
-      ${canEdit?`<button class="btn btn-primary btn-sm" id="hoxtAddNoteBtn" style="margin-bottom:14px;">${icon('plus')} Add Entry</button>`:''}
+      ${canEdit?`<button class="btn btn-primary btn-sm" id="rnAddBtn" style="margin-bottom:14px;">${icon('plus')} Add Entry</button>`:''}
       <div style="max-height:420px;overflow-y:auto;">
         ${rows || `<div class="hint" style="color:var(--text-faint);text-align:center;padding:30px 0;">No release notes yet.</div>`}
       </div>
@@ -2179,34 +2357,35 @@ function openHoxtReleaseNotesModal(){
   </div>`);
   document.getElementById('modalClose').onclick = closeModal;
   document.getElementById('modalCancel').onclick = closeModal;
-  const addBtn = document.getElementById('hoxtAddNoteBtn');
-  if(addBtn) addBtn.onclick = ()=> openHoxtNoteEditModal(null);
-  document.querySelectorAll('[data-note-edit]').forEach(el=> el.addEventListener('click', ()=> openHoxtNoteEditModal(el.dataset.noteEdit)));
-  document.querySelectorAll('[data-note-del]').forEach(el=> el.addEventListener('click', ()=>{
+  const addBtn = document.getElementById('rnAddBtn');
+  if(addBtn) addBtn.onclick = ()=> openReleaseNoteEditModal(ctx, null);
+  document.querySelectorAll('[data-note-edit]').forEach(el=> el.addEventListener('click', ()=> openReleaseNoteEditModal(ctx, el.dataset.noteEdit)));
+  document.querySelectorAll('[data-note-del]').forEach(el=> el.addEventListener('click', async ()=>{
     if(!confirm('Delete this release note entry?')) return;
-    data.releaseNotes = data.releaseNotes.filter(n=>n.id!==el.dataset.noteDel);
-    saveDB(); openHoxtReleaseNotesModal();
+    ctx.setNotes(ctx.notes().filter(n=>n.id!==el.dataset.noteDel));
+    try{ await ctx.persist(); }catch(err){ toast(`Could not save: ${err.message}`, 'danger'); }
+    openReleaseNotesModal(ctx);
+    render();
   }));
 }
-function openHoxtNoteEditModal(id){
-  const data = hoxtData();
-  const note = id ? data.releaseNotes.find(n=>n.id===id) : null;
-  openModal(`
+function openReleaseNoteEditModal(ctx, id){
+  const note = id ? ctx.notes().find(n=>n.id===id) : null;
+  swapModal(`
   <div class="modal">
     <div class="modal-head">
       <h3>${note?'Edit':'Add'} Release Note</h3>
       <button class="close-x" id="modalClose">${icon('close')}</button>
     </div>
     <div style="padding:20px;">
-      <div class="form-row"><label>Project <span class="hint">(optional — leave blank for a general note)</span></label>
+      ${ctx.tagItems?`<div class="form-row"><label>${escapeHtml(ctx.tagLabel)} <span class="hint">(optional — leave blank for a general note)</span></label>
         <select id="hnProject">
           <option value="">— General —</option>
-          ${data.projects.map(p=>`<option value="${escapeAttr(p.code)}" ${note&&note.projectCode===p.code?'selected':''}>${escapeHtml(p.name)} (${escapeHtml(p.code)})</option>`).join('')}
+          ${ctx.tagItems.map(p=>`<option value="${escapeAttr(p.code)}" ${note&&note.projectCode===p.code?'selected':''}>${escapeHtml(p.name||'')} (${escapeHtml(p.code||'')})</option>`).join('')}
         </select>
-      </div>
-      <div class="form-row"><label>Version</label><input type="text" id="hnVersion" value="${escapeAttr(note?note.version:'')}" placeholder="e.g. 26.9.2.1"></div>
+      </div>`:''}
+      <div class="form-row"><label>Version</label><input type="text" id="hnVersion" value="${escapeAttr(note?(note.version||''):'')}" placeholder="e.g. 26.9.2.1"></div>
       <div class="form-row"><label>Date</label><input type="date" id="hnDate" value="${note&&note.date?note.date.slice(0,10):new Date().toISOString().slice(0,10)}"></div>
-      <div class="form-row"><label>Remark <span class="hint">(short summary — shown in the Projects table)</span></label><input type="text" id="hnRemark" value="${escapeAttr(note?note.remark:'')}" placeholder="e.g. Fixed rounding issue in discount calc"></div>
+      <div class="form-row"><label>Remark <span class="hint">(${escapeHtml(ctx.remarkHint||'short summary')})</span></label><input type="text" id="hnRemark" value="${escapeAttr(note?(note.remark||''):'')}" placeholder="e.g. Fixed rounding issue in discount calc"></div>
       <div class="form-row"><label>Full Notes <span class="hint">(optional)</span></label><textarea id="hnNotes" rows="4" placeholder="Longer dev notes...">${note?escapeHtml(note.notes||''):''}</textarea></div>
     </div>
     <div class="modal-foot">
@@ -2215,10 +2394,11 @@ function openHoxtNoteEditModal(id){
     </div>
   </div>`);
   document.getElementById('modalClose').onclick = closeModal;
-  document.getElementById('modalCancel').onclick = closeModal;
-  document.getElementById('hnSaveBtn').onclick = ()=>{
+  document.getElementById('modalCancel').onclick = ()=> openReleaseNotesModal(ctx);
+  document.getElementById('hnSaveBtn').onclick = async ()=>{
+    const projSel = document.getElementById('hnProject');
     const vals = {
-      projectCode: document.getElementById('hnProject').value,
+      projectCode: projSel ? projSel.value : '',
       version: document.getElementById('hnVersion').value.trim(),
       date: document.getElementById('hnDate').value ? new Date(document.getElementById('hnDate').value).toISOString() : new Date().toISOString(),
       remark: document.getElementById('hnRemark').value.trim(),
@@ -2226,9 +2406,11 @@ function openHoxtNoteEditModal(id){
     };
     if(!vals.version || !vals.remark){ toast('Version and Remark are required.', 'warning'); return; }
     if(note){ Object.assign(note, vals); }
-    else { data.releaseNotes.push({id:uid(), ...vals}); }
-    saveDB();
-    openHoxtReleaseNotesModal();
+    else { ctx.notes().push({id:uid(), ...vals}); }
+    const btn = document.getElementById('hnSaveBtn'); btn.disabled = true; btn.textContent = 'Saving…';
+    try{ await ctx.persist(); }catch(err){ toast(`Saved here, but could not save to GitHub: ${err.message}`, 'danger'); }
+    openReleaseNotesModal(ctx);
+    render();
   };
 }
 
@@ -2250,19 +2432,17 @@ function openHoxtNoteEditModal(id){
    the same trick extmgmt-data.json already relies on above.
    ====================================================================== */
 const DEV_SOURCES = {
-  devtool:   { label:'Dev-tool' },
-  apis:      { label:'APIs' },
-  cloudenh:  { label:'Cloud-Enhancements' },
-  onpremenh: { label:'OnPrem-Enhancements' },
+  cloudenh:  { label:'HOXT Cloud Enhancements' },
+  onpremenh: { label:'HOXT OnPrem Enhancements' },
+  devtool:   { label:'HOXT Developers Tool' },
 };
 const DEVTOOL_DATA_PATH = 'dev-tool-data.json';
 function devToolSyncSettings(){
   return DB.settings.devToolSync || (DB.settings.devToolSync = {
     sources: {
-      devtool:   { owner:'', repo:'', branch:'main', folder:'', objectMeta:{} },
-      apis:      { owner:'', repo:'', branch:'main', folder:'', objectMeta:{} },
-      cloudenh:  { owner:'', repo:'', branch:'main', folder:'', objectMeta:{} },
-      onpremenh: { owner:'', repo:'', branch:'main', folder:'', objectMeta:{} },
+      cloudenh:  { owner:'', repo:'', branch:'main', folder:'', objectMeta:{}, releaseNotes:[] },
+      onpremenh: { owner:'', repo:'', branch:'main', folder:'', objectMeta:{}, releaseNotes:[] },
+      devtool:   { owner:'', repo:'', branch:'main', folder:'', objectMeta:{}, releaseNotes:[] },
     },
     lastRunAt:null, lastRunStatus:'', lastRunError:'',
   });
@@ -2291,7 +2471,9 @@ async function loadDevToolDataFromGithub(){
     local.sources[key] = {
       owner: remote.owner||'', repo: remote.repo||'', branch: remote.branch||'main', folder: remote.folder||'',
       version: remote.version||null, objects: remote.objects||[], lastSyncedAt: remote.lastSyncedAt||null,
-      objectMeta: remote.objectMeta||{}, // manually-entered Status/Definition/Remarks/Ticket Tag — the sync script preserves this untouched, so trust whatever's committed
+      apps: remote.apps||[],
+      objectMeta: remote.objectMeta||{}, // manually-entered Status/Definition/Remarks — the sync script preserves this untouched, so trust whatever's committed
+      releaseNotes: remote.releaseNotes||[],
     };
   });
   local.lastRunAt = data.lastRunAt||null;
@@ -2328,6 +2510,8 @@ async function saveDevToolSyncToGithubImpl(commitMessage){
       // this tab (Status/Definition/Remarks/Ticket Tag), so a save here should
       // never lose an in-progress edit even if GitHub's copy is older.
       objectMeta: localSources[key].objectMeta || (remoteSrc && remoteSrc.objectMeta) || {},
+      releaseNotes: localSources[key].releaseNotes || (remoteSrc && remoteSrc.releaseNotes) || [], // same reasoning: local is what's being edited
+      apps: remoteSrc ? (remoteSrc.apps||[]) : [],
     };
   });
   DB.settings.devToolSync = merged;
@@ -2409,21 +2593,43 @@ async function syncOneSource(key, cfg) {
   const tree = await ghApi(cfg.owner, cfg.repo, \`/git/trees/\${encodeURIComponent(cfg.branch || 'main')}?recursive=1\`);
   const scoped = (tree.tree || []).filter(e => e.type === 'blob' && (!cfg.folder || e.path === cfg.folder || e.path.startsWith(cfg.folder + '/')));
   const entries = scoped.filter(e => e.path.endsWith('.al') || /(^|\\/)app\\.json$/.test(e.path));
-  let appMeta = null;
-  const objects = [];
+  const apps = []; // every app.json in scope: { dir, name, version }
+  const alFiles = []; // { path, text }
   for (const e of entries) {
     const blob = await ghApi(cfg.owner, cfg.repo, \`/git/blobs/\${e.sha}\`);
-    const text = decodeB64Utf8(blob.content);
-    if (e.path.endsWith('app.json')) { try { appMeta = JSON.parse(text); } catch (_) {} }
-    else objects.push(...parseAlObjects(text));
+    const text = decodeB64Utf8(blob.content).replace(/^\\uFEFF/, ''); // AL's app.json often starts with a BOM, which JSON.parse rejects
+    if (e.path.endsWith('app.json')) {
+      try {
+        const j = JSON.parse(text);
+        apps.push({ dir: e.path.includes('/') ? e.path.slice(0, e.path.lastIndexOf('/')) : '', name: j.name || '', version: j.version || '' });
+      } catch (_) {}
+    } else alFiles.push({ path: e.path, text });
   }
+  // An object belongs to the app whose app.json is the nearest one above its file
+  const appFor = p => {
+    let best = null;
+    for (const a of apps) {
+      const inside = a.dir === '' || p === a.dir || p.startsWith(a.dir + '/');
+      if (inside && (!best || a.dir.length > best.dir.length)) best = a;
+    }
+    return best;
+  };
   const byKey = {};
-  objects.forEach(o => { byKey[\`\${o.type}:\${o.id}\`] = { objectType: o.type, objectId: o.id, description: o.name }; });
-  console.log(\`[\${key}] \${cfg.owner}/\${cfg.repo}@\${cfg.branch || 'main'} — \${Object.keys(byKey).length} object(s)\${appMeta && appMeta.version ? \`, version \${appMeta.version}\` : ''}\`);
+  for (const f of alFiles) {
+    const app = appFor(f.path);
+    for (const o of parseAlObjects(f.text)) {
+      byKey[\`\${o.type}:\${o.id}\`] = { objectType: o.type, objectId: o.id, description: o.name, appName: app ? app.name : '', appVersion: app ? app.version : '' };
+    }
+  }
+  // The source's own "current version" = the app closest to the top of the scanned folder
+  const depth = a => a.dir.split('/').filter(Boolean).length;
+  const mainApp = apps.slice().sort((a, b) => depth(a) - depth(b))[0] || null;
+  console.log(\`[\${key}] \${cfg.owner}/\${cfg.repo}@\${cfg.branch || 'main'} — \${Object.keys(byKey).length} object(s) in \${apps.length} app(s)\${mainApp && mainApp.version ? \`, version \${mainApp.version}\` : ''}\`);
   return {
-    ...cfg, // preserves objectMeta (Status/Definition/Remarks/Ticket Tag, entered from the app) and anything else this script doesn't know about
+    ...cfg, // keeps objectMeta / releaseNotes (entered in the app) and anything else this script doesn't know about
     owner: cfg.owner, repo: cfg.repo, branch: cfg.branch || 'main', folder: cfg.folder || '',
-    version: (appMeta && appMeta.version) || cfg.version || null,
+    version: (mainApp && mainApp.version) || cfg.version || null,
+    apps: apps.map(a => ({ name: a.name, version: a.version, path: a.dir })),
     objects: Object.values(byKey),
     lastSyncedAt: new Date().toISOString(),
   };
@@ -2597,36 +2803,43 @@ function settingsDevToolSync(){
   </div>`;
 }
 
-const DEVOBJ_STATUS_OPTS = HOXT_STATUS_OPTS; // reuse the same Active/In Development/Pending Release/Obsolete/Deprecated set used on HOXT Projects, for one consistent vocabulary across the app
+const DEVOBJ_STATUS_OPTS = HOXT_STATUS_OPTS; // same Active / In Development / Pending Release / Obsolete / Deprecated set as the HOXT Projects pages
 function devObjKey(objectType, objectId){ return `${objectType}:${objectId}`; }
-// Manually-tracked fields (Status/Definition/Remarks) live separately from the
-// auto-synced objects array, keyed by type:id, so a GitHub Actions re-sync
-// (which only knows Type/ID/Description) never wipes them out — see the
-// "...cfg" spread in syncOneSource() in the sync script. Latest Version and
-// Ticket Tag are NOT stored here — they're detected fresh every time the
-// object is opened (see devObjLatestVersion / ticketsForDevObject below).
+// Hand-entered fields (Definition / Status / Remarks) live apart from the
+// auto-read objects list, keyed by type:id, so a GitHub Actions re-sync (which
+// only knows Type / ID / name) never wipes them — see the "...cfg" spread in
+// syncOneSource(). Latest Version, Ticket Tag and Application Name are NOT
+// stored: they're worked out fresh each time (below).
 function devObjMeta(cfg, objectType, objectId){
   cfg.objectMeta = cfg.objectMeta || {};
   const k = devObjKey(objectType, objectId);
   return cfg.objectMeta[k] || (cfg.objectMeta[k] = { definition:'', status:'active', remarks:'', updatedAt:null });
 }
-// AL keyword (from the parsed .al file) -> this app's own Object Type code
-// (Settings > Object Types). Matches the default seed codes; if those codes
-// were renamed, ticket matching below falls back to Object ID alone.
+const AL_TYPE_LABEL = {
+  table:'Table', tableextension:'Table Extension', page:'Page', pageextension:'Page Extension', pagecustomization:'Page Customization',
+  report:'Report', reportextension:'Report Extension', codeunit:'Codeunit', query:'Query', xmlport:'XMLport',
+  enum:'Enum', enumextension:'Enum Extension', permissionset:'Permission Set', permissionsetextension:'Permission Set Extension',
+  profile:'Profile', controladdin:'Control Add-in', interface:'Interface',
+};
+function devObjTypeLabel(t){ return AL_TYPE_LABEL[t] || cap(String(t||'')); }
+// AL keyword (from the .al file) -> this app's Object Type code (Settings > Object
+// Types). Matches the default codes; if those were renamed, ticket matching
+// falls back to Object ID alone.
 const AL_TYPE_TO_CODE_HINT = {
   table:'TAB', tableextension:'TBE', page:'PAG', pageextension:'PGE', pagecustomization:'PAG',
   report:'REP', reportextension:'RPE', codeunit:'COD', query:'QUE', xmlport:'XML',
   enum:'ENU', enumextension:'ENX', permissionset:'PST', permissionsetextension:'PST', interface:'INT',
 };
-// The only meaningful "Latest Version" for an AL object is the version of the
-// extension it ships in — AL doesn't version individual objects — so this is
-// simply the source's own synced app.json version, not something per-object.
-function devObjLatestVersion(cfg){ return cfg.version || null; }
-// Finds tickets (from the Tickets module) that list this exact Object
-// Type + Object ID among the objects they touch. Type is matched via the
-// AL-keyword hint above; if that code isn't found in this app's Object
-// Types list, falls back to matching on Object ID alone so a renamed code
-// doesn't silently hide a real match.
+// AL doesn't version individual objects, only the app they ship in. So an
+// object's "latest version" is the version in the app.json of the app it
+// lives in (per object, since one source can hold several apps), falling back
+// to the source's own current version.
+function devObjVersion(cfg, o){ return o.appVersion || cfg.version || null; }
+// "Update as of": when someone last saved this object's details here; until
+// then, the last time the repo was read.
+function devObjUpdatedAt(cfg, meta){ return (meta && meta.updatedAt) || cfg.lastSyncedAt || null; }
+function devFmtDate(iso){ return iso ? new Date(iso).toLocaleDateString() : '—'; }
+// Tickets (from the Tickets module) that list this exact Object Type + ID.
 function ticketsForDevObject(objectType, objectId){
   const hintCode = AL_TYPE_TO_CODE_HINT[objectType];
   const hintType = hintCode ? DB.settings.objectTypes.find(t=>t.code.toUpperCase()===hintCode) : null;
@@ -2634,32 +2847,47 @@ function ticketsForDevObject(objectType, objectId){
     o.objectId === objectId && (hintType ? o.objectType === hintType.id : true)
   ));
 }
+// Where release notes for a source live: in its own GitHub-backed data file.
+// cfg is looked up fresh every time — saving replaces the settings object.
+function devNotesCtx(key){
+  const label = DEV_SOURCES[key].label;
+  const cfg = ()=> devToolSyncSettings().sources[key];
+  return {
+    title: `${label} — Release Notes`,
+    notes: ()=> cfg().releaseNotes || (cfg().releaseNotes=[]),
+    setNotes: arr => { cfg().releaseNotes = arr; },
+    persist: ()=> saveDevToolSyncToGithub(`Update ${label} release notes (${new Date().toISOString()})`),
+    tagItems: null, tagLabel: '',
+    remarkHint: 'short summary of the update',
+  };
+}
 function openDevObjectModal(sourceKey, objectType, objectId){
   const dt = devToolSyncSettings();
   const cfg = dt.sources[sourceKey];
   const o = (cfg.objects||[]).find(x=>x.objectType===objectType && x.objectId===objectId);
   if(!o) return;
   const meta = devObjMeta(cfg, objectType, objectId);
-  // First time this object is opened, seed the editable Definition from the
-  // auto-synced description (trimmed to the 30-char limit) so there's
-  // something sensible to start from instead of a blank field.
+  // First time an object is opened, seed the editable Definition from the name
+  // read out of the repo (cut to the 30-character limit) so it isn't blank.
   if(!meta.definition && o.description) meta.definition = o.description.slice(0,30);
   const canEdit = can('projects','modify');
-  openModal(devObjectModalHtml(sourceKey, cfg, o, meta, canEdit));
+  swapModal(devObjectModalHtml(sourceKey, cfg, o, meta, canEdit));
   bindDevObjectModal(sourceKey, o);
 }
 function devObjectModalHtml(sourceKey, cfg, o, meta, canEdit){
-  const latestVersion = devObjLatestVersion(cfg);
-  const linkedTickets = ticketsForDevObject(o.objectType, o.objectId);
+  const isTool = sourceKey==='devtool';
+  const latestVersion = devObjVersion(cfg, o);
+  const linkedTickets = isTool ? [] : ticketsForDevObject(o.objectType, o.objectId);
+  const updatedAt = devObjUpdatedAt(cfg, meta);
   return `
   <div class="modal">
     <div class="modal-head">
-      <h3>${icon('objects')} ${escapeHtml((o.objectType||'').toUpperCase())} ${o.objectId}</h3>
+      <h3>${icon('objects')} ${escapeHtml(devObjTypeLabel(o.objectType))} ${o.objectId}</h3>
       <button class="close-x" id="modalClose">${icon('close')}</button>
     </div>
     <div style="padding:20px;">
       <div class="form-grid">
-        <div class="form-row"><label>Object Type</label><input type="text" value="${escapeAttr((o.objectType||'').toUpperCase())}" disabled></div>
+        <div class="form-row"><label>Object Type</label><input type="text" value="${escapeAttr(devObjTypeLabel(o.objectType))}" disabled></div>
         <div class="form-row"><label>Object ID</label><input type="text" value="${o.objectId}" disabled></div>
       </div>
       <div class="form-row">
@@ -2674,11 +2902,16 @@ function devObjectModalHtml(sourceKey, cfg, o, meta, canEdit){
           </select>
         </div>
         <div class="form-row">
-          <label>Latest Version <span class="hint">(auto, from the synced repo)</span></label>
+          <label>Latest Version <span class="hint">(auto, from the repo)</span></label>
           <div class="readonly-field">${latestVersion?vchip(latestVersion):`<span class="hint">Not synced yet</span>`}</div>
         </div>
       </div>
       <div class="form-row"><label>Latest Remarks</label><textarea id="doRemarks" rows="3" ${canEdit?'':'disabled'}>${escapeHtml(meta.remarks)}</textarea></div>
+      ${isTool ? `
+      <div class="form-row">
+        <label>Application Name <span class="hint">(auto, from the app this object belongs to)</span></label>
+        <div class="readonly-field">${o.appName?escapeHtml(o.appName):`<span class="hint">Not found — no app.json above this object in the repo.</span>`}</div>
+      </div>` : `
       <div class="form-row">
         <label>Ticket Tag <span class="hint">(auto-detected from Tickets)</span></label>
         <div style="display:flex;flex-wrap:wrap;gap:6px;">
@@ -2686,8 +2919,8 @@ function devObjectModalHtml(sourceKey, cfg, o, meta, canEdit){
             ? linkedTickets.map(t=>`<button class="btn btn-sm btn-ghost" data-open-ticket="${t.id}" style="font-family:monospace;">${escapeHtml(displayCode(t))}</button>`).join('')
             : `<span class="hint" style="color:var(--text-faint);">No tickets reference this object yet.</span>`}
         </div>
-      </div>
-      <div class="hint" style="font-size:11.5px;color:var(--text-faint);">${meta.updatedAt?`Update as of ${timeAgo(meta.updatedAt)} (${new Date(meta.updatedAt).toLocaleString()})`:'Not updated yet'}</div>
+      </div>`}
+      <div class="hint" style="font-size:11.5px;color:var(--text-faint);">${updatedAt?`Update as of ${new Date(updatedAt).toLocaleString()}${meta.updatedAt?'':' (last time the repo was read)'}`:'Not updated yet'}</div>
     </div>
     <div class="modal-foot">
       <button class="btn" id="modalCancel">Close</button>
@@ -2716,7 +2949,7 @@ function bindDevObjectModal(sourceKey, o){
     meta.updatedAt = new Date().toISOString();
     saveBtn.disabled = true; const original = saveBtn.textContent; saveBtn.textContent = 'Saving…';
     try{
-      await saveDevToolSyncToGithub(`Update ${(o.objectType||'').toUpperCase()} ${o.objectId} details (${new Date().toISOString()})`);
+      await saveDevToolSyncToGithub(`Update ${devObjTypeLabel(o.objectType)} ${o.objectId} details (${new Date().toISOString()})`);
       toast('Object details saved.', 'success');
       closeModal();
       render();
@@ -2726,34 +2959,79 @@ function bindDevObjectModal(sourceKey, o){
     }
   };
 }
+
+// Cloud / OnPrem / Developers Tool page: an Information panel (repository link,
+// release notes, current version) over the Objects List. On the Developers Tool
+// the last column is the Application Name instead of the Ticket Tag.
 function viewDevSource(key){
   const dt = devToolSyncSettings();
   const cfg = dt.sources[key];
   const label = DEV_SOURCES[key].label;
-  const objRows = (cfg.objects||[]).slice().sort((a,b)=>a.objectId-b.objectId).map(o=>{
+  const isTool = key==='devtool';
+  const q = (state.search||'').trim().toLowerCase();
+  const repoUrl = cfg.owner && cfg.repo
+    ? `https://github.com/${cfg.owner}/${cfg.repo}${cfg.folder?`/tree/${cfg.branch||'main'}/${cfg.folder}`:''}` : '';
+  const all = (cfg.objects||[]).slice().sort((a,b)=>a.objectId-b.objectId).map(o=>{
     const meta = (cfg.objectMeta||{})[devObjKey(o.objectType, o.objectId)];
-    const statusVal = meta ? meta.status : 'active';
-    return `<tr class="clickable" data-devobj="${key}:${o.objectType}:${o.objectId}">
-      <td class="mono">${escapeHtml((o.objectType||'').toUpperCase())}</td>
-      <td class="mono">${o.objectId}</td>
-      <td>${escapeHtml((meta&&meta.definition) || o.description || '')}</td>
-      <td><span class="badge ${statusVal}"><span class="badge-dot"></span>${hoxtStatusLabel(statusVal)}</span></td>
-      <td style="color:var(--text-faint);font-size:12.5px;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${escapeAttr(meta&&meta.remarks||'')}">${escapeHtml(meta&&meta.remarks||'') || '—'}</td>
+    const tickets = isTool ? [] : ticketsForDevObject(o.objectType, o.objectId).map(t=>displayCode(t));
+    return {
+      o, meta,
+      typeLabel: devObjTypeLabel(o.objectType),
+      def: ((meta&&meta.definition) || o.description || '').slice(0,30),
+      status: meta ? meta.status : 'active',
+      version: devObjVersion(cfg, o),
+      remarks: (meta&&meta.remarks) || '',
+      tickets,
+      updated: devObjUpdatedAt(cfg, meta),
+    };
+  });
+  const shown = q ? all.filter(r=>[r.typeLabel, r.o.objectId, r.def, r.remarks, r.version, r.tickets.join(' '), r.o.appName].join(' ').toLowerCase().includes(q)) : all;
+  const rows = shown.map(r=>{
+    const lastCol = isTool
+      ? (r.o.appName ? escapeHtml(r.o.appName) : '—')
+      : (r.tickets.length ? escapeHtml(r.tickets.slice(0,2).join(', ')) + (r.tickets.length>2?` <span class="hint">+${r.tickets.length-2}</span>`:'') : '—');
+    return `<tr class="clickable" data-devobj="${key}:${r.o.objectType}:${r.o.objectId}">
+      <td>${escapeHtml(r.typeLabel)}</td>
+      <td class="mono">${r.o.objectId}</td>
+      <td>${escapeHtml(r.def)}</td>
+      <td><span class="badge ${r.status}"><span class="badge-dot"></span>${hoxtStatusLabel(r.status)}</span></td>
+      <td>${r.version?vchip(r.version):'—'}</td>
+      <td style="color:var(--text-faint);font-size:12.5px;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${escapeAttr(r.remarks)}">${escapeHtml(r.remarks) || '—'}</td>
+      <td class="${isTool?'':'mono'}">${lastCol}</td>
+      <td style="white-space:nowrap;color:var(--text-faint);font-size:12.5px;">${devFmtDate(r.updated)}</td>
     </tr>`;
   }).join('');
+  const multiApps = (cfg.apps||[]).length>1;
   return `
-  <div class="filter-bar">
-    ${cfg.version?vchip(cfg.version):''}
-    <span class="hint" style="color:var(--text-faint);font-size:12px;">${cfg.lastSyncedAt?`Last synced ${timeAgo(cfg.lastSyncedAt)}`:'Never synced yet'}</span>
-    ${cfg.owner&&cfg.repo?`<a class="btn btn-ghost btn-sm" href="https://github.com/${escapeAttr(cfg.owner)}/${escapeAttr(cfg.repo)}" target="_blank" rel="noopener">${icon('github')||''} View Repo</a>`:''}
-    ${can('setup','view')?`<button class="btn btn-ghost btn-sm" id="dsGoToSettings" style="margin-left:auto;">${icon('settings')} Configure / Sync</button>`:''}
+  <div class="card" style="margin-bottom:18px;">
+    <div class="section-title" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+      <h3>${icon('layers')} ${escapeHtml(label)} Information</h3>
+      ${can('setup','view')?`<button class="btn btn-ghost btn-sm" id="dsGoToSettings">${icon('settings')} Configure / Sync</button>`:''}
+    </div>
+    <div class="form-grid">
+      <div class="form-row">
+        <label>Repository Link</label>
+        <div class="readonly-field">${repoUrl?`<a href="${escapeAttr(repoUrl)}" target="_blank" rel="noopener">${icon('github')} ${escapeHtml(repoUrl)}</a>`:`<span class="hint">Not set yet — add the repository under Settings → Dev-tool Sync.</span>`}</div>
+      </div>
+      <div class="form-row">
+        <label>Current Version <span class="hint">(auto, from the repo)</span></label>
+        <div class="readonly-field">${cfg.version?vchip(cfg.version):`<span class="hint">Not synced yet</span>`} <span class="hint" style="margin-left:6px;">${cfg.lastSyncedAt?`Last synced ${timeAgo(cfg.lastSyncedAt)}`:''}</span></div>
+      </div>
+    </div>
+    ${multiApps?`<div class="hint" style="font-size:11.5px;color:var(--text-faint);margin-top:2px;">Apps in this repo: ${cfg.apps.map(a=>`${escapeHtml(a.name||'(unnamed)')} <span class="mono">${escapeHtml(a.version||'')}</span>`).join(' · ')}</div>`:''}
+    <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">
+      <button class="btn" id="dsReleaseNotesBtn">${icon('history')} Release Notes</button>
+    </div>
   </div>
   <div class="card" style="padding:0;">
-    <div class="section-title" style="padding:16px 18px 0;"><h3>${escapeHtml(label)} Objects <span class="hint" style="font-weight:400;">(${(cfg.objects||[]).length})</span></h3></div>
+    <div class="section-title" style="padding:16px 18px 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+      <h3>Objects List <span class="hint" style="font-weight:400;">(${all.length})</span></h3>
+      <div class="search-input">${icon('search')}<input type="text" id="searchInput" placeholder="Search objects..." value="${escapeAttr(state.search||'')}"></div>
+    </div>
     <div class="table-wrap">
       <table>
-        <thead><tr><th>Type</th><th>Object ID</th><th>Definition</th><th>Status</th><th>Latest Remarks</th></tr></thead>
-        <tbody>${objRows || `<tr class="empty-row"><td colspan="5">${icon('search')}<br>Not synced yet — connect this source under Settings &gt; Dev-tool Sync and run a sync.</td></tr>`}</tbody>
+        <thead><tr><th>Object Type</th><th>Object ID</th><th>Object Definition</th><th>Status</th><th>Latest Version</th><th>Latest Remarks</th><th>${isTool?'Application Name':'Ticket Tag'}</th><th>Update as of</th></tr></thead>
+        <tbody>${rows || `<tr class="empty-row"><td colspan="8">${icon('search')}<br>${q?'No matches.':'Not synced yet — connect this source under Settings → Dev-tool Sync and run a sync.'}</td></tr>`}</tbody>
       </table>
     </div>
   </div>`;
@@ -4273,28 +4551,32 @@ function attachContentHandlers(){
   const statusFilter = document.getElementById('statusFilter');
   if(statusFilter) statusFilter.addEventListener('change', e=>{ state.statusFilter = e.target.value; render(); });
 
+  // HOXT Projects + HOXT Custom API share one layout; state.view says which one is on screen
+  const hoxtKind = (state.view==='apis') ? 'apis' : 'projects';
   const hoxtInfoSaveBtn = document.getElementById('hoxtInfoSaveBtn');
   if(hoxtInfoSaveBtn){
     hoxtInfoSaveBtn.addEventListener('click', ()=>{
-      const data = hoxtData();
+      const data = hoxtData(hoxtKind);
       data.repoLink = document.getElementById('hoxtRepoLink').value.trim();
       data.currentVersion = document.getElementById('hoxtCurrentVersion').value.trim();
       saveDB();
-      toast('HOXT Project Information saved.', 'success');
+      toast(`${HOXT_COLL[hoxtKind].infoTitle} saved.`, 'success');
       render();
     });
   }
   const hoxtReleaseNotesBtn = document.getElementById('hoxtReleaseNotesBtn');
-  if(hoxtReleaseNotesBtn) hoxtReleaseNotesBtn.addEventListener('click', ()=> openHoxtReleaseNotesModal());
-  const hoxtAddProjectBtn = document.getElementById('hoxtAddProjectBtn');
-  if(hoxtAddProjectBtn) hoxtAddProjectBtn.addEventListener('click', ()=> openHoxtProjectModal(null));
-  document.querySelectorAll('[data-hoxt-project]').forEach(el=>{
-    el.addEventListener('click', ()=> openHoxtProjectModal(el.dataset.hoxtProject));
+  if(hoxtReleaseNotesBtn) hoxtReleaseNotesBtn.addEventListener('click', ()=> openReleaseNotesModal(hoxtNotesCtx(hoxtKind)));
+  const hoxtAddItemBtn = document.getElementById('hoxtAddItemBtn');
+  if(hoxtAddItemBtn) hoxtAddItemBtn.addEventListener('click', ()=> openHoxtItemModal(hoxtKind, null));
+  document.querySelectorAll('[data-hoxt-item]').forEach(el=>{
+    el.addEventListener('click', ()=> openHoxtItemDetail(hoxtKind, el.dataset.hoxtItem));
   });
   document.querySelectorAll('[data-hoxt-update]').forEach(el=>{
-    el.addEventListener('click', ()=> openHoxtProjectModal(el.dataset.hoxtUpdate));
+    el.addEventListener('click', ()=> openHoxtItemModal(hoxtKind, el.dataset.hoxtUpdate));
   });
 
+  const dsReleaseNotesBtn = document.getElementById('dsReleaseNotesBtn');
+  if(dsReleaseNotesBtn) dsReleaseNotesBtn.addEventListener('click', ()=> openReleaseNotesModal(devNotesCtx(state.view)));
   const dsGoToSettings = document.getElementById('dsGoToSettings');
   if(dsGoToSettings) dsGoToSettings.addEventListener('click', ()=>{ state.settingsTab='devtoolsync'; setView('settings'); });
 
@@ -4686,6 +4968,16 @@ function attachContentHandlers(){
       DB.settings.idRanges = DB.settings.idRanges.filter(r=>r.typeId!==tid);
       saveDB(); toast('Object type removed.', 'danger'); render(); state.settingsTab='objecttypes'; render();
     });
+  });
+  const saveApiDataRange = document.getElementById('saveApiDataRange');
+  if(saveApiDataRange) saveApiDataRange.addEventListener('click', ()=>{
+    const from = parseInt(document.getElementById('apiDataFrom').value,10);
+    const to = parseInt(document.getElementById('apiDataTo').value,10);
+    if(isNaN(from)||isNaN(to)||to<from){ toast('"To" must be greater than or equal to "From".', 'warning'); return; }
+    const tab = rangeFor('tab');
+    if(tab && from<=tab.to && to>=tab.from){ toast(`That overlaps the regular Table range (${tab.from}–${tab.to}). Data IDs need their own range.`, 'warning'); return; }
+    DB.settings.hoxtApiDataRange = {from, to};
+    saveDB(); log('Updated','settings','HOXT Custom API data ID range'); toast('Data range saved.', 'success'); render();
   });
   const saveRanges = document.getElementById('saveRanges');
   if(saveRanges) saveRanges.addEventListener('click', ()=>{
