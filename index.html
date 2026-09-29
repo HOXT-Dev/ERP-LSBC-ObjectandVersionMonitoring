@@ -567,7 +567,7 @@ async function flushSaveToSharePoint(){
   try{
     // Extension Management (connection settings + snapshots) is stored in
     // GitHub (extmgmt-data.json), not SharePoint — see saveExtMgmtToGithub().
-    // Dev-tool Sync connection + results likewise live in GitHub
+    //  connection + results likewise live in GitHub
     // (dev-tool-data.json) — see saveDevToolSyncToGithub(). Everything
     // else in DB still goes to SharePoint as before.
     const payload = {...DB, settings:{...DB.settings}};
@@ -1571,7 +1571,7 @@ function viewUsers(){
 
 /* ---------------------------- SETTINGS VIEW ---------------------------- */
 function viewSettings(){
-  const tabs = [['general','General'],['repos','Repositories'],['excel','Excel Import/Export'],['appearance','Appearance'],['objecttypes','Object Types'],['ranges','ID Ranges'],['password','Password Policy'],['extmgmt','Extension Management'],['devtoolsync','Dev-tool Sync']];
+  const tabs = [['general','General'],['repos','Repositories'],['excel','Excel Import/Export'],['appearance','Appearance'],['objecttypes','Object Types'],['ranges','ID Ranges'],['password','Password Policy'],['extmgmt','Extension Management'],['devtoolsync','HOXT Sync']];
   return `
   <div class="tabs">
     ${tabs.map(([id,label])=>`<div class="tab ${state.settingsTab===id?'active':''}" data-stab="${id}">${label}</div>`).join('')}
@@ -2382,7 +2382,7 @@ function openReleaseNotesModal(ctx){
     </div>` }));
   const rows = manualItems.concat(autoItems).sort((a,b)=> (b.date||'').localeCompare(a.date||'')).map(x=>x.html).join('');
   const empty = !ctx.configured
-    ? 'Not connected to GitHub yet — add this repository under Settings → Dev-tool Sync and release notes will fill in by themselves from each deployed version.'
+    ? 'Not connected to GitHub yet — add this repository under Settings →  and release notes will fill in by themselves from each deployed version.'
     : (ctx.lastSyncedAt ? 'No deployed versions found in the git history yet.' : 'Connected — release notes appear after the next GitHub sync.');
   swapModal(`
   <div class="modal modal-wide">
@@ -2490,7 +2490,7 @@ const NOTES_ONLY_SOURCES = {
   projects: { label:'HOXT Projects' },
   apis:     { label:'HOXT Custom API' },
 };
-const SYNC_SOURCES = { // order = order shown in Settings > Dev-tool Sync
+const SYNC_SOURCES = { // order = order shown in Settings > 
   projects:  NOTES_ONLY_SOURCES.projects,
   cloudenh:  DEV_SOURCES.cloudenh,
   onpremenh: DEV_SOURCES.onpremenh,
@@ -2537,7 +2537,7 @@ async function loadDevToolDataFromGithub(){
   if(!url) return false;
   const res = await fetch(url);
   if(res.status === 404) return false;
-  if(!res.ok) throw new Error(`Could not read Dev-tool sync data from GitHub (HTTP ${res.status}).`);
+  if(!res.ok) throw new Error(`Could not read  data from GitHub (HTTP ${res.status}).`);
   const data = await res.json();
   const local = devToolSyncSettings();
   Object.keys(SYNC_SOURCES).forEach(key=>{
@@ -2587,7 +2587,7 @@ async function saveDevToolSyncToGithubImpl(commitMessage){
     };
   });
   DB.settings.devToolSync = merged;
-  await githubPutFile(DEVTOOL_DATA_PATH, JSON.stringify(merged, null, 2), commitMessage || `Update Dev-tool sync config (${new Date().toISOString()})`);
+  await githubPutFile(DEVTOOL_DATA_PATH, JSON.stringify(merged, null, 2), commitMessage || `Update  config (${new Date().toISOString()})`);
 }
 async function dispatchDevToolSyncWorkflow(){
   const gh = ghSettings();
@@ -2627,7 +2627,7 @@ function devToolSyncScriptJs(){
  *                   the AL source repo(s) used by the sources below.
  *
  * dev-tool-data.json's "sources" object (owner/repo/branch/folder per
- * key) is edited from the app itself (Settings > Dev-tool Sync) and
+ * key) is edited from the app itself (Settings > ) and
  * committed here before this script ever runs — this script only fills
  * in version / objects / lastSyncedAt for each source, using whatever
  * owner/repo/branch/folder is already on record for it.
@@ -2818,7 +2818,7 @@ async function syncOneSource(key, cfg) {
 
 async function main() {
   if (!AL_SOURCE_PAT) fail('Missing AL_SOURCE_PAT secret.');
-  if (!fs.existsSync(DATA_FILE)) fail(\`\${DATA_FILE} not found — save the connection config from the app first (Settings > Dev-tool Sync > Save Connection).\`);
+  if (!fs.existsSync(DATA_FILE)) fail(\`\${DATA_FILE} not found — save the connection config from the app first (Settings >  > Save Connection).\`);
   const data = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
   data.sources = data.sources || {};
   let lastRunError = '';
@@ -2878,7 +2878,7 @@ jobs:
         with:
           node-version: lts/*
 
-      - name: Run Dev-tool sync
+      - name: Run 
         env:
           AL_SOURCE_PAT: \${{ secrets.AL_SOURCE_PAT }}
         run: node scripts/run-dev-tool-sync.js
@@ -2889,7 +2889,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add dev-tool-data.json 2>/dev/null || { echo "dev-tool-data.json not present — nothing to commit."; exit 0; }
-          git diff --cached --quiet && echo "No changes to commit." || git commit -m "Dev-tool sync ($(date -u +%Y-%m-%dT%H:%M:%SZ))"
+          git diff --cached --quiet && echo "No changes to commit." || git commit -m " ($(date -u +%Y-%m-%dT%H:%M:%SZ))"
           # Something else (a manual re-run, or another workflow like the BC
           # Extension Snapshot) can land a commit on this branch between the
           # checkout above and this push. Retry with a rebase instead of
@@ -2904,19 +2904,19 @@ jobs:
 `;
 }
 async function pushDevToolSyncScriptToGithub(){
-  ghStatus('Pushing Dev-tool sync script…');
+  ghStatus('Pushing  script…');
   try{
-    await githubPutFile('scripts/run-dev-tool-sync.js', devToolSyncScriptJs(), `Add/update Dev-tool sync script (${new Date().toISOString()})`);
+    await githubPutFile('scripts/run-dev-tool-sync.js', devToolSyncScriptJs(), `Add/update  script (${new Date().toISOString()})`);
     log('Exported','github', 'scripts/run-dev-tool-sync.js', `Pushed to ${ghSettings().owner}/${ghSettings().repo}@${ghSettings().branch||'main'}`);
-    ghStatus('Dev-tool sync script pushed.', 'success');
-    toast('Dev-tool sync script pushed to GitHub.', 'success');
+    ghStatus(' script pushed.', 'success');
+    toast(' script pushed to GitHub.', 'success');
   }catch(err){ ghStatus(`Failed: ${err.message}`, 'error'); toast(`GitHub push failed: ${err.message}`, 'danger'); }
 }
 async function pushDevToolSyncWorkflowToGithub(){
-  ghStatus('Pushing Dev-tool sync workflow…');
+  ghStatus('Pushing  workflow…');
   const path = '.github/workflows/dev-tool-sync.yml';
   try{
-    await githubPutFile(path, devToolSyncWorkflowYaml(), `Add/update Dev-tool sync workflow (${new Date().toISOString()})`);
+    await githubPutFile(path, devToolSyncWorkflowYaml(), `Add/update  workflow (${new Date().toISOString()})`);
     log('Exported','github', path, `Pushed to ${ghSettings().owner}/${ghSettings().repo}@${ghSettings().branch||'main'}`);
     ghStatus('Dev-tool sync workflow pushed.', 'success');
     toast('Dev-tool sync workflow pushed to GitHub.', 'success');
