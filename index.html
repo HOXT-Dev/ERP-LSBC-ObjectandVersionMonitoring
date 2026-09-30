@@ -817,6 +817,7 @@ const state = {
   // Monthly Comparison — date range (yyyy-mm-dd strings) and the single captured
   // day currently shown in the detailed extension x environment grid.
   extMonthlyDay:'', extMonthlyEnvId:'', extFilterSearch:'',
+  gridFilters:{}, gridSort:{}, gridFilterOpen:null, gridFilterSearch:'',
 };
 // Registered once (not inside render/attachHandlers, which run on every
 // re-render) — closes an open Excel-style filter dropdown when clicking
@@ -824,6 +825,10 @@ const state = {
 document.addEventListener('click', e=>{
   if(state.extFilterOpen && !e.target.closest('[data-extfilterpanel]') && !e.target.closest('[data-extfiltertoggle]')){
     state.extFilterOpen = null;
+    render();
+  }
+  if(state.gridFilterOpen && !e.target.closest('[data-gridfilterpanel]') && !e.target.closest('[data-gridfiltertoggle]')){
+    state.gridFilterOpen = null;
     render();
   }
 });
@@ -2081,7 +2086,17 @@ function viewHoxtColl(kind){
   const canEdit = can('projects','modify');
   const items = data.projects||[];
   const q = (state.search||'').trim().toLowerCase();
-  const shown = q ? items.filter(p=>[p.name,p.code,p.latestVersion].join(' ').toLowerCase().includes(q)) : items;
+  const searched = q ? items.filter(p=>[p.name,p.code,p.latestVersion].join(' ').toLowerCase().includes(q)) : items;
+  const gridId = `hoxt-${kind}`;
+  const columns = [
+    {key:'name', label:`${cc.singular} Name`, get:p=>p.name||''},
+    {key:'code', label:`${cc.singular} Code`, get:p=>p.code||''},
+    {key:'version', label:'Latest Version', get:p=>p.latestVersion||''},
+    {key:'objcount', label:'# of Objects', get:p=>hoxtObjCount(p)},
+    {key:'status', label:'Status', get:p=>hoxtStatusLabel(p.status)},
+    {key:'remark', label:'Latest Remark', get:p=>hoxtLatestRemark(data, p, autoNotesOf(kind))||''},
+  ];
+  const shown = gridProcess(gridId, searched, columns);
   const rows = shown.map(p=>{
     const remark = hoxtLatestRemark(data, p, autoNotesOf(kind));
     return `<tr data-hoxt-item="${p.id}" style="cursor:pointer;">
@@ -2128,8 +2143,8 @@ function viewHoxtColl(kind){
     </div>
     <div class="table-wrap">
       <table>
-        <thead><tr><th>${cc.singular} Name</th><th>${cc.singular} Code</th><th>Latest Version</th><th># of Objects</th><th>Status</th><th>Latest Remark</th><th style="text-align:right;">Update</th></tr></thead>
-        <tbody>${rows || `<tr class="empty-row"><td colspan="7">${icon('search')}<br>${q?'No matches.':`No ${cc.plural.toLowerCase()} yet — click Add ${cc.singular} to create one.`}</td></tr>`}</tbody>
+        <thead><tr>${columns.map(c=>`<th>${gridHeaderCell(gridId,c)}</th>`).join('')}<th style="text-align:right;">Update</th></tr></thead>
+        <tbody>${rows || `<tr class="empty-row"><td colspan="7">${icon('search')}<br>${(q||shown.length!==searched.length)?'No matches.':`No ${cc.plural.toLowerCase()} yet — click Add ${cc.singular} to create one.`}</td></tr>`}</tbody>
       </table>
     </div>
   </div>`;
@@ -3213,7 +3228,18 @@ function viewDevSource(key){
       updated: devObjUpdatedAt(cfg, meta),
     };
   });
-  const shown = q ? all.filter(r=>[r.typeLabel, r.o.objectId, r.def, r.remarks, r.version, r.tickets.join(' '), r.o.appName].join(' ').toLowerCase().includes(q)) : all;
+  const searched = q ? all.filter(r=>[r.typeLabel, r.o.objectId, r.def, r.remarks, r.version, r.tickets.join(' '), r.o.appName].join(' ').toLowerCase().includes(q)) : all;
+  const gridId = `dev-${key}`;
+  const columns = [
+    {key:'type', label:'Object Type', get:r=>r.typeLabel},
+    {key:'id', label:'Object ID', get:r=>r.o.objectId},
+    {key:'def', label:'Object Definition', get:r=>r.def},
+    {key:'status', label:'Status', get:r=>hoxtStatusLabel(r.status)},
+    {key:'version', label:'Latest Version', get:r=>r.version||''},
+    {key:'remarks', label:'Latest Remarks', get:r=>r.remarks},
+    {key:'last', label: isTool?'Application Name':'Ticket Tag', get:r=> isTool ? (r.o.appName||'') : r.tickets.join(', ')},
+  ];
+  const shown = gridProcess(gridId, searched, columns);
   const rows = shown.map(r=>{
     const lastCol = isTool
       ? (r.o.appName ? escapeHtml(r.o.appName) : '—')
@@ -3259,8 +3285,8 @@ function viewDevSource(key){
     </div>
     <div class="table-wrap">
       <table>
-        <thead><tr><th>Object Type</th><th>Object ID</th><th>Object Definition</th><th>Status</th><th>Latest Version</th><th>Latest Remarks</th><th>${isTool?'Application Name':'Ticket Tag'}</th><th>Update as of</th></tr></thead>
-        <tbody>${rows || `<tr class="empty-row"><td colspan="8">${icon('search')}<br>${q?'No matches.':'Not synced yet — connect this source under Settings → Dev-tool Sync and run a sync.'}</td></tr>`}</tbody>
+        <thead><tr>${columns.map(c=>`<th>${gridHeaderCell(gridId,c)}</th>`).join('')}<th>Update as of</th></tr></thead>
+        <tbody>${rows || `<tr class="empty-row"><td colspan="8">${icon('search')}<br>${(q||shown.length!==searched.length)?'No matches.':'Not synced yet — connect this source under Settings → Dev-tool Sync and run a sync.'}</td></tr>`}</tbody>
       </table>
     </div>
   </div>`;
@@ -3616,6 +3642,98 @@ function extFilterButton(kind, options){
     ${state.extFilterOpen===kind ? extFilterPanel(kind, options) : ''}
   </span>`;
 }
+/* ======================================================================
+   GENERIC EXCEL-STYLE GRID FILTER + SORT
+   Same funnel-button UI as the Extension Management Comparison grid above
+   (extFilterButton/extFilterPanel), generalized so any table on the HOXT
+   pages (Projects, Custom API, Cloud/OnPrem Enhancements, Developers Tool)
+   can use it. A "column" is {key, label, get: row => rawValue}; gridId keeps
+   each page's filter/sort state separate.
+   ====================================================================== */
+const gridUniverseCache = {}; // gridId -> {colKey: [uniqueValues]} — the FULL universe, cached at render time so "Select all" stays correct even while the panel's search box is narrowing what's shown
+function gridFilterState(gridId){ return state.gridFilters[gridId] || (state.gridFilters[gridId] = {}); }
+function gridSortState(gridId){ return state.gridSort[gridId] || (state.gridSort[gridId] = {col:null, dir:null}); }
+function gridColumnUniverse(rows, columns){
+  const out = {};
+  columns.forEach(c=>{
+    const vals = new Set();
+    rows.forEach(r=>{ const v = String(c.get(r) ?? '').trim(); if(v) vals.add(v); });
+    out[c.key] = [...vals].sort((a,b)=>a.localeCompare(b, undefined, {numeric:true, sensitivity:'base'}));
+  });
+  return out;
+}
+function applyGridFilters(gridId, rows, columns){
+  const f = gridFilterState(gridId);
+  return rows.filter(r=> columns.every(c=>{
+    const sel = f[c.key];
+    if(!sel || !sel.size) return true; // no filter set (or emptied via "Select all") = show all
+    return sel.has(String(c.get(r) ?? '').trim());
+  }));
+}
+function applyGridSort(gridId, rows, columns){
+  const s = gridSortState(gridId);
+  const col = s.col && columns.find(c=>c.key===s.col);
+  if(!col || !s.dir) return rows;
+  return [...rows].sort((a,b)=>{
+    const av = col.get(a), bv = col.get(b);
+    const cmp = (typeof av==='number' && typeof bv==='number')
+      ? av-bv
+      : String(av ?? '').localeCompare(String(bv ?? ''), undefined, {numeric:true, sensitivity:'base'});
+    return s.dir==='asc' ? cmp : -cmp;
+  });
+}
+function gridFilterPanel(gridId, col){
+  const sel = gridFilterState(gridId)[col.key];
+  const q = (state.gridFilterSearch||'').toLowerCase();
+  const options = (gridUniverseCache[gridId]||{})[col.key] || [];
+  const visible = q ? options.filter(o=>o.toLowerCase().includes(q)) : options;
+  const sort = gridSortState(gridId);
+  const k = `${gridId}:${col.key}`;
+  return `
+  <div class="ext-filter-panel" data-gridfilterpanel="${k}">
+    <div class="ext-filter-actions" style="margin-bottom:8px;">
+      <a data-gridsort="${k}:asc" style="${sort.col===col.key&&sort.dir==='asc'?'font-weight:700;':''}">↑ Sort A–Z</a>
+      <a data-gridsort="${k}:desc" style="${sort.col===col.key&&sort.dir==='desc'?'font-weight:700;':''}">↓ Sort Z–A</a>
+    </div>
+    <input type="text" placeholder="Search..." id="gridFilterSearch" value="${escapeAttr(state.gridFilterSearch||'')}">
+    <div class="ext-filter-actions">
+      <a data-gridfilterall="${k}">Select all</a>
+      <a data-gridfilterclear="${k}">Clear</a>
+    </div>
+    <div class="ext-filter-list">
+      ${visible.length ? visible.map(o=>`
+        <label><input type="checkbox" class="grid-filter-opt" data-gridfilterkind="${k}" value="${escapeAttr(o)}" ${(!sel || sel.has(o))?'checked':''}> ${escapeHtml(o)}</label>
+      `).join('') : `<div class="ext-filter-empty">No matches.</div>`}
+    </div>
+    <div class="ext-filter-footer">
+      <button class="btn btn-sm btn-primary" data-gridfilterdone="${k}" type="button">Done</button>
+    </div>
+  </div>`;
+}
+// <th> content: the column label plus its funnel button (and, if open, the
+// dropdown). Use as: <th>${gridHeaderCell(gridId, col)}</th>
+function gridHeaderCell(gridId, col){
+  const sel = gridFilterState(gridId)[col.key];
+  const options = (gridUniverseCache[gridId]||{})[col.key] || [];
+  const filterActive = !!(sel && sel.size && sel.size < options.length);
+  const sort = gridSortState(gridId);
+  const sortActive = sort.col===col.key;
+  const k = `${gridId}:${col.key}`;
+  const isOpen = state.gridFilterOpen === k;
+  return `<span class="ext-th-inner">${escapeHtml(col.label)}
+    <span class="ext-th-cell" style="display:inline-block;">
+      <button type="button" class="ext-filter-btn ${(filterActive||sortActive)?'active':''}" data-gridfiltertoggle="${k}" title="Filter / Sort">${icon('filter')}${filterActive?'<span class="dot"></span>':''}</button>
+      ${isOpen ? gridFilterPanel(gridId, col) : ''}
+    </span>
+  </span>`;
+}
+// Runs the filter+sort pipeline and remembers this render's column universe
+// (for the "Select all" fix above). Call once per table per render.
+function gridProcess(gridId, rows, columns){
+  gridUniverseCache[gridId] = gridColumnUniverse(rows, columns);
+  return applyGridSort(gridId, applyGridFilters(gridId, rows, columns), columns);
+}
+
 // bcGetToken/bcFetchExtensions/runExtensionSnapshot/scheduleExtensionSnapshot were removed —
 // direct browser-to-BC calls can never succeed (CORS on the Microsoft identity
 // platform token endpoint), so all syncing runs via dispatchExtSnapshotWorkflow()
@@ -5009,6 +5127,54 @@ function attachContentHandlers(){
   });
   document.querySelectorAll('[data-extfilterdone]').forEach(el=>{
     el.addEventListener('click', ()=>{ state.extFilterOpen = null; render(); });
+  });
+
+  /* ---- Generic HOXT-page grid filter/sort (Projects, Custom API, Cloud/OnPrem, Dev Tool) ---- */
+  document.querySelectorAll('[data-gridfiltertoggle]').forEach(el=>{
+    el.addEventListener('click', e=>{
+      e.stopPropagation();
+      const k = el.dataset.gridfiltertoggle;
+      state.gridFilterOpen = state.gridFilterOpen===k ? null : k;
+      state.gridFilterSearch = '';
+      render();
+    });
+  });
+  const gridFilterPanelEl = document.querySelector('[data-gridfilterpanel]');
+  if(gridFilterPanelEl) gridFilterPanelEl.addEventListener('click', e=> e.stopPropagation());
+  const gridFilterSearchEl = document.getElementById('gridFilterSearch');
+  if(gridFilterSearchEl) gridFilterSearchEl.addEventListener('input', e=>{ state.gridFilterSearch = e.target.value; renderInPlace('gridFilterSearch'); });
+  document.querySelectorAll('.grid-filter-opt').forEach(cb=>{
+    cb.addEventListener('change', ()=>{
+      const [gridId, col] = cb.dataset.gridfilterkind.split(':');
+      const fs = gridFilterState(gridId);
+      if(!fs[col] || !fs[col].size){
+        // Materialize "all selected" from the FULL column universe (cached at render
+        // time), not just whatever the search box currently has visible — otherwise
+        // narrowing the search first would silently drop the hidden options out of
+        // "all selected" the moment one checkbox changes.
+        fs[col] = new Set((gridUniverseCache[gridId]||{})[col] || []);
+      }
+      if(cb.checked) fs[col].add(cb.value); else fs[col].delete(cb.value);
+      render();
+    });
+  });
+  document.querySelectorAll('[data-gridfilterall]').forEach(el=>{
+    el.addEventListener('click', ()=>{ const [gridId,col] = el.dataset.gridfilterall.split(':'); gridFilterState(gridId)[col] = null; render(); });
+  });
+  document.querySelectorAll('[data-gridfilterclear]').forEach(el=>{
+    el.addEventListener('click', ()=>{ const [gridId,col] = el.dataset.gridfilterclear.split(':'); gridFilterState(gridId)[col] = new Set(); render(); });
+  });
+  document.querySelectorAll('[data-gridfilterdone]').forEach(el=>{
+    el.addEventListener('click', ()=>{ state.gridFilterOpen = null; render(); });
+  });
+  document.querySelectorAll('[data-gridsort]').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      const [gridId, col, dir] = el.dataset.gridsort.split(':');
+      const s = gridSortState(gridId);
+      s.col = (s.col===col && s.dir===dir) ? null : col; // clicking the same direction again clears the sort
+      s.dir = (s.col===null) ? null : dir;
+      render();
+    });
   });
 
   /* ---- Extension Management: Monthly date range + day picker ---- */
