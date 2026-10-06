@@ -1656,7 +1656,7 @@
         "b6fde5837e755dd588c704475ba6bb8ed4618272": "26.9.3.2"
       },
       "notesError": "",
-      "lastSyncedAt": "2026-10-06T08:01:44.297Z"
+      "lastSyncedAt": "2026-10-06T08:18:53.870Z"
     },
     "cloudenh": {
       "owner": "HOXT-Dev",
@@ -1678,22 +1678,7 @@
         }
       },
       "releaseNotes": [],
-      "pendingObjects": [
-        {
-          "id": "loeazqc4ebcr",
-          "objectType": "table",
-          "objectId": 99008,
-          "name": "TEST",
-          "sourceTable": "",
-          "extends": "",
-          "folderPath": "",
-          "requestedBy": "Gene Manahan",
-          "requestedAt": "2026-10-06T08:09:40.347Z",
-          "status": "pending",
-          "error": "",
-          "filePath": ""
-        }
-      ],
+      "pendingObjects": [],
       "version": "26.9.0.5",
       "objects": [
         {
@@ -1969,7 +1954,7 @@
           "appDir": ""
         }
       ],
-      "lastSyncedAt": "2026-10-06T08:01:53.173Z",
+      "lastSyncedAt": "2026-10-06T08:19:04.526Z",
       "apps": [
         {
           "name": "HOXT - Cloud Enhancements",
@@ -2138,7 +2123,7 @@
           "appDir": ""
         }
       ],
-      "lastSyncedAt": "2026-10-06T08:01:54.361Z",
+      "lastSyncedAt": "2026-10-06T08:19:05.619Z",
       "apps": [
         {
           "name": "HOXT - OnPrem Enhancements",
@@ -3332,7 +3317,7 @@
           "appDir": ""
         }
       ],
-      "lastSyncedAt": "2026-10-06T08:02:32.361Z",
+      "lastSyncedAt": "2026-10-06T08:19:36.921Z",
       "apps": [
         {
           "name": "HOXT - Custom API",
@@ -3718,7 +3703,7 @@
           "appDir": ""
         }
       ],
-      "lastSyncedAt": "2026-10-06T08:02:36.211Z",
+      "lastSyncedAt": "2026-10-06T08:19:40.103Z",
       "apps": [
         {
           "name": "HOXT - Developer's Tool",
@@ -3779,7 +3764,7 @@
       "notesError": ""
     }
   },
-  "lastRunAt": "2026-10-06T08:02:36.211Z",
+  "lastRunAt": "2026-10-06T08:19:40.103Z",
   "lastRunStatus": "success",
   "lastRunError": ""
 }
