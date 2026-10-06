@@ -2141,8 +2141,8 @@
       "notesError": ""
     },
     "apis": {
-      "owner": "",
-      "repo": "",
+      "owner": "HOXT-Dev",
+      "repo": "HOXT-API",
       "branch": "main",
       "folder": "",
       "objectMeta": {},
@@ -2154,8 +2154,8 @@
       "lastSyncedAt": null
     },
     "devtool": {
-      "owner": "",
-      "repo": "",
+      "owner": "HOXT-Dev",
+      "repo": "HOXT-Developers-Tool",
       "branch": "main",
       "folder": "",
       "objectMeta": {},
