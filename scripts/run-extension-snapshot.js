@@ -101,7 +101,7 @@ function saveData(data) {
 }
 
 function pruneSnapshots(data) {
-  const days = (data.settings && data.settings.retentionDays) || 7;
+  const days = (data.settings && data.settings.retentionDays) || 35;
   const cutoff = Date.now() - days * 24 * 60 * 60 * 1000;
   data.snapshots = (data.snapshots || []).filter((s) => new Date(s.timestamp).getTime() >= cutoff);
 }
