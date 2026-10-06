@@ -1,4 +1,5 @@
 name: BC Extension Snapshot
+
 on:
   schedule:
     # Cron is UTC only and does not adjust for DST. 16:00 UTC = 12:00 AM
@@ -6,25 +7,37 @@ on:
     # target timezone changes.
     - cron: '0 16 * * *'
   workflow_dispatch: {}
+
+# Same group name as Dev-tool Object Sync's workflow, on purpose: both
+# workflows commit to this same repo/branch, so without a shared group
+# they can run at the same time and race each other's push — which is
+# exactly what caused "! [rejected] ... (fetch first)" errors. Sharing
+# the group makes GitHub run them one at a time, queued, never both at
+# once, regardless of which one was triggered first.
+concurrency:
+  group: bcovc-repo-commits
+  cancel-in-progress: false
+
 permissions:
   contents: write
-concurrency:
-  group: bc-extension-snapshot
-  cancel-in-progress: false
+
 jobs:
   snapshot:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-node@v5
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
         with:
           node-version: lts/*
+
       - name: Run extension snapshot
         env:
           BC_TENANT_ID: ${{ secrets.BC_TENANT_ID }}
           BC_CLIENT_ID: ${{ secrets.BC_CLIENT_ID }}
           BC_CLIENT_SECRET: ${{ secrets.BC_CLIENT_SECRET }}
         run: node scripts/run-extension-snapshot.js
+
       - name: Commit updated snapshot data
         if: always()
         run: |
@@ -32,5 +45,9 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add extmgmt-data.json 2>/dev/null || { echo "extmgmt-data.json not present — nothing to commit."; exit 0; }
           git diff --cached --quiet && echo "No changes to commit." || git commit -m "Extension snapshot ($(date -u +%Y-%m-%dT%H:%M:%SZ))"
-          git pull --rebase origin main
-          git push
+          for i in 1 2 3 4 5; do
+            git push && break
+            echo "Push rejected (attempt $i) — pulling and retrying..."
+            git pull --rebase origin ${{ github.ref_name }}
+            sleep $((RANDOM % 5 + 1))
+          done
