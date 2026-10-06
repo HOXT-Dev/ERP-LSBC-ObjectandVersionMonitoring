@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-25T05:59:16.813Z",
+  "generatedAt": "2026-10-06T06:28:53.452Z",
   "repositories": {
     "ticket": null,
     "storecust": null,
@@ -33,6 +33,11 @@
         "code": "PRJ-6",
         "name": "ERP AL Enh - Project Canele",
         "repoUrl": null
+      },
+      {
+        "code": "PRJ-7",
+        "name": "HETI",
+        "repoUrl": null
       }
     ]
   },
@@ -41,28 +46,28 @@
       "typeId": "tab",
       "from": 99000,
       "to": 99999,
-      "last": 99024,
+      "last": 99121,
       "type": "TAB"
     },
     {
       "typeId": "pag",
       "from": 99000,
       "to": 99999,
-      "last": 99009,
+      "last": 99019,
       "type": "PAG"
     },
     {
       "typeId": "rep",
       "from": 99000,
       "to": 99999,
-      "last": 99007,
+      "last": 99024,
       "type": "REP"
     },
     {
       "typeId": "cod",
       "from": 99000,
       "to": 99999,
-      "last": 99009,
+      "last": 99013,
       "type": "COD"
     },
     {
@@ -97,7 +102,7 @@
       "typeId": "pst",
       "from": 99000,
       "to": 99999,
-      "last": null,
+      "last": 99005,
       "type": "PST"
     },
     {
@@ -125,28 +130,28 @@
       "typeId": "otf0pgu",
       "from": 99000,
       "to": 99999,
-      "last": 99031,
+      "last": 99081,
       "type": "PAGEXT"
     },
     {
       "typeId": "otmowpk",
       "from": 99000,
       "to": 99999,
-      "last": 99007,
+      "last": 99013,
       "type": "TABEXT"
     },
     {
       "typeId": "otrqu8t",
       "from": 99000,
       "to": 99999,
-      "last": 99000,
+      "last": 99001,
       "type": "REPEXT"
     },
     {
       "typeId": "pageapi",
       "from": 75000,
       "to": 75999,
-      "last": 75015,
+      "last": 75016,
       "type": "PAPI"
     }
   ],
@@ -533,7 +538,7 @@
       "ownerKind": "project",
       "ownerName": "ERP AL Enh - Development Tool",
       "ownerRepo": null,
-      "version": "3.2.1.0",
+      "version": "3.2.2.0",
       "status": "active"
     },
     {
@@ -544,7 +549,7 @@
       "ownerKind": "project",
       "ownerName": "ERP AL Enh - Development Tool",
       "ownerRepo": null,
-      "version": "3.2.1.0",
+      "version": "3.2.2.0",
       "status": "active"
     },
     {
@@ -555,7 +560,7 @@
       "ownerKind": "project",
       "ownerName": "ERP AL Enh - Development Tool",
       "ownerRepo": null,
-      "version": "3.2.1.0",
+      "version": "3.2.2.0",
       "status": "active"
     },
     {
@@ -566,18 +571,18 @@
       "ownerKind": "project",
       "ownerName": "ERP AL Enh - Development Tool",
       "ownerRepo": null,
-      "version": "3.2.1.0",
+      "version": "3.2.2.0",
       "status": "active"
     },
     {
       "objectType": "TABEXT",
-      "objectId": 99005,
+      "objectId": 99009,
       "description": "HOXT-ItemSpecGrpLink260804 ",
       "owner": "PRJ-3",
       "ownerKind": "project",
       "ownerName": "ERP AL Enh - Development Tool",
       "ownerRepo": null,
-      "version": "3.2.1.0",
+      "version": "3.2.2.0",
       "status": "active"
     },
     {
@@ -588,7 +593,7 @@
       "ownerKind": "project",
       "ownerName": "ERP AL Enh - Development Tool",
       "ownerRepo": null,
-      "version": "3.2.1.0",
+      "version": "3.2.2.0",
       "status": "active"
     },
     {
@@ -599,7 +604,7 @@
       "ownerKind": "project",
       "ownerName": "ERP AL Enh - Development Tool",
       "ownerRepo": null,
-      "version": "3.2.1.0",
+      "version": "3.2.2.0",
       "status": "active"
     },
     {
@@ -610,7 +615,117 @@
       "ownerKind": "project",
       "ownerName": "ERP AL Enh - Development Tool",
       "ownerRepo": null,
-      "version": "3.2.1.0",
+      "version": "3.2.2.0",
+      "status": "active"
+    },
+    {
+      "objectType": "TABEXT",
+      "objectId": 99008,
+      "description": "HOXT-TransHeader260902",
+      "owner": "PRJ-3",
+      "ownerKind": "project",
+      "ownerName": "ERP AL Enh - Development Tool",
+      "ownerRepo": null,
+      "version": "3.2.2.0",
+      "status": "active"
+    },
+    {
+      "objectType": "TABEXT",
+      "objectId": 99010,
+      "description": "HOXT-TransShipment260902",
+      "owner": "PRJ-3",
+      "ownerKind": "project",
+      "ownerName": "ERP AL Enh - Development Tool",
+      "ownerRepo": null,
+      "version": "3.2.2.0",
+      "status": "active"
+    },
+    {
+      "objectType": "TABEXT",
+      "objectId": 99011,
+      "description": "HOXT-TransReceipt260902",
+      "owner": "PRJ-3",
+      "ownerKind": "project",
+      "ownerName": "ERP AL Enh - Development Tool",
+      "ownerRepo": null,
+      "version": "3.2.2.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAG",
+      "objectId": 99011,
+      "description": "HOXT-API Field Engine",
+      "owner": "PRJ-3",
+      "ownerKind": "project",
+      "ownerName": "ERP AL Enh - Development Tool",
+      "ownerRepo": null,
+      "version": "3.2.2.0",
+      "status": "active"
+    },
+    {
+      "objectType": "TAB",
+      "objectId": 99042,
+      "description": "HOXT Custom REST API List",
+      "owner": "PRJ-3",
+      "ownerKind": "project",
+      "ownerName": "ERP AL Enh - Development Tool",
+      "ownerRepo": null,
+      "version": "3.2.2.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAG",
+      "objectId": 99012,
+      "description": "HOXT Custom REST API List",
+      "owner": "PRJ-3",
+      "ownerKind": "project",
+      "ownerName": "ERP AL Enh - Development Tool",
+      "ownerRepo": null,
+      "version": "3.2.2.0",
+      "status": "active"
+    },
+    {
+      "objectType": "TAB",
+      "objectId": 99044,
+      "description": "HOXT Custom API Owner",
+      "owner": "PRJ-3",
+      "ownerKind": "project",
+      "ownerName": "ERP AL Enh - Development Tool",
+      "ownerRepo": null,
+      "version": "3.2.2.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAG",
+      "objectId": 99013,
+      "description": "HOXT Custom REST API List",
+      "owner": "PRJ-3",
+      "ownerKind": "project",
+      "ownerName": "ERP AL Enh - Development Tool",
+      "ownerRepo": null,
+      "version": "3.2.2.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAG",
+      "objectId": 99014,
+      "description": "HOXT Custom REST API Card",
+      "owner": "PRJ-3",
+      "ownerKind": "project",
+      "ownerName": "ERP AL Enh - Development Tool",
+      "ownerRepo": null,
+      "version": "3.2.2.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PST",
+      "objectId": 99005,
+      "description": "HOXT API List",
+      "owner": "PRJ-3",
+      "ownerKind": "project",
+      "ownerName": "ERP AL Enh - Development Tool",
+      "ownerRepo": null,
+      "version": "3.2.2.0",
       "status": "active"
     },
     {
@@ -738,6 +853,17 @@
       "objectType": "COD",
       "objectId": 99007,
       "description": "HOXT-MemAcctCorrection",
+      "owner": "PRJ-4",
+      "ownerKind": "project",
+      "ownerName": "ERP AL Enh - Project Yogi",
+      "ownerRepo": null,
+      "version": "4.1.1.0",
+      "status": "active"
+    },
+    {
+      "objectType": "TABEXT",
+      "objectId": 99005,
+      "description": "HOXT",
       "owner": "PRJ-4",
       "ownerKind": "project",
       "ownerName": "ERP AL Enh - Project Yogi",
@@ -1186,6 +1312,743 @@
       "status": "active"
     },
     {
+      "objectType": "REP",
+      "objectId": 99008,
+      "description": "HOXT-PR4-PurchaseOrder",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "COD",
+      "objectId": 99011,
+      "description": "HOXT-HETI Reports Management",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "TAB",
+      "objectId": 99032,
+      "description": "HOXT-HETI Company Info. Setup",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAG",
+      "objectId": 99010,
+      "description": "HOXT-HETI Company Info. Setup",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "REP",
+      "objectId": 99009,
+      "description": "HOXT-PR4-PurchaseOrderNonTrade",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "REP",
+      "objectId": 99010,
+      "description": "HOXT-PR4-PurchaseReceipt",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "REP",
+      "objectId": 99011,
+      "description": "HOXT-PR4-PurchaseInvoice",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "REP",
+      "objectId": 99012,
+      "description": "HOXT-PR4-PurchaseReturn",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "REP",
+      "objectId": 99013,
+      "description": "HOXT-PR4-PurchaseCreditMemo",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "REP",
+      "objectId": 99014,
+      "description": "HOXT-PR4-SalesOrder",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "REP",
+      "objectId": 99015,
+      "description": "HOXT-PR4-SalesShipment",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "REP",
+      "objectId": 99016,
+      "description": "HOXT-PR4-SalesInvoice",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "REP",
+      "objectId": 99017,
+      "description": "HOXT-PR4-PurchaseQuote",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "COD",
+      "objectId": 99013,
+      "description": "HOXT-PR4-Report Sub Mgt",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "REP",
+      "objectId": 99018,
+      "description": "HOXT-PR4-SalesCreditMemo",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "REP",
+      "objectId": 99019,
+      "description": "HOXT-PR4-PurchaseReturnShipment",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "REP",
+      "objectId": 99020,
+      "description": "HOXT-PR4-BlanketPO",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99032,
+      "description": "HOXT-PR4-PurchaseOrder",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99033,
+      "description": "HOXT-PR4-PurchaseOrderList",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99034,
+      "description": "HOXT-PR4-Ret.Purch.OrderStore",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99035,
+      "description": "HOXT-PR4-Ret.Purch.Order",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99036,
+      "description": "HOXT-PR4-Blank.PurchaseOrders",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99037,
+      "description": "HOXT-PR4-Blank.PurchaseOrder",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99038,
+      "description": "HOXT-PR4-PurchaseQuotes",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99039,
+      "description": "HOXT-PR4-PurchaseQuote",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99040,
+      "description": "HOXT-PR4-Ret.PurchaseQuotes",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99041,
+      "description": "HOXT-PR4-Ret.PurchaseQuote",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99042,
+      "description": "HOXT-PR4-PostedPurch.Receipts",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99043,
+      "description": "HOXT-PR4-PostedPurch.Receipt",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99044,
+      "description": "HOXT-PR4-Purchase Invoices",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99046,
+      "description": "HOXT-PR4-Ret.Purchase Invoices",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99045,
+      "description": "HOXT-PR4-Purchase Invoice",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99047,
+      "description": "HOXT-PR4-Ret.Purchase Invoice",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99048,
+      "description": "HOXT-PR4-PostedPurch.Invoices",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99049,
+      "description": "HOXT-PR4-PostedPurch.Invoice",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99050,
+      "description": "HOXT-PR4-Purch.CreditMemos",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99051,
+      "description": "HOXT-PR4-Purch.CreditMemo",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99052,
+      "description": "HOXT-PR4-Ret.Purch.CreditMemos",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99053,
+      "description": "HOXT-PR4-Ret.Purch.CreditMemo",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99054,
+      "description": "HOXT-PR4-PostedPurch.Cr.Memos",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99055,
+      "description": "HOXT-PR4-PostedPurch.Cr.Memo",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99056,
+      "description": "HOXT-PR4-Ret.P.Purch.Cr.Memos",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99057,
+      "description": "HOXT-PR4-Ret.P.Purch.Cr.Memo",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99058,
+      "description": "HOXT-PR4-SalesOrderList",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99059,
+      "description": "HOXT-PR4-SalesOrder",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99060,
+      "description": "HOXT-PR4-Ret.SalesOrderList",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99061,
+      "description": "HOXT-PR4-Ret.SalesOrder",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99062,
+      "description": "HOXT-PR4-PostedSalesShipments",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99063,
+      "description": "HOXT-PR4-PostedSalesShipment",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99064,
+      "description": "HOXT-PR4-Ret.P.SalesShipments",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99065,
+      "description": "HOXT-PR4-Ret.P.SalesShipment",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99066,
+      "description": "HOXT-PR4-SalesInvoiceList",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99067,
+      "description": "HOXT-PR4-SalesInvoice",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99068,
+      "description": "HOXT-PR4-Ret.SalesInvoices",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99069,
+      "description": "HOXT-PR4-Ret.SalesInvoice",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99070,
+      "description": "HOXT-PR4-PostedSalesInvoices",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99071,
+      "description": "HOXT-PR4-PostedSalesInvoice",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99072,
+      "description": "HOXT-PR4-Ret.P.SalesInvoices",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99073,
+      "description": "HOXT-PR4-Ret.P.SalesInvoice",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99074,
+      "description": "HOXT-PR4-SalesCreditMemos",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99075,
+      "description": "HOXT-PR4-SalesCreditMemo",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99076,
+      "description": "HOXT-PR4-Ret.SalesCreditMemos",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99077,
+      "description": "HOXT-PR4-Ret.SalesCreditMemo",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99078,
+      "description": "HOXT-PR4-Post.SalesCreditMemos",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99079,
+      "description": "HOXT-PR4-Post.SalesCreditMemo",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99080,
+      "description": "HOXT-PR4-Ret.P.SalesCr.M.List",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
+      "objectType": "PAGEXT",
+      "objectId": 99081,
+      "description": "HOXT-PR4-Ret.P.SalesCr.Memo",
+      "owner": "PRJ-7",
+      "ownerKind": "project",
+      "ownerName": "HETI",
+      "ownerRepo": null,
+      "version": "7.1.0.0",
+      "status": "active"
+    },
+    {
       "objectType": "PAGEXT",
       "objectId": 99016,
       "description": "ERPENH-PurchOrdArch 20260408",
@@ -1381,6 +2244,17 @@
       "ownerName": "INC-15572",
       "ownerRepo": null,
       "version": "26.8.2.0",
+      "status": "active"
+    },
+    {
+      "objectType": "REP",
+      "objectId": 99021,
+      "description": "RSOOrderConfirmation",
+      "owner": "TCK-2609-01-00",
+      "ownerKind": "ticket",
+      "ownerName": "30840",
+      "ownerRepo": null,
+      "version": "26.9.1.0",
       "status": "active"
     }
   ]
