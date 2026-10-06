@@ -1663,9 +1663,37 @@
       "repo": "HOXT-Cloud-Enhancements",
       "branch": "main",
       "folder": "",
-      "objectMeta": {},
+      "objectMeta": {
+        "pageextension:81000": {
+          "definition": "HOXT General Ledger Entries",
+          "status": "active",
+          "remarks": "",
+          "updatedAt": null
+        },
+        "table:99008": {
+          "definition": "TEST",
+          "status": "active",
+          "remarks": "For testing only",
+          "updatedAt": "2026-10-06T08:09:40.347Z"
+        }
+      },
       "releaseNotes": [],
-      "pendingObjects": [],
+      "pendingObjects": [
+        {
+          "id": "loeazqc4ebcr",
+          "objectType": "table",
+          "objectId": 99008,
+          "name": "TEST",
+          "sourceTable": "",
+          "extends": "",
+          "folderPath": "",
+          "requestedBy": "Gene Manahan",
+          "requestedAt": "2026-10-06T08:09:40.347Z",
+          "status": "pending",
+          "error": "",
+          "filePath": ""
+        }
+      ],
       "version": "26.9.0.5",
       "objects": [
         {
