@@ -2133,6 +2133,7 @@ function viewHoxtColl(kind){
       ${canEdit?`<button class="btn btn-primary" id="hoxtInfoSaveBtn">Save</button>`:''}
     </div>
   </div>
+  ${pendingObjectsPanel(kind, devToolSyncSettings().sources[kind])}
   <div class="card" style="padding:0;">
     <div class="section-title" style="padding:16px 18px 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
       <h3>${cc.plural} <span class="hint" style="font-weight:400;">(${items.length})</span></h3>
@@ -2291,10 +2292,14 @@ function renderHoxtDraftObjects(kind, itemId, canEdit){
   }).join('');
   const dr = hoxtApiDataRange();
   host.innerHTML = `
-    <div class="section-title" style="margin-top:6px;display:flex;justify-content:space-between;align-items:center;">
+    <div class="section-title" style="margin-top:6px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">
       <h3 style="font-size:13.5px;">Objects <span class="hint" style="font-weight:400;">(${hoxtDraftObjects.length})</span></h3>
-      ${canEdit?`<button class="btn btn-sm" id="hoAddBtn">${icon('plus')} Add Object</button>`:''}
+      <div style="display:flex;gap:6px;">
+        ${canEdit?`<button class="btn btn-sm" id="hoAddBtn">${icon('plus')} Add Object</button>`:''}
+        ${canEdit && itemId ? `<button class="btn btn-sm btn-primary" id="hoAddMonitoredBtn">${icon('upload')} Add Object for Monitoring</button>` : ''}
+      </div>
     </div>
+    ${(canEdit && !itemId) ? `<div class="hint" style="font-size:11px;color:var(--text-faint);margin:0 0 6px;">Save this ${cc.singular.toLowerCase()} first to unlock "Add Object for Monitoring" (it needs to know this ${cc.singular.toLowerCase()}'s own folder in the repo).</div>` : ''}
     ${kind==='apis'?`<div class="hint" style="font-size:11.5px;margin:0 0 8px;color:var(--text-faint);">Data (Table) objects use their own ID range: <b>${dr.from}–${dr.to}</b> (Settings → ID Ranges). Other types follow their normal range.</div>`:''}
     <div class="card" style="padding:0;"><div class="table-wrap" style="max-height:260px;">
       <table>
@@ -2327,6 +2332,20 @@ function renderHoxtDraftObjects(kind, itemId, canEdit){
     draft.objectId = hoxtNextFreeId(kind, draft.objectType, hoxtDraftObjects, itemId, draft.id);
     hoxtDraftObjects.push(draft);
     renderHoxtDraftObjects(kind, itemId, canEdit);
+  };
+  const addMonitored = document.getElementById('hoAddMonitoredBtn');
+  if(addMonitored) addMonitored.onclick = ()=>{
+    const item = hoxtData(kind).projects.find(p=>p.id===itemId);
+    if(!item) return;
+    const sourceKey = kind; // 'projects' / 'apis' are themselves Dev-tool Sync sources (see SYNC_SOURCES)
+    const cfg = devToolSyncSettings().sources[sourceKey];
+    const root = (cfg.folder||'').replace(/\/+$/,'');
+    const folderName = (item.name||item.code||'').trim();
+    const lockedFolder = root ? `${root}/${folderName}` : folderName;
+    openAddMonitoredObjectModal(sourceKey, {
+      lockedFolder, lockedFolderLabel: `${item.name||''} (${item.code||''})`,
+      onDone: ()=> openHoxtItemModal(kind, itemId),
+    });
   };
 }
 
@@ -2515,7 +2534,7 @@ const SYNC_SOURCES = { // order = order shown in Settings > Dev-tool Sync
 };
 const DEVTOOL_DATA_PATH = 'dev-tool-data.json';
 function devSourceDefaults(key){
-  return { owner:'', repo:'', branch:'main', folder:'', objectMeta:{}, releaseNotes:[], ...(NOTES_ONLY_SOURCES[key]?{notesOnly:true}:{}) };
+  return { owner:'', repo:'', branch:'main', folder:'', objectMeta:{}, releaseNotes:[], pendingObjects:[], ...(NOTES_ONLY_SOURCES[key]?{notesOnly:true}:{}) };
 }
 function devToolSyncSettings(){
   const dt = DB.settings.devToolSync || (DB.settings.devToolSync = { sources:{}, lastRunAt:null, lastRunStatus:'', lastRunError:'' });
@@ -2598,8 +2617,15 @@ function applyHoxtProjectSync(kind){
     if(!item){ unmatched.push(folder); return; }
     item.objects = item.objects || [];
     byFolder[folder].forEach(o=>{
-      const existing = item.objects.find(x=>x.objectType===o.objectType && x.objectId===o.objectId);
-      if(!existing){ item.objects.push({id:uid(), objectType:o.objectType, objectId:o.objectId, description:o.description||''}); changed=true; }
+      // hoxtData's objects[] is keyed by this app's own Object Type registry id
+      // (DB.settings.objectTypes, e.g. "tab") everywhere else — manual entries,
+      // ID ranges, the Objects table's Type column — so translate the AL
+      // keyword the repo scan gives us ("table") to that same id here, instead
+      // of leaving the two representations mixed in one array.
+      const internalType = alKindToInternalType(o.objectType);
+      const typeId = internalType ? internalType.id : o.objectType;
+      const existing = item.objects.find(x=>x.objectType===typeId && x.objectId===o.objectId);
+      if(!existing){ item.objects.push({id:uid(), objectType:typeId, objectId:o.objectId, description:o.description||''}); changed=true; }
       else if(existing.description !== (o.description||'')){ existing.description = o.description||''; changed=true; }
     });
     item.objectCount = item.objects.length;
@@ -2640,6 +2666,10 @@ async function saveDevToolSyncToGithubImpl(commitMessage){
       owner: loc.owner, repo: loc.repo, branch: loc.branch||'main', folder: loc.folder||'',
       objectMeta: loc.objectMeta || (remoteSrc && remoteSrc.objectMeta) || {},
       releaseNotes: loc.releaseNotes || (remoteSrc && remoteSrc.releaseNotes) || [],
+      // Same reasoning: a just-queued "create this object" request is only ever
+      // added locally first — if remoteSrc's copy won, saving right after
+      // queuing one would silently drop it before GitHub Actions ever saw it.
+      pendingObjects: loc.pendingObjects || (remoteSrc && remoteSrc.pendingObjects) || [],
       ...(NOTES_ONLY_SOURCES[key] ? {notesOnly:true} : {}),
     };
   });
@@ -2680,8 +2710,11 @@ function devToolSyncScriptJs(){
  * to the AL source repos directly.
  *
  * Required repo secret (Settings > Secrets and variables > Actions):
- *   AL_SOURCE_PAT   A GitHub PAT with Contents: Read-only, scoped to
+ *   AL_SOURCE_PAT   A GitHub PAT with Contents: Read and write, scoped to
  *                   the AL source repo(s) used by the sources below.
+ *                   (Read-only is enough for reading objects, but "Add
+ *                   Object for Monitoring" also needs write access to
+ *                   create the new .al files.)
  *
  * dev-tool-data.json's "sources" object (owner/repo/branch/folder per
  * key) is edited from the app itself (Settings > Dev-tool Sync) and
@@ -2815,6 +2848,118 @@ async function buildAutoNotes(cfg, apps) {
   return { notes: out.slice(0, 20), cache: cache };
 }
 
+async function ghApiPut(owner, repo, apiPath, bodyObj) {
+  const res = await fetch(\`https://api.github.com/repos/\${owner}/\${repo}\${apiPath}\`, {
+    method: 'PUT',
+    headers: { 'Authorization': \`Bearer \${AL_SOURCE_PAT}\`, 'Accept': 'application/vnd.github+json', 'Content-Type': 'application/json' },
+    body: JSON.stringify(bodyObj),
+  });
+  const body = await res.json().catch(()=>null);
+  if (!res.ok) throw new Error((body && body.message) || \`GitHub API error (HTTP \${res.status})\`);
+  return body;
+}
+function encodeB64Utf8(text) { return Buffer.from(text, 'utf8').toString('base64'); }
+
+// <ObjectName>.<Suffix>.al inside a /<TypeFolder>/ subfolder — matches the
+// "Add Object for Monitoring" form in the app exactly (same two tables).
+const AL_TYPE_FOLDER = {
+  table:'Tables', page:'Pages', report:'Reports', codeunit:'Codeunits', query:'Queries', xmlport:'XMLports', enum:'Enums',
+  tableextension:'TableExtensions', pageextension:'PageExtensions', reportextension:'ReportExtensions', enumextension:'EnumExtensions',
+  permissionset:'PermissionSets', permissionsetextension:'PermissionSetExtensions',
+  interface:'Interfaces', profile:'Profiles', controladdin:'ControlAddIns', pagecustomization:'PageCustomizations',
+};
+const AL_TYPE_FILESUFFIX = {
+  table:'Table', page:'Page', report:'Report', codeunit:'Codeunit', query:'Query', xmlport:'XMLport', enum:'Enum',
+  tableextension:'TableExtension', pageextension:'PageExtension', reportextension:'ReportExtension', enumextension:'EnumExtension',
+  permissionset:'PermissionSet', permissionsetextension:'PermissionSetExtension',
+  interface:'Interface', profile:'Profile', controladdin:'ControlAddIn', pagecustomization:'PageCustomization',
+};
+
+// House style confirmed from real examples (Table/Page/Codeunit). Everything
+// else is a minimal, standard, compiling AL skeleton — not house style, since
+// no example was given for those types yet.
+function alSkeleton(p, version) {
+  const v = version || '0.0.0.0';
+  const decl = (kw, extra) => \`\${kw} \${p.objectId} "\${p.name}"\${p.extends ? \` extends "\${p.extends}"\` : ''} //\${v}\${extra || ''}\`;
+  switch (p.objectType) {
+    case 'table':
+      return \`table \${p.objectId} "\${p.name}" //\${v}\\n{\\n    DataClassification = CustomerContent;\\n\\n    fields\\n    {\\n        field(1; "No."; Code[20])\\n        {\\n            DataClassification = CustomerContent;\\n        }\\n    }\\n    keys\\n    {\\n        key(PK; "No.")\\n        {\\n            Clustered = true;\\n        }\\n    }\\n}\\n\`;
+    case 'page':
+      return \`page \${p.objectId} "\${p.name}" //\${v}\\n{\\n    ApplicationArea = All;\\n    Caption = '\${p.name}';\\n    PageType = List;\\n    SourceTable = "\${p.sourceTable}";\\n    UsageCategory = Administration;\\n\\n    layout\\n    {\\n        area(Content)\\n        {\\n            repeater("Group")\\n            {\\n            }\\n        }\\n    }\\n}\\n\`;
+    case 'codeunit':
+      return \`codeunit \${p.objectId} "\${p.name}" //\${v}\\n{\\n}\\n\`;
+    case 'report':
+      return \`report \${p.objectId} "\${p.name}" //\${v}\\n{\\n    UsageCategory = ReportsAndAnalysis;\\n    ApplicationArea = All;\\n\\n    dataset\\n    {\\n    }\\n}\\n\`;
+    case 'query':
+      return \`query \${p.objectId} "\${p.name}" //\${v}\\n{\\n    QueryType = Normal;\\n\\n    elements\\n    {\\n    }\\n}\\n\`;
+    case 'xmlport':
+      return \`xmlport \${p.objectId} "\${p.name}" //\${v}\\n{\\n    Direction = Export;\\n\\n    schema\\n    {\\n    }\\n}\\n\`;
+    case 'enum':
+      return \`enum \${p.objectId} "\${p.name}" //\${v}\\n{\\n    Extensible = true;\\n\\n    value(0; None)\\n    {\\n    }\\n}\\n\`;
+    case 'tableextension':
+      return \`\${decl('tableextension')}\\n{\\n    fields\\n    {\\n    }\\n}\\n\`;
+    case 'pageextension':
+      return \`\${decl('pageextension')}\\n{\\n    layout\\n    {\\n    }\\n}\\n\`;
+    case 'reportextension':
+      return \`\${decl('reportextension')}\\n{\\n}\\n\`;
+    case 'enumextension':
+      return \`\${decl('enumextension')}\\n{\\n}\\n\`;
+    case 'permissionset':
+      return \`permissionset \${p.objectId} "\${p.name}" //\${v}\\n{\\n    Assignable = true;\\n\\n    Permissions = ;\\n}\\n\`;
+    case 'permissionsetextension':
+      return \`\${decl('permissionsetextension')}\\n{\\n    Permissions = ;\\n}\\n\`;
+    case 'interface':
+      return \`interface "\${p.name}" //\${v}\\n{\\n}\\n\`;
+    case 'profile':
+      return \`profile "\${p.name}" //\${v}\\n{\\n    Caption = '\${p.name}';\\n}\\n\`;
+    case 'controladdin':
+      return \`controladdin "\${p.name}" //\${v}\\n{\\n}\\n\`;
+    case 'pagecustomization':
+      return \`pagecustomization "\${p.name}" customizes "\${p.extends}" //\${v}\\n{\\n    layout\\n    {\\n    }\\n    actions\\n    {\\n    }\\n}\\n\`;
+    default:
+      return \`\${p.objectType} \${p.objectId ? p.objectId + ' ' : ''}"\${p.name}" //\${v}\\n{\\n}\\n\`;
+  }
+}
+
+// Creates every still-pending object's .al file in the AL source repo (NOT
+// this repo), using AL_SOURCE_PAT — which needs Contents: Read AND WRITE for
+// this to work, unlike the read-only sync above. Runs before the normal
+// read-sync for that source, so a newly created object shows up as a real
+// discovered object in the SAME run. Non-destructive: only ever creates a
+// file at a brand-new path — if something is already there, the request is
+// marked failed rather than silently overwritten.
+async function createPendingObjects(key, cfg) {
+  const pending = (cfg.pendingObjects || []).filter(p => p.status === 'pending');
+  if (!pending.length) return cfg;
+  for (const p of pending) {
+    try {
+      const typeFolder = AL_TYPE_FOLDER[p.objectType] || cap1(p.objectType);
+      const suffix = AL_TYPE_FILESUFFIX[p.objectType] || cap1(p.objectType);
+      const safeName = p.name.replace(/[\\\\/:*?"<>|]/g, '');
+      const path = [p.folderPath, typeFolder, \`\${safeName}.\${suffix}.al\`].filter(Boolean).join('/');
+      let exists = null;
+      try { exists = await ghApi(cfg.owner, cfg.repo, \`/contents/\${path.split('/').map(encodeURIComponent).join('/')}?ref=\${encodeURIComponent(cfg.branch || 'main')}\`); } catch (e) { /* 404 = good, path is free */ }
+      if (exists) throw new Error(\`\${path} already exists in the repo — not overwriting it.\`);
+      const content = alSkeleton(p, cfg.version);
+      await ghApiPut(cfg.owner, cfg.repo, \`/contents/\${path.split('/').map(encodeURIComponent).join('/')}\`, {
+        message: \`Add \${p.objectType} \${p.objectId || ''} "\${p.name}" (queued by \${p.requestedBy || 'the app'})\`.trim(),
+        content: encodeB64Utf8(content),
+        branch: cfg.branch || 'main',
+      });
+      p.status = 'done'; p.filePath = path; p.error = '';
+      console.log(\`[\${key}] created \${path}\`);
+    } catch (err) {
+      p.status = 'error'; p.error = err.message;
+      console.error(\`::warning::\${key} could not create object "\${p.name}": \${err.message}\`);
+    }
+  }
+  // Keep the queue from growing forever — forget old successes, but always keep errors
+  // visible until someone clears them (the app's "Remove" button on a non-pending row).
+  cfg.pendingObjects = pending.filter(p => p.status !== 'done').concat((cfg.pendingObjects || []).filter(p => !pending.includes(p)));
+  return cfg;
+}
+function cap1(s) { return s ? s[0].toUpperCase() + s.slice(1) : s; }
+
 async function syncOneSource(key, cfg) {
   if (!cfg.owner || !cfg.repo) { console.log(\`[\${key}] not configured yet — skipping.\`); return cfg; }
   const tree = await ghApi(cfg.owner, cfg.repo, \`/git/trees/\${encodeURIComponent(cfg.branch || 'main')}?recursive=1\`);
@@ -2881,6 +3026,7 @@ async function main() {
   let lastRunError = '';
   for (const key of Object.keys(data.sources)) {
     try {
+      data.sources[key] = await createPendingObjects(key, data.sources[key]);
       data.sources[key] = await syncOneSource(key, data.sources[key]);
     } catch (err) {
       lastRunError += \`[\${key}] \${err.message}\\n\`;
@@ -3035,7 +3181,7 @@ function settingsDevToolSync(){
       <li>Connect a repo on the <b>CI/CD</b> tab first (owner, repo, branch, token with Contents + Workflows + Actions: Read &amp; write)</li>
       <li>Fill in each source's owner/repo/branch above and click <b>Save Connection</b> — this creates <span class="mono">${DEVTOOL_DATA_PATH}</span> in the repo for the first time</li>
       <li>Click <b>Push Sync Automation to GitHub</b> below</li>
-      <li>In the AL source repo's <span class="mono">Settings &gt; Developer settings</span>, create a fine-grained PAT scoped to just that repo with <b>Contents: Read-only</b> — then in <span class="mono">${gh.owner&&gh.repo?`${escapeHtml(gh.owner)}/${escapeHtml(gh.repo)}`:'this repo'}'s Settings &gt; Secrets and variables &gt; Actions</span>, add it as a secret named <span class="mono">AL_SOURCE_PAT</span></li>
+      <li>In the AL source repo's <span class="mono">Settings &gt; Developer settings</span>, create a fine-grained PAT scoped to just that repo with <b>Contents: Read and write</b> (write is needed for "Add Object for Monitoring" to create new .al files — Read-only is enough if you never plan to use that) — then in <span class="mono">${gh.owner&&gh.repo?`${escapeHtml(gh.owner)}/${escapeHtml(gh.repo)}`:'this repo'}'s Settings &gt; Secrets and variables &gt; Actions</span>, add it as a secret named <span class="mono">AL_SOURCE_PAT</span></li>
       <li>The workflow runs daily at 16:30 UTC (12:30 AM Philippine Time) — edit the cron line directly in GitHub if a different timezone applies</li>
     </ol>
     <div style="display:flex;gap:10px;flex-wrap:wrap;">
@@ -3064,6 +3210,98 @@ const AL_TYPE_LABEL = {
   profile:'Profile', controladdin:'Control Add-in', interface:'Interface',
 };
 function devObjTypeLabel(t){ return AL_TYPE_LABEL[t] || cap(String(t||'')); }
+// Every AL object kind the "Add Object for Monitoring" form can create. A few
+// kinds (Interface/Profile/ControlAddIn/PageCustomization) take no numeric ID
+// in real AL syntax — hasId:false tells the form to skip that step entirely
+// rather than invent one. needsSourceTable/needsExtends say which extra field
+// the form must collect for that kind.
+const AL_OBJECT_KINDS = [
+  {kw:'table', hasId:true},
+  {kw:'page', hasId:true, needsSourceTable:true},
+  {kw:'report', hasId:true},
+  {kw:'codeunit', hasId:true},
+  {kw:'query', hasId:true},
+  {kw:'xmlport', hasId:true},
+  {kw:'enum', hasId:true},
+  {kw:'tableextension', hasId:true, needsExtends:true},
+  {kw:'pageextension', hasId:true, needsExtends:true},
+  {kw:'reportextension', hasId:true, needsExtends:true},
+  {kw:'enumextension', hasId:true, needsExtends:true},
+  {kw:'permissionset', hasId:true},
+  {kw:'permissionsetextension', hasId:true, needsExtends:true},
+  {kw:'interface', hasId:false},
+  {kw:'profile', hasId:false},
+  {kw:'controladdin', hasId:false},
+  {kw:'pagecustomization', hasId:false, needsExtends:true},
+].map(k=>({...k, label: AL_TYPE_LABEL[k.kw] || cap(k.kw)}));
+function alObjectKind(kw){ return AL_OBJECT_KINDS.find(k=>k.kw===kw); }
+// <ObjectName>.<Suffix>.al, in a /<TypeFolder>/ subfolder — per your house
+// convention. House style for Table/Page/Codeunit is confirmed from your
+// examples; the rest use the plain capitalized AL keyword as a sensible
+// default — tell me if any of those should be different.
+const AL_TYPE_FOLDER = {
+  table:'Tables', page:'Pages', report:'Reports', codeunit:'Codeunits', query:'Queries', xmlport:'XMLports', enum:'Enums',
+  tableextension:'TableExtensions', pageextension:'PageExtensions', reportextension:'ReportExtensions', enumextension:'EnumExtensions',
+  permissionset:'PermissionSets', permissionsetextension:'PermissionSetExtensions',
+  interface:'Interfaces', profile:'Profiles', controladdin:'ControlAddIns', pagecustomization:'PageCustomizations',
+};
+const AL_TYPE_FILESUFFIX = {
+  table:'Table', page:'Page', report:'Report', codeunit:'Codeunit', query:'Query', xmlport:'XMLport', enum:'Enum',
+  tableextension:'TableExtension', pageextension:'PageExtension', reportextension:'ReportExtension', enumextension:'EnumExtension',
+  permissionset:'PermissionSet', permissionsetextension:'PermissionSetExtension',
+  interface:'Interface', profile:'Profile', controladdin:'ControlAddIn', pagecustomization:'PageCustomization',
+};
+// Only Table/Page/Codeunit match your pasted examples exactly; everything
+// else gets a minimal, standard, compiling AL skeleton until you share real
+// examples of those too (same caveat shown in the Add Object form).
+const AL_KINDS_WITH_HOUSE_STYLE = new Set(['table','page','codeunit']);
+// This app's own Object Type registry (Settings > Object Types) uses its own
+// ids ("tab","cod",...) — the same ids ID ranges, Tickets and HOXT
+// Projects/Custom API objects are all keyed by. AL_TYPE_TO_CODE_HINT (above)
+// already maps an AL keyword to that registry's "code" column; resolve the
+// rest of the way to the actual registry entry here.
+function alKindToInternalType(kw){
+  const code = AL_TYPE_TO_CODE_HINT[kw];
+  return code ? DB.settings.objectTypes.find(t=>t.code.toUpperCase()===code) : null;
+}
+// Every Object ID already in use, anywhere in the system, for one internal
+// type — not just whichever page happens to be open. ID ranges are meant to
+// be unique app-wide, so this has to look at: the legacy Projects/Tickets/
+// Store Customization entities, every HOXT Projects / Custom API item, every
+// already-synced GitHub object across all five sources, AND anything already
+// queued to be created but not yet picked up by GitHub Actions.
+function allUsedIdsForInternalType(internalTypeId){
+  const used = new Set(usedIdsForType(internalTypeId));
+  ['projects','apis'].forEach(kind=>{
+    (hoxtData(kind).projects||[]).forEach(p=> (p.objects||[]).forEach(o=>{ if(o.objectType===internalTypeId) used.add(o.objectId); }));
+  });
+  const dt = devToolSyncSettings();
+  Object.keys(SYNC_SOURCES).forEach(key=>{
+    const cfg = dt.sources[key];
+    (cfg.objects||[]).forEach(o=>{ const t = alKindToInternalType(o.objectType); if(t && t.id===internalTypeId) used.add(o.objectId); });
+    (cfg.pendingObjects||[]).forEach(o=>{ const t = alKindToInternalType(o.objectType); if(t && t.id===internalTypeId && o.objectId!=null) used.add(o.objectId); });
+  });
+  return used;
+}
+// Custom API's Table objects use the separate Data range (see
+// hoxtApiDataRange); everything else — including Custom API's own non-Table
+// objects — uses this app's normal per-type range.
+function alKindRange(sourceKind, alKeyword){
+  if(sourceKind==='apis' && alKeyword==='table') return hoxtApiDataRange();
+  const t = alKindToInternalType(alKeyword);
+  return t ? rangeFor(t.id) : null;
+}
+function nextFreeIdForAlKind(sourceKind, alKeyword){
+  const range = alKindRange(sourceKind, alKeyword);
+  if(!range) return null;
+  const t = alKindToInternalType(alKeyword);
+  const used = (sourceKind==='apis' && alKeyword==='table')
+    ? new Set(hoxtObjectsElsewhere('apis', null).filter(o=>o.objectType===(t&&t.id)).map(o=>o.objectId))
+    : (t ? allUsedIdsForInternalType(t.id) : new Set());
+  for(let i=range.from;i<=range.to;i++) if(!used.has(i)) return i;
+  return null; // range exhausted
+}
+
 // AL keyword (from the .al file) -> this app's Object Type code (Settings > Object
 // Types). Matches the default codes; if those were renamed, ticket matching
 // falls back to Object ID alone.
@@ -3104,6 +3342,161 @@ function devNotesCtx(key){
     ...autoCtxFields(key),
   };
 }
+/* ======================================================================
+   ADD OBJECT FOR MONITORING
+   Queues a request to create a brand-new .al file in the linked GitHub
+   repo. The browser never writes to the AL source repo directly — it only
+   adds an entry to this source's pendingObjects (saved via the existing,
+   already-write-capable CI/CD connection, same as everything else in
+   dev-tool-data.json). The actual file gets created by GitHub Actions on
+   the next sync run, using AL_SOURCE_PAT (needs Contents: Read and write
+   for this — Read-only, as used for every other Dev-tool Sync feature,
+   is no longer enough once this is turned on).
+   ====================================================================== */
+function pendingObjectsOf(cfg){ return (cfg.pendingObjects||[]).slice().sort((a,b)=>(b.requestedAt||'').localeCompare(a.requestedAt||'')); }
+function pendingObjectsPanel(sourceKey, cfg){
+  const items = pendingObjectsOf(cfg);
+  if(!items.length) return '';
+  const statusBadge = s => s==='done' ? `<span class="badge active"><span class="badge-dot"></span>Created</span>`
+    : s==='error' ? `<span class="badge danger"><span class="badge-dot"></span>Failed</span>`
+    : `<span class="badge pending"><span class="badge-dot"></span>Pending GitHub Actions</span>`;
+  return `
+  <div class="card" style="margin-bottom:18px;">
+    <div class="section-title"><h3>${icon('upload')} Objects Queued for Creation <span class="hint" style="font-weight:400;">(${items.length})</span></h3></div>
+    <div class="table-wrap" style="max-height:220px;">
+      <table>
+        <thead><tr><th>Type</th><th>ID</th><th>Name</th><th>Target Path</th><th>Status</th><th>Requested</th><th></th></tr></thead>
+        <tbody>${items.map(p=>`
+          <tr>
+            <td>${escapeHtml(devObjTypeLabel(p.objectType))}</td>
+            <td class="mono">${p.objectId==null?'—':p.objectId}</td>
+            <td>${escapeHtml(p.name)}</td>
+            <td class="mono" style="font-size:11.5px;color:var(--text-faint);">${escapeHtml(p.filePath||`${p.folderPath}/${AL_TYPE_FOLDER[p.objectType]}/${p.name}.${AL_TYPE_FILESUFFIX[p.objectType]}.al`)}</td>
+            <td>${statusBadge(p.status)}${p.status==='error'&&p.error?`<div class="hint" style="color:var(--danger);font-size:11px;margin-top:2px;">${escapeHtml(p.error)}</div>`:''}</td>
+            <td style="white-space:nowrap;color:var(--text-faint);font-size:12px;">${timeAgo(p.requestedAt)}</td>
+            <td>${p.status!=='done'&&can('projects','modify')?`<button class="btn btn-icon btn-sm btn-ghost" data-pendingobj-remove="${sourceKey}:${p.id}" title="Remove">${icon('trash')}</button>`:''}</td>
+          </tr>`).join('')}
+        </tbody>
+      </table>
+    </div>
+  </div>`;
+}
+// opts: { lockedFolder, lockedFolderLabel } when called from a HOXT Projects /
+// Custom API item (folder is that item's own subfolder, not a choice); omit
+// both to let the form offer a folder/app choice instead (Cloud/OnPrem/Tool).
+function openAddMonitoredObjectModal(sourceKey, opts){
+  opts = opts || {};
+  const cfg = devToolSyncSettings().sources[sourceKey];
+  if(!cfg.owner || !cfg.repo){ toast('Connect this source to a repository first (Settings → Dev-tool Sync).', 'warning'); return; }
+  const apps = cfg.apps||[];
+  swapModal(addMonitoredObjectModalHtml(sourceKey, cfg, apps, opts));
+  bindAddMonitoredObjectModal(sourceKey, cfg, apps, opts);
+}
+function addMonitoredObjectModalHtml(sourceKey, cfg, apps, opts, draft){
+  draft = draft || { kw:'table', name:'', sourceTable:'', extends:'', folder: opts.lockedFolder || (apps.length===1 ? apps[0].path : ''), remarks:'' };
+  const kind = alObjectKind(draft.kw);
+  const range = alKindRange(sourceKey, draft.kw);
+  const nextId = kind.hasId ? nextFreeIdForAlKind(sourceKey, draft.kw) : null;
+  return `
+  <div class="modal">
+    <div class="modal-head">
+      <h3>${icon('plus')} Add Object for Monitoring</h3>
+      <button class="close-x" id="modalClose">${icon('close')}</button>
+    </div>
+    <div style="padding:20px;">
+      <p style="font-size:11.5px;color:var(--text-faint);margin:0 0 14px;">Creates a new <span class="mono">.al</span> file in the linked repo on the next GitHub Actions sync — not instantly. ${AL_KINDS_WITH_HOUSE_STYLE.has(draft.kw)?'':'<b>This object type uses a generic AL skeleton, not your house template — let me know if you want me to match it to real examples.</b>'}</p>
+      <div class="form-row">
+        <label>Object Type</label>
+        <select id="amoType">
+          ${AL_OBJECT_KINDS.map(k=>`<option value="${k.kw}" ${k.kw===draft.kw?'selected':''}>${escapeHtml(k.label)}</option>`).join('')}
+        </select>
+      </div>
+      <div class="form-row"><label>Object Name</label><input type="text" id="amoName" value="${escapeAttr(draft.name)}" placeholder="e.g. Sales Header Monitor"></div>
+      <div id="amoIdRow" class="form-row" style="${kind.hasId?'':'display:none;'}">
+        <label>Object ID <span class="hint">(auto, next free in range${range?` ${range.from}–${range.to}`:''})</span></label>
+        <input type="text" id="amoId" value="${nextId==null?'':nextId}" disabled>
+        ${(kind.hasId && !range) ? `<div class="hint" style="color:var(--warning);font-size:11.5px;margin-top:4px;">No ID range configured for this type (Settings → ID Ranges) — this object can't be auto-numbered yet.</div>` : ''}
+        ${(kind.hasId && range && nextId==null) ? `<div class="hint" style="color:var(--danger);font-size:11.5px;margin-top:4px;">That range is full — free up an ID or widen the range first.</div>` : ''}
+      </div>
+      <div id="amoSourceTableRow" class="form-row" style="${kind.needsSourceTable?'':'display:none;'}">
+        <label>Source Table</label><input type="text" id="amoSourceTable" value="${escapeAttr(draft.sourceTable)}" placeholder="e.g. Customer">
+      </div>
+      <div id="amoExtendsRow" class="form-row" style="${kind.needsExtends?'':'display:none;'}">
+        <label>Extends <span class="hint">(the base object this customizes)</span></label><input type="text" id="amoExtends" value="${escapeAttr(draft.extends)}" placeholder="e.g. Customer">
+      </div>
+      <div class="form-row">
+        <label>Target Location</label>
+        ${opts.lockedFolder
+          ? `<div class="readonly-field mono">${escapeAttr(opts.lockedFolder)}/${AL_TYPE_FOLDER[draft.kw]} <span class="hint">(${escapeHtml(opts.lockedFolderLabel||'this item')})</span></div>`
+          : apps.length>1
+            ? `<select id="amoFolder">${apps.map(a=>`<option value="${escapeAttr(a.path)}" ${a.path===draft.folder?'selected':''}>${escapeHtml(a.name||a.path)} <span class="mono">(${escapeHtml(a.path)})</span></option>`).join('')}</select>`
+            : `<div class="readonly-field mono">${escapeAttr(draft.folder || cfg.folder || '(repo root)')}/${AL_TYPE_FOLDER[draft.kw]}${apps.length===0?` <span class="hint">(no app.json found there yet — the file will still be created)</span>`:''}</div>`}
+      </div>
+      <div class="form-row"><label>Remarks <span class="hint">(optional — carried over once the object appears)</span></label><textarea id="amoRemarks" rows="2">${escapeHtml(draft.remarks)}</textarea></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn" id="modalCancel">Cancel</button>
+      <button class="btn btn-primary" id="amoSubmitBtn">${icon('upload')} Queue for Creation</button>
+    </div>
+  </div>`;
+}
+function bindAddMonitoredObjectModal(sourceKey, cfg, apps, opts){
+  const back = ()=> opts.onDone ? opts.onDone() : closeModal();
+  document.getElementById('modalClose').onclick = back;
+  document.getElementById('modalCancel').onclick = back;
+  const readDraft = ()=>({
+    kw: document.getElementById('amoType').value,
+    name: document.getElementById('amoName').value,
+    sourceTable: document.getElementById('amoSourceTable') ? document.getElementById('amoSourceTable').value : '',
+    extends: document.getElementById('amoExtends') ? document.getElementById('amoExtends').value : '',
+    folder: document.getElementById('amoFolder') ? document.getElementById('amoFolder').value : (opts.lockedFolder || (apps.length===1?apps[0].path:'')),
+    remarks: document.getElementById('amoRemarks') ? document.getElementById('amoRemarks').value : '',
+  });
+  const typeSel = document.getElementById('amoType');
+  if(typeSel) typeSel.addEventListener('change', ()=>{
+    swapModal(addMonitoredObjectModalHtml(sourceKey, cfg, apps, opts, readDraft()));
+    bindAddMonitoredObjectModal(sourceKey, cfg, apps, opts);
+  });
+  const folderSel = document.getElementById('amoFolder');
+  if(folderSel) folderSel.addEventListener('change', ()=>{ /* no re-render needed — only the hidden target path changes, read fresh on submit */ });
+  document.getElementById('amoSubmitBtn').onclick = async ()=>{
+    const d = readDraft();
+    const kind = alObjectKind(d.kw);
+    const name = d.name.trim();
+    if(!name){ toast('Object Name is required.', 'warning'); return; }
+    if(kind.needsSourceTable && !d.sourceTable.trim()){ toast('Source Table is required for this object type.', 'warning'); return; }
+    if(kind.needsExtends && !d.extends.trim()){ toast('Extends is required for this object type.', 'warning'); return; }
+    const folderPath = opts.lockedFolder || d.folder || cfg.folder || '';
+    let objectId = null;
+    if(kind.hasId){
+      objectId = nextFreeIdForAlKind(sourceKey, d.kw);
+      if(objectId==null){ toast('No free Object ID is available for this type — check Settings → ID Ranges.', 'warning'); return; }
+    }
+    const entry = {
+      id: uid(), objectType: d.kw, objectId, name,
+      sourceTable: d.sourceTable.trim(), extends: d.extends.trim(),
+      folderPath, requestedBy: currentUser().name || currentUser().email || 'Someone',
+      requestedAt: new Date().toISOString(), status:'pending', error:'', filePath:'',
+    };
+    cfg.pendingObjects = cfg.pendingObjects || [];
+    cfg.pendingObjects.push(entry);
+    // Pre-label it now, so Status/Remarks aren't blank the moment the real object shows up next sync.
+    if(kind.hasId && objectId!=null){
+      const meta = devObjMeta(cfg, d.kw, objectId);
+      meta.definition = name.slice(0,30); meta.remarks = d.remarks.trim(); meta.updatedAt = new Date().toISOString();
+    }
+    const btn = document.getElementById('amoSubmitBtn'); btn.disabled = true; btn.textContent = 'Queuing…';
+    try{
+      await saveDevToolSyncToGithub(`Queue ${devObjTypeLabel(d.kw)} "${name}" for creation (${new Date().toISOString()})`);
+      toast('Queued — it will be created on the next GitHub Actions sync.', 'success');
+      back(); render();
+    }catch(err){
+      toast(`Could not save the request: ${err.message}`, 'danger');
+      btn.disabled = false; btn.textContent = 'Queue for Creation';
+    }
+  };
+}
+
 function openDevObjectModal(sourceKey, objectType, objectId){
   const dt = devToolSyncSettings();
   const cfg = dt.sources[sourceKey];
@@ -3276,8 +3669,10 @@ function viewDevSource(key){
     ${multiApps?`<div class="hint" style="font-size:11.5px;color:var(--text-faint);margin-top:2px;">Apps in this repo: ${cfg.apps.map(a=>`${escapeHtml(a.name||'(unnamed)')} <span class="mono">${escapeHtml(a.version||'')}</span>`).join(' · ')}</div>`:''}
     <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">
       <button class="btn" id="dsReleaseNotesBtn">${icon('history')} Release Notes</button>
+      ${can('projects','modify')?`<button class="btn btn-primary" id="dsAddObjectBtn">${icon('plus')} Add Object for Monitoring</button>`:''}
     </div>
   </div>
+  ${pendingObjectsPanel(key, cfg)}
   <div class="card" style="padding:0;">
     <div class="section-title" style="padding:16px 18px 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
       <h3>Objects List <span class="hint" style="font-weight:400;">(${all.length})</span></h3>
@@ -4926,6 +5321,18 @@ function attachContentHandlers(){
   if(dsReleaseNotesBtn) dsReleaseNotesBtn.addEventListener('click', ()=> openReleaseNotesModal(devNotesCtx(state.view)));
   const dsGoToSettings = document.getElementById('dsGoToSettings');
   if(dsGoToSettings) dsGoToSettings.addEventListener('click', ()=>{ state.settingsTab='devtoolsync'; setView('settings'); });
+  const dsAddObjectBtn = document.getElementById('dsAddObjectBtn');
+  if(dsAddObjectBtn) dsAddObjectBtn.addEventListener('click', ()=> openAddMonitoredObjectModal(state.view, {}));
+  document.querySelectorAll('[data-pendingobj-remove]').forEach(el=>{
+    el.addEventListener('click', async ()=>{
+      const [sourceKey, pendingId] = el.dataset.pendingobjRemove.split(':');
+      const cfg = devToolSyncSettings().sources[sourceKey];
+      cfg.pendingObjects = (cfg.pendingObjects||[]).filter(p=>p.id!==pendingId);
+      try{ await saveDevToolSyncToGithub(`Remove queued object (${new Date().toISOString()})`); toast('Removed.', 'success'); }
+      catch(err){ toast(`Could not save: ${err.message}`, 'danger'); }
+      render();
+    });
+  });
 
   document.querySelectorAll('[data-devobj]').forEach(el=>{
     el.addEventListener('click', ()=>{
