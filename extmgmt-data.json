@@ -2,45 +2,9 @@
   "settings": {
     "tenantId": "ac0408c6-8c09-49d7-bc70-59fd6a76f70d",
     "clientId": "20af3c97-fced-4982-846c-9082909f31d9",
-    "environments": [
-      {
-        "id": "0vbo0nuw1cyb",
-        "name": "Debug_Env_D250829",
-        "label": "Debug_Env_D250829",
-        "type": "sandbox",
-        "companyId": "0ab67702-3f46-ee11-b18d-b6f29f9adee5"
-      },
-      {
-        "id": "ilm4xhkwt5pq",
-        "name": "Test",
-        "label": "Test",
-        "companyId": "0ab67702-3f46-ee11-b18d-b6f29f9adee5",
-        "type": "sandbox"
-      },
-      {
-        "id": "pg3m4pl5eg6h",
-        "name": "Test_D260320",
-        "label": "Test_D260320",
-        "companyId": "0ab67702-3f46-ee11-b18d-b6f29f9adee5",
-        "type": "sandbox"
-      },
-      {
-        "id": "653pvbsbpalz",
-        "name": "Membership_Envi_D251123",
-        "label": "Membership_Envi_D251123",
-        "companyId": "0ab67702-3f46-ee11-b18d-b6f29f9adee5",
-        "type": "production"
-      },
-      {
-        "id": "vxx0antwk69m",
-        "name": "Production",
-        "label": "Production",
-        "companyId": "0ab67702-3f46-ee11-b18d-b6f29f9adee5",
-        "type": "production"
-      }
-    ],
-    "retentionDays": 7,
-    "basisEnvId": "vxx0antwk69m",
+    "environments": [],
+    "retentionDays": 35,
+    "basisEnvId": "",
     "customStatuses": [],
     "lastRunAt": "2026-09-10T18:51:56.025Z",
     "lastRunStatus": "error",
