@@ -1,28 +1,23 @@
 {
   "sources": {
-    "devtool": {
-      "owner": "",
-      "repo": "",
+    "projects": {
+      "owner": "HOXT-Dev",
+      "repo": "HOXT-Projects",
       "branch": "main",
       "folder": "",
-      "version": null,
-      "objects": [],
-      "lastSyncedAt": null
-    },
-    "apis": {
-      "owner": "",
-      "repo": "",
-      "branch": "main",
-      "folder": "",
-      "version": null,
-      "objects": [],
-      "lastSyncedAt": null
+      "objectMeta": {},
+      "releaseNotes": [],
+      "pendingObjects": [],
+      "notesOnly": true
     },
     "cloudenh": {
       "owner": "Healthy-Options",
       "repo": "ERP-HOXT-Cloud-Enhancements",
       "branch": "main",
       "folder": "",
+      "objectMeta": {},
+      "releaseNotes": [],
+      "pendingObjects": [],
       "version": "26.9.0.2",
       "objects": [
         {
@@ -173,6 +168,34 @@
       "repo": "",
       "branch": "main",
       "folder": "",
+      "objectMeta": {},
+      "releaseNotes": [],
+      "pendingObjects": [],
+      "version": null,
+      "objects": [],
+      "lastSyncedAt": null
+    },
+    "apis": {
+      "owner": "",
+      "repo": "",
+      "branch": "main",
+      "folder": "",
+      "objectMeta": {},
+      "releaseNotes": [],
+      "pendingObjects": [],
+      "notesOnly": true,
+      "version": null,
+      "objects": [],
+      "lastSyncedAt": null
+    },
+    "devtool": {
+      "owner": "",
+      "repo": "",
+      "branch": "main",
+      "folder": "",
+      "objectMeta": {},
+      "releaseNotes": [],
+      "pendingObjects": [],
       "version": null,
       "objects": [],
       "lastSyncedAt": null
