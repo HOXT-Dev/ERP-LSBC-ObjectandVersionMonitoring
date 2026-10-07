@@ -2339,7 +2339,7 @@ function renderHoxtDraftObjects(kind, itemId, canEdit){
     if(!item) return;
     const sourceKey = kind; // 'projects' / 'apis' are themselves Dev-tool Sync sources (see SYNC_SOURCES)
     const cfg = devToolSyncSettings().sources[sourceKey];
-    const root = (cfg.folder||'').replace(/\/+$/,'');
+    const root = (cfg.projectsFolder || cfg.folder || '').replace(/\/+$/,'');
     const folderName = (item.name||item.code||'').trim();
     const lockedFolder = root ? `${root}/${folderName}` : folderName;
     openAddMonitoredObjectModal(sourceKey, {
@@ -2534,7 +2534,7 @@ const SYNC_SOURCES = { // order = order shown in Settings > Dev-tool Sync
 };
 const DEVTOOL_DATA_PATH = 'dev-tool-data.json';
 function devSourceDefaults(key){
-  return { owner:'', repo:'', branch:'main', folder:'', objectMeta:{}, releaseNotes:[], pendingObjects:[], ...(NOTES_ONLY_SOURCES[key]?{notesOnly:true}:{}) };
+  return { owner:'', repo:'', branch:'main', folder:'', projectsFolder:'', objectMeta:{}, releaseNotes:[], pendingObjects:[], ...(NOTES_ONLY_SOURCES[key]?{notesOnly:true}:{}) };
 }
 function devToolSyncSettings(){
   const dt = DB.settings.devToolSync || (DB.settings.devToolSync = { sources:{}, lastRunAt:null, lastRunStatus:'', lastRunError:'' });
@@ -2607,16 +2607,21 @@ function hoxtFolderName(cfg, appDir){
   return rel.split('/').filter(Boolean).pop() || '';
 }
 function hoxtProjectFolderFromFileDir(cfg, fileDir){
-  const root = (cfg.folder||'').replace(/\/+$/,'');
+  // projectsFolder = the folder whose immediate subfolders are the individual
+  // projects/APIs (e.g. "root"). Kept separate from "folder" (what to scan)
+  // because the shared app.json can sit OUTSIDE it, at the repo root — scanning
+  // only "root" would then never find the app.json at all.
+  const root = (cfg.projectsFolder || cfg.folder || '').replace(/\/+$/,'');
   let rel = fileDir;
   if(root){
     if(fileDir===root || fileDir.startsWith(root+'/')) rel = fileDir.slice(root.length).replace(/^\/+/,'');
     else return ''; // outside the configured folder — scoping should already prevent this, but don't guess
   }
   const segs = rel.split('/').filter(Boolean);
-  // Need at least <project>/<something> — a file sitting directly in root
-  // (like the shared app.json's own folder) isn't any one project's own.
-  return segs.length>=2 ? segs[0] : '';
+  // fileDir is the folder the .al file is in (no filename), so one segment
+  // already means "directly inside a project folder". Zero segments = the file
+  // sits right in the projects folder itself, which isn't any one project's.
+  return segs.length>=1 ? segs[0] : '';
 }
 function applyHoxtProjectSync(kind){
   const cfg = devToolSyncSettings().sources[kind];
@@ -2683,6 +2688,7 @@ async function saveDevToolSyncToGithubImpl(commitMessage){
       // ... then local wins for what's edited on this tab: connection details, plus the hand-entered
       // Status/Definition/Remarks and release notes, so a save here never loses an in-progress edit
       owner: loc.owner, repo: loc.repo, branch: loc.branch||'main', folder: loc.folder||'',
+      projectsFolder: (loc.projectsFolder!=null ? loc.projectsFolder : (remoteSrc && remoteSrc.projectsFolder)) || '',
       objectMeta: loc.objectMeta || (remoteSrc && remoteSrc.objectMeta) || {},
       releaseNotes: loc.releaseNotes || (remoteSrc && remoteSrc.releaseNotes) || [],
       // Same reasoning: a just-queued "create this object" request is only ever
@@ -3176,7 +3182,8 @@ function settingsDevToolSync(){
           <div class="form-row"><label>Owner / Org</label><input type="text" id="dts_${key}_owner" value="${escapeAttr(shown.owner)}" placeholder="e.g. my-company" ${canEdit?'':'disabled'}></div>
           <div class="form-row"><label>Repository</label><input type="text" id="dts_${key}_repo" value="${escapeAttr(shown.repo)}" placeholder="e.g. bc-al-projects" ${canEdit?'':'disabled'}></div>
           <div class="form-row"><label>Branch</label><input type="text" id="dts_${key}_branch" value="${escapeAttr(shown.branch||'main')}" placeholder="main" ${canEdit?'':'disabled'}></div>
-          <div class="form-row"><label>Folder <span class="hint">(optional)</span></label><input type="text" id="dts_${key}_folder" value="${escapeAttr(shown.folder||'')}" placeholder="apps/warehouse" ${canEdit?'':'disabled'}></div>
+          <div class="form-row"><label>Folder <span class="hint">(optional — what to scan; leave blank for the whole repo)</span></label><input type="text" id="dts_${key}_folder" value="${escapeAttr(shown.folder||'')}" placeholder="apps/warehouse" ${canEdit?'':'disabled'}></div>
+          ${notesOnly?`<div class="form-row"><label>Projects Folder <span class="hint">(the folder that contains one subfolder per ${key==='apis'?'API':'project'}, e.g. root)</span></label><input type="text" id="dts_${key}_projectsFolder" value="${escapeAttr(shown.projectsFolder||'')}" placeholder="root" ${canEdit?'':'disabled'}></div>`:''}
         </div>
         <div style="font-size:12px;color:var(--text-faint);">${src.lastSyncedAt?`Last synced ${timeAgo(src.lastSyncedAt)} — ${notesOnly?'':`${(src.objects||[]).length} object(s), `}${(src.autoNotes||[]).length} release(s) in git history${src.version?`, version ${escapeHtml(src.version)}`:''}${src.notesError?` — <span style="color:var(--danger);">release notes: ${escapeHtml(src.notesError)}</span>`:''}`:'Never synced yet.'}</div>
       </div>`;
@@ -5374,6 +5381,8 @@ function attachContentHandlers(){
       dt.sources[key].repo = document.getElementById(`dts_${key}_repo`).value.trim();
       dt.sources[key].branch = document.getElementById(`dts_${key}_branch`).value.trim() || 'main';
       dt.sources[key].folder = document.getElementById(`dts_${key}_folder`).value.trim();
+      const pfEl = document.getElementById(`dts_${key}_projectsFolder`);
+      if(pfEl) dt.sources[key].projectsFolder = pfEl.value.trim();
     });
     const original = saveDevToolSyncConn.textContent;
     saveDevToolSyncConn.disabled = true; saveDevToolSyncConn.textContent = 'Saving…';
