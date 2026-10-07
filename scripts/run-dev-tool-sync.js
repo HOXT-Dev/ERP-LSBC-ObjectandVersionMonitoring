@@ -292,8 +292,9 @@ async function syncOneSource(key, cfg) {
   const byKey = {};
   for (const f of alFiles) {
     const app = appFor(f.path);
+    const fileDir = f.path.includes('/') ? f.path.slice(0, f.path.lastIndexOf('/')) : '';
     for (const o of parseAlObjects(f.text)) {
-      byKey[`${o.type}:${o.id}`] = { objectType: o.type, objectId: o.id, description: o.name, appName: app ? app.name : '', appVersion: app ? app.version : '', appDir: app ? app.dir : '' };
+      byKey[`${o.type}:${o.id}`] = { objectType: o.type, objectId: o.id, description: o.name, appName: app ? app.name : '', appVersion: app ? app.version : '', appDir: app ? app.dir : '', fileDir };
     }
   }
   // Release notes from git history. Never fatal: if it fails, the previous notes stay and the reason is recorded.
