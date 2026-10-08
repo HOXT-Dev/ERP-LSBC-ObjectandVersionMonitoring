@@ -2127,7 +2127,7 @@ function viewHoxtColl(kind){
     </div>
     ${(()=>{ const src = devToolSyncSettings().sources[kind]; const last = autoNotesOf(kind)[0];
       return (src&&src.version ? `<div class="hint" style="font-size:11.5px;color:var(--text-faint);margin-top:2px;">Version in GitHub: ${vchip(src.version)}${last?` · latest release: <b>${escapeHtml(autoNoteHeadline(last))}</b>`:''}</div>` : ''); })()}
-    ${(data.repoUnmatchedFolders||[]).length ? `<div class="hint" style="font-size:11.5px;color:var(--warning);margin-top:6px;">${icon('alert')||''} Found in the repo but no matching ${cc.singular} Name/Code: ${data.repoUnmatchedFolders.map(f=>`<span class="mono">${escapeHtml(f)}</span>`).join(', ')}. Rename the folder or the ${cc.singular.toLowerCase()} so they match, and objects will sync in automatically.</div>` : ''}
+    ${(data.repoUnmatchedFolders||[]).length ? `<div class="hint" style="font-size:11.5px;color:var(--warning);margin-top:6px;">${icon('alert')||''} Found in the repo but no matching ${cc.singular} Name/Code: ${data.repoUnmatchedFolders.map(f=>`<span class="mono">${escapeHtml(f)}</span>`).join(', ')}. Rename the folder or the ${cc.singular.toLowerCase()} so they match, and objects will sync in automatically. ${(data.repoUnmatchedFolders||[]).length===1 ? `<b>If this one folder is just a container for all your ${cc.plural.toLowerCase()} (like <span class="mono">root</span>), set Projects Folder to it under Settings → Dev-tool Sync instead.</b>` : ''}</div>` : ''}
     <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">
       <button class="btn" id="hoxtReleaseNotesBtn">${icon('history')} Release Notes</button>
       ${canEdit?`<button class="btn btn-primary" id="hoxtInfoSaveBtn">Save</button>`:''}
