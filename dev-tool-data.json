@@ -2255,31 +2255,9 @@
       "branch": "main",
       "folder": "",
       "projectsFolder": "",
-      "objectMeta": {
-        "table:99008": {
-          "definition": "TEST",
-          "status": "active",
-          "remarks": "",
-          "updatedAt": "2026-10-08T05:20:24.294Z"
-        }
-      },
+      "objectMeta": {},
       "releaseNotes": [],
-      "pendingObjects": [
-        {
-          "id": "p3kc0rvz8c86",
-          "objectType": "table",
-          "objectId": 99008,
-          "name": "TEST",
-          "sourceTable": "",
-          "extends": "",
-          "folderPath": "",
-          "requestedBy": "Gene Manahan",
-          "requestedAt": "2026-10-08T05:20:24.294Z",
-          "status": "pending",
-          "error": "",
-          "filePath": ""
-        }
-      ],
+      "pendingObjects": [],
       "version": "26.9.0.0",
       "objects": [
         {
@@ -3996,9 +3974,31 @@
       "branch": "main",
       "folder": "",
       "projectsFolder": "",
-      "objectMeta": {},
+      "objectMeta": {
+        "page:99003": {
+          "definition": "TEST",
+          "status": "active",
+          "remarks": "",
+          "updatedAt": "2026-10-08T05:30:58.646Z"
+        }
+      },
       "releaseNotes": [],
-      "pendingObjects": [],
+      "pendingObjects": [
+        {
+          "id": "m5ws9psplxp1",
+          "objectType": "page",
+          "objectId": 99003,
+          "name": "TEST",
+          "sourceTable": "Customer",
+          "extends": "",
+          "folderPath": "",
+          "requestedBy": "Gene Manahan",
+          "requestedAt": "2026-10-08T05:30:58.645Z",
+          "status": "pending",
+          "error": "",
+          "filePath": ""
+        }
+      ],
       "version": "26.9.1.1",
       "objects": [
         {
