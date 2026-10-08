@@ -1760,7 +1760,7 @@
         "3d0ed5bad8f4587cf2a3192d1dc52d18c951ab35": "26.10.0.0"
       },
       "notesError": "",
-      "lastSyncedAt": "2026-10-08T05:59:01.384Z"
+      "lastSyncedAt": "2026-10-08T06:05:17.853Z"
     },
     "cloudenh": {
       "owner": "HOXT-Dev",
@@ -1794,8 +1794,8 @@
           "folderPath": "",
           "requestedBy": "Gene Manahan",
           "requestedAt": "2026-10-08T06:01:46.928Z",
-          "status": "pending",
-          "error": "",
+          "status": "error",
+          "error": "Tables/TEST.Table.al already exists in the repo — not overwriting it.",
           "filePath": ""
         }
       ],
@@ -2108,7 +2108,7 @@
           "fileDir": "root/tableextension"
         }
       ],
-      "lastSyncedAt": "2026-10-08T05:59:10.059Z",
+      "lastSyncedAt": "2026-10-08T06:05:27.112Z",
       "apps": [
         {
           "name": "HOXT - Cloud Enhancements",
@@ -2279,7 +2279,7 @@
           "fileDir": "root/tableextension"
         }
       ],
-      "lastSyncedAt": "2026-10-08T05:59:11.216Z",
+      "lastSyncedAt": "2026-10-08T06:05:28.232Z",
       "apps": [
         {
           "name": "HOXT - OnPrem Enhancements",
@@ -3627,7 +3627,7 @@
           "fileDir": "root/Replication To NAV API"
         }
       ],
-      "lastSyncedAt": "2026-10-08T05:59:41.777Z",
+      "lastSyncedAt": "2026-10-08T06:05:58.967Z",
       "apps": [
         {
           "name": "HOXT - Custom API",
@@ -4050,7 +4050,7 @@
           "fileDir": "root/table"
         }
       ],
-      "lastSyncedAt": "2026-10-08T05:59:46.307Z",
+      "lastSyncedAt": "2026-10-08T06:06:02.427Z",
       "apps": [
         {
           "name": "HOXT - Developer's Tool",
@@ -4111,7 +4111,7 @@
       "notesError": ""
     }
   },
-  "lastRunAt": "2026-10-08T05:59:46.307Z",
+  "lastRunAt": "2026-10-08T06:06:02.427Z",
   "lastRunStatus": "success",
   "lastRunError": ""
 }
