@@ -1113,6 +1113,13 @@
               "details": "",
               "author": "Mike Tinchay",
               "date": "2026-10-08T05:31:43Z"
+            },
+            {
+              "sha": "43278176e13d722b24739f3526aea5622f5de722",
+              "summary": "HETI BU Dimension Required Effective Date",
+              "details": "",
+              "author": "Mike Tinchay",
+              "date": "2026-10-08T00:31:04Z"
             }
           ]
         },
@@ -1760,7 +1767,7 @@
         "3d0ed5bad8f4587cf2a3192d1dc52d18c951ab35": "26.10.0.0"
       },
       "notesError": "",
-      "lastSyncedAt": "2026-10-08T06:10:34.365Z"
+      "lastSyncedAt": "2026-10-08T21:27:03.214Z"
     },
     "cloudenh": {
       "owner": "HOXT-Dev",
@@ -2099,7 +2106,7 @@
           "fileDir": "root/tableextension"
         }
       ],
-      "lastSyncedAt": "2026-10-08T06:10:46.386Z",
+      "lastSyncedAt": "2026-10-08T21:27:13.811Z",
       "apps": [
         {
           "name": "HOXT - Cloud Enhancements",
@@ -2270,7 +2277,7 @@
           "fileDir": "root/tableextension"
         }
       ],
-      "lastSyncedAt": "2026-10-08T06:10:47.557Z",
+      "lastSyncedAt": "2026-10-08T21:27:15.203Z",
       "apps": [
         {
           "name": "HOXT - OnPrem Enhancements",
@@ -3618,7 +3625,7 @@
           "fileDir": "root/Replication To NAV API"
         }
       ],
-      "lastSyncedAt": "2026-10-08T06:11:23.064Z",
+      "lastSyncedAt": "2026-10-08T21:27:51.141Z",
       "apps": [
         {
           "name": "HOXT - Custom API",
@@ -4041,7 +4048,7 @@
           "fileDir": "root/table"
         }
       ],
-      "lastSyncedAt": "2026-10-08T06:11:27.158Z",
+      "lastSyncedAt": "2026-10-08T21:27:55.492Z",
       "apps": [
         {
           "name": "HOXT - Developer's Tool",
@@ -4102,7 +4109,7 @@
       "notesError": ""
     }
   },
-  "lastRunAt": "2026-10-08T06:11:27.158Z",
+  "lastRunAt": "2026-10-08T21:27:55.492Z",
   "lastRunStatus": "success",
   "lastRunError": ""
 }
