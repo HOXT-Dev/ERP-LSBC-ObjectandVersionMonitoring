@@ -1778,12 +1778,27 @@
         "table:99008": {
           "definition": "TEST",
           "status": "active",
-          "remarks": "For testing only",
-          "updatedAt": "2026-10-06T08:09:40.347Z"
+          "remarks": "",
+          "updatedAt": "2026-10-08T06:01:46.928Z"
         }
       },
       "releaseNotes": [],
-      "pendingObjects": [],
+      "pendingObjects": [
+        {
+          "id": "v659w437pju8",
+          "objectType": "table",
+          "objectId": 99008,
+          "name": "TEST",
+          "sourceTable": "",
+          "extends": "",
+          "folderPath": "",
+          "requestedBy": "Gene Manahan",
+          "requestedAt": "2026-10-08T06:01:46.928Z",
+          "status": "pending",
+          "error": "",
+          "filePath": ""
+        }
+      ],
       "version": "26.9.0.5",
       "objects": [
         {
