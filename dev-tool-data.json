@@ -11,9 +11,1733 @@
       "pendingObjects": [],
       "notesOnly": true,
       "version": "26.9.3.5",
-      "apps": [],
-      "objects": [],
-      "autoNotes": [],
+      "apps": [
+        {
+          "name": "HOXT - Projects",
+          "version": "26.9.3.5",
+          "path": ""
+        }
+      ],
+      "objects": [
+        {
+          "objectType": "pageextension",
+          "objectId": 99025,
+          "description": "HOXT-PR3 Item Card",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Canele/pageextension"
+        },
+        {
+          "objectType": "tableextension",
+          "objectId": 99004,
+          "description": "HOXT-PR3 Item",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Canele/tableextension"
+        },
+        {
+          "objectType": "codeunit",
+          "objectId": 99011,
+          "description": "HOXT-PR4-Report Layout Mgt",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/codeunit"
+        },
+        {
+          "objectType": "codeunit",
+          "objectId": 99013,
+          "description": "HOXT-PR4-Report Layout Subs",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/codeunit"
+        },
+        {
+          "objectType": "codeunit",
+          "objectId": 99014,
+          "description": "HOXT-PR4-BU Dim. PrePost Check",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/codeunit"
+        },
+        {
+          "objectType": "codeunit",
+          "objectId": 99015,
+          "description": "HOXT-PR4-Insert BU Dimensions",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/codeunit"
+        },
+        {
+          "objectType": "page",
+          "objectId": 99010,
+          "description": "HOXT-HETI Company Info. Setup",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/page"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99032,
+          "description": "HOXT-PR4-Purchase Order",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99033,
+          "description": "HOXT-PR4-Purchase Order List",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99034,
+          "description": "HOXT-PR4-Ret.Purch.OrderStore",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99035,
+          "description": "HOXT-PR4-Ret.Purch.Order",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99036,
+          "description": "HOXT-PR4-Blank.PurchaseOrders",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99037,
+          "description": "HOXT-PR4-Blank.PurchaseOrder",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99038,
+          "description": "HOXT-PR4-PurchaseQuotes",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99039,
+          "description": "HOXT-PR4-PurchaseQuote",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99040,
+          "description": "HOXT-PR4-Ret.PurchaseQuotes",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99041,
+          "description": "HOXT-PR4-Ret.PurchaseQuote",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99042,
+          "description": "HOXT-PR4-PostedPurch.Receipts",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99043,
+          "description": "HOXT-PR4-PostedPurch.Receipt",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99044,
+          "description": "HOXT-PR4-Purchase Invoices",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99045,
+          "description": "HOXT-PR4-Purchase Invoice",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99046,
+          "description": "HOXT-PR4-Ret.Purchase Invoices",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99047,
+          "description": "HOXT-PR4-Ret.Purchase Invoice",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99048,
+          "description": "HOXT-PR4-PostedPurch.Invoices",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99049,
+          "description": "HOXT-PR4-PostedPurch.Invoice",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99050,
+          "description": "HOXT-PR4-Purch.CreditMemos",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99051,
+          "description": "HOXT-PR4-Purch.CreditMemo",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99052,
+          "description": "HOXT-PR4-Ret.Purch.CreditMemos",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99053,
+          "description": "HOXT-PR4-Ret.Purch.CreditMemo",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99054,
+          "description": "HOXT-PR4-PostedPurch.Cr.Memos",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99055,
+          "description": "HOXT-PR4-PostedPurch.Cr.Memo",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99056,
+          "description": "HOXT-PR4-Ret.P.Purch.Cr.Memos",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99057,
+          "description": "HOXT-PR4-Ret.P.Purch.Cr.Memo",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99058,
+          "description": "HOXT-PR4-SalesOrderList",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99059,
+          "description": "HOXT-PR4-SalesOrder",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99060,
+          "description": "HOXT-PR4-Ret.SalesOrderList",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99061,
+          "description": "HOXT-PR4-Ret.SalesOrder",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99062,
+          "description": "HOXT-PR4-PostedSalesShipments",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99063,
+          "description": "HOXT-PR4-PostedSalesShipment",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99064,
+          "description": "HOXT-PR4-Ret.P.SalesShipments",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99065,
+          "description": "HOXT-PR4-Ret.P.SalesShipment",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99066,
+          "description": "HOXT-PR4-SalesInvoiceList",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99067,
+          "description": "HOXT-PR4-SalesInvoice",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99068,
+          "description": "HOXT-PR4-Ret.SalesInvoices",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99069,
+          "description": "HOXT-PR4-Ret.SalesInvoice",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99070,
+          "description": "HOXT-PR4-PostedSalesInvoices",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99071,
+          "description": "HOXT-PR4-PostedSalesInvoice",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99072,
+          "description": "HOXT-PR4-Ret.P.SalesInvoices",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99073,
+          "description": "HOXT-PR4-Ret.P.SalesInvoice",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99074,
+          "description": "HOXT-PR4-SalesCreditMemos",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99075,
+          "description": "HOXT-PR4-SalesCreditMemo",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99076,
+          "description": "HOXT-PR4-Ret.SalesCreditMemos",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99077,
+          "description": "HOXT-PR4-Ret.SalesCreditMemo",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99078,
+          "description": "HOXT-PR4-Post.SalesCreditMemos",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99079,
+          "description": "HOXT-PR4-Post.SalesCreditMemo",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99080,
+          "description": "HOXT-PR4-Ret.P.SalesCr.M.List",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99081,
+          "description": "HOXT-PR4-Ret.P.SalesCr.Memo",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99082,
+          "description": "HOXT-PR4-StoreP.Purch.Rec.List",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99083,
+          "description": "HOXT-PR4-StoreP.Purch.Receipt",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99084,
+          "description": "HOXT-PR4-VAT Entries",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99085,
+          "description": "HOXT-PR4-WHT_Entries_PHL",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/pageextension"
+        },
+        {
+          "objectType": "report",
+          "objectId": 99009,
+          "description": "HOXT-PR4-PurchaseOrderNonTrade",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/reports"
+        },
+        {
+          "objectType": "report",
+          "objectId": 99010,
+          "description": "HOXT-PR4-Purchase Receipt",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/reports"
+        },
+        {
+          "objectType": "report",
+          "objectId": 99011,
+          "description": "HOXT-PR4-Purchase Invoice",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/reports"
+        },
+        {
+          "objectType": "report",
+          "objectId": 99012,
+          "description": "HOXT-PR4-Return Order",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/reports"
+        },
+        {
+          "objectType": "report",
+          "objectId": 99013,
+          "description": "HOXT-PR4-Purchase Credit Memo",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/reports"
+        },
+        {
+          "objectType": "report",
+          "objectId": 99014,
+          "description": "HOXT-PR4-Sales Order",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/reports"
+        },
+        {
+          "objectType": "report",
+          "objectId": 99015,
+          "description": "HOXT-PR4-Sales Shipment",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/reports"
+        },
+        {
+          "objectType": "report",
+          "objectId": 99016,
+          "description": "HOXT-PR4-Sales Invoice",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/reports"
+        },
+        {
+          "objectType": "report",
+          "objectId": 99017,
+          "description": "HOXT-PR4-Purchase Quote",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/reports"
+        },
+        {
+          "objectType": "report",
+          "objectId": 99018,
+          "description": "HOXT-PR4-Sales Credit Memo",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/reports"
+        },
+        {
+          "objectType": "report",
+          "objectId": 99019,
+          "description": "HOXT-PR4-PurchReturnShipment",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/reports"
+        },
+        {
+          "objectType": "report",
+          "objectId": 99021,
+          "description": "HOXT-PR4-Blanket PO Non-Trade",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/reports"
+        },
+        {
+          "objectType": "table",
+          "objectId": 99032,
+          "description": "HOXT HETI Company Info. Setup",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/table"
+        },
+        {
+          "objectType": "tableextension",
+          "objectId": 99020,
+          "description": "HOXT-PR4-VAT Entry",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/tableextension"
+        },
+        {
+          "objectType": "tableextension",
+          "objectId": 99021,
+          "description": "HOXT-PR4-WHT_Entry_PHL",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/HETI/tableextension"
+        },
+        {
+          "objectType": "codeunit",
+          "objectId": 99003,
+          "description": "StaffShopEvents",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Staffshop/codeunit"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99001,
+          "description": "LSC Retail Sales Order ext",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Staffshop/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99002,
+          "description": "LSC Retail Sales Order List ex",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Staffshop/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99005,
+          "description": "Posted Sales Invoice ext",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Staffshop/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99006,
+          "description": "Posted Sales Invoices ext",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Staffshop/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99007,
+          "description": "Retail Sales Credit Memo",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Staffshop/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99008,
+          "description": "Retail Sales Credit Memos",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Staffshop/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99009,
+          "description": "Posted Sales Credit Memo Ext",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Staffshop/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99010,
+          "description": "Posted Sales Credit Memos ext",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Staffshop/pageextension"
+        },
+        {
+          "objectType": "report",
+          "objectId": 99006,
+          "description": "StaffShop Receipt",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Staffshop/report"
+        },
+        {
+          "objectType": "report",
+          "objectId": 99007,
+          "description": "StaffShopReceiptNEW",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Staffshop/report"
+        },
+        {
+          "objectType": "reportextension",
+          "objectId": 99000,
+          "description": "Sales - Order Conf. ext",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Staffshop/reportextension"
+        },
+        {
+          "objectType": "codeunit",
+          "objectId": 99000,
+          "description": "MemberFunctions",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Yogi/codeunit"
+        },
+        {
+          "objectType": "codeunit",
+          "objectId": 99001,
+          "description": "ERPENH-MembershipPointReport",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Yogi/codeunit"
+        },
+        {
+          "objectType": "codeunit",
+          "objectId": 99004,
+          "description": "HOXT UnprocIncMemPntPrcs",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Yogi/codeunit"
+        },
+        {
+          "objectType": "codeunit",
+          "objectId": 99005,
+          "description": "HOXT CleanupUnprocIncMemPnt",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Yogi/codeunit"
+        },
+        {
+          "objectType": "codeunit",
+          "objectId": 99006,
+          "description": "HOXT-MemCheckStatusProcess",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Yogi/codeunit"
+        },
+        {
+          "objectType": "codeunit",
+          "objectId": 99007,
+          "description": "HOXT-MemAcctCorrectionProcess",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Yogi/codeunit"
+        },
+        {
+          "objectType": "page",
+          "objectId": 99000,
+          "description": "Membership Points Adj. Card",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Yogi/page"
+        },
+        {
+          "objectType": "page",
+          "objectId": 99002,
+          "description": "ERPENH-MembershipPointReport",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Yogi/page"
+        },
+        {
+          "objectType": "page",
+          "objectId": 99004,
+          "description": "HOXT UnprocIncMemPntExcList",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Yogi/page"
+        },
+        {
+          "objectType": "page",
+          "objectId": 99006,
+          "description": "HOXT-MemCheckStatusHeader",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Yogi/page"
+        },
+        {
+          "objectType": "page",
+          "objectId": 99007,
+          "description": "HOXT-MemCheckStatusLines",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Yogi/page"
+        },
+        {
+          "objectType": "page",
+          "objectId": 99008,
+          "description": "HOXT UIMPManualPointReg.",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Yogi/page"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99000,
+          "description": "User Setup Page Ext",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Yogi/pageextension"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99021,
+          "description": "ERPENH-MemAccount 05232026",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Yogi/pageextension"
+        },
+        {
+          "objectType": "permissionset",
+          "objectId": 99001,
+          "description": "HOCustom-Yogi",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Yogi/permissionset"
+        },
+        {
+          "objectType": "report",
+          "objectId": 99001,
+          "description": "Inactive Member Points Report",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Yogi/report"
+        },
+        {
+          "objectType": "report",
+          "objectId": 99002,
+          "description": "ActiveToInactiveMemberPoints",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Yogi/report"
+        },
+        {
+          "objectType": "report",
+          "objectId": 99003,
+          "description": "MonthlyMembershipPoints",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Yogi/report"
+        },
+        {
+          "objectType": "report",
+          "objectId": 99004,
+          "description": "Block NON-V Members",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Yogi/report"
+        },
+        {
+          "objectType": "report",
+          "objectId": 99005,
+          "description": "Block V-Members",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Yogi/report"
+        },
+        {
+          "objectType": "report",
+          "objectId": 99008,
+          "description": "HOXT UIMPDateRangeFilter",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Yogi/report"
+        },
+        {
+          "objectType": "table",
+          "objectId": 99000,
+          "description": "Member Summary Point Entry",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Yogi/table"
+        },
+        {
+          "objectType": "table",
+          "objectId": 99002,
+          "description": "ERPENH-MembershipPointReport",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Yogi/table"
+        },
+        {
+          "objectType": "table",
+          "objectId": 99003,
+          "description": "Mebership Point Report Archive",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Yogi/table"
+        },
+        {
+          "objectType": "table",
+          "objectId": 99004,
+          "description": "HOXT-MemCheckStatusHeader",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Yogi/table"
+        },
+        {
+          "objectType": "table",
+          "objectId": 99005,
+          "description": "HOXT-MemCheckStatusLines",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Yogi/table"
+        },
+        {
+          "objectType": "table",
+          "objectId": 99006,
+          "description": "HOXT Manual Point Reg.",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Yogi/table"
+        },
+        {
+          "objectType": "table",
+          "objectId": 99007,
+          "description": "HOXT UnprocIncMemPntExc",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Yogi/table"
+        },
+        {
+          "objectType": "tableextension",
+          "objectId": 99001,
+          "description": "ERPENH-MemberPointEntryExt",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Yogi/tableextension"
+        },
+        {
+          "objectType": "tableextension",
+          "objectId": 99002,
+          "description": "User Setup ext",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Yogi/tableextension"
+        },
+        {
+          "objectType": "tableextension",
+          "objectId": 99003,
+          "description": "LSC Member Account ext",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Yogi/tableextension"
+        },
+        {
+          "objectType": "tableextension",
+          "objectId": 99005,
+          "description": "HOXT-Yogi3 LSC Transaction Header",
+          "appName": "HOXT - Projects",
+          "appVersion": "26.9.3.5",
+          "appDir": "",
+          "fileDir": "root/Yogi/tableextension"
+        }
+      ],
+      "autoNotes": [
+        {
+          "id": "bc5b6706baa0f6fdf9a9e63d16769991a247a28c",
+          "version": "26.9.3.5",
+          "appName": "HOXT - Projects",
+          "date": "2026-10-07T07:57:19Z",
+          "commits": [
+            {
+              "sha": "bc5b6706baa0f6fdf9a9e63d16769991a247a28c",
+              "summary": "Next time sana may update message (Gian)",
+              "details": "",
+              "author": "mntinchay",
+              "date": "2026-10-07T07:57:19Z"
+            },
+            {
+              "sha": "959607dc8a553607f8d61045eb74ab98b62947bd",
+              "summary": "remove purchase order trade and blanket po trade",
+              "details": "",
+              "author": "Gian Reyes",
+              "date": "2026-10-06T01:34:03Z"
+            }
+          ]
+        },
+        {
+          "id": "9ecd4500cb21aa403cb9c84022ec6fd400a7cb5d",
+          "version": "26.9.3.4",
+          "appName": "HOXT - Projects",
+          "date": "2026-10-05T06:28:36Z",
+          "commits": [
+            {
+              "sha": "9ecd4500cb21aa403cb9c84022ec6fd400a7cb5d",
+              "summary": "fix 99020 Blanket PO bill to to use Company Information",
+              "details": "",
+              "author": "Gian Reyes",
+              "date": "2026-10-05T06:28:36Z"
+            }
+          ]
+        },
+        {
+          "id": "76d105116b60d707dc7b0e531bbb942abdf71a0e",
+          "version": "26.9.3.3",
+          "appName": "HOXT - Projects",
+          "date": "2026-10-05T06:21:07Z",
+          "commits": [
+            {
+              "sha": "76d105116b60d707dc7b0e531bbb942abdf71a0e",
+              "summary": "fix 99008 Purchase Order Trade bill to to use Company Information",
+              "details": "",
+              "author": "Gian Reyes",
+              "date": "2026-10-05T06:21:07Z"
+            },
+            {
+              "sha": "1f5db81e4d358ce6b65b3a5aed2985e397b06389",
+              "summary": "Update Insert BU Dimensions to WHT and VAT",
+              "details": "",
+              "author": "mntinchay",
+              "date": "2026-10-03T07:39:55Z"
+            }
+          ]
+        },
+        {
+          "id": "b6fde5837e755dd588c704475ba6bb8ed4618272",
+          "version": "26.9.3.2",
+          "appName": "HOXT - Projects",
+          "date": "2026-10-03T07:38:59Z",
+          "commits": [
+            {
+              "sha": "b6fde5837e755dd588c704475ba6bb8ed4618272",
+              "summary": "Update Insert BU Dimensions to WHT and VAT",
+              "details": "",
+              "author": "Mike Tinchay",
+              "date": "2026-10-03T07:38:59Z"
+            },
+            {
+              "sha": "d53426b0e9a7bf4b6f27a7307251ef44cfd60fe8",
+              "summary": "VAT Entries Dimension",
+              "details": "",
+              "author": "mntinchay",
+              "date": "2026-10-01T06:05:49Z"
+            },
+            {
+              "sha": "0ba2c8ea775acc274a1f427dc0287227cded840a",
+              "summary": "VAT Entries Dimension",
+              "details": "",
+              "author": "Mike Tinchay",
+              "date": "2026-10-01T05:59:04Z"
+            },
+            {
+              "sha": "47f238adfaf3382293a5a3be2ac31a4b7fefc237",
+              "summary": "rebuilt Sales Invoice (99016) to match report layout of Posted Sales Invoice instead of Retail Sales Invoice - requested by Ms. Danna",
+              "details": "",
+              "author": "mntinchay",
+              "date": "2026-09-29T00:31:58Z"
+            }
+          ]
+        },
+        {
+          "id": "1db26dc4b9747b2d40be955fb02556e82cfbe745",
+          "version": "26.9.3.1",
+          "appName": "HOXT - Projects",
+          "date": "2026-09-28T02:04:44Z",
+          "commits": [
+            {
+              "sha": "1db26dc4b9747b2d40be955fb02556e82cfbe745",
+              "summary": "rebuilt Sales Invoice (99016) to match report layout of Posted Sales Invoice instead of retail sales invoice",
+              "details": "",
+              "author": "Gian Reyes",
+              "date": "2026-09-28T02:04:44Z"
+            },
+            {
+              "sha": "1c12c1802115cb50c59b907bf000b5e53db4880b",
+              "summary": "mntinchay 9/25 - page extensions for each modules to redirect to BU Dimension Checker for posting, printing, make order, send approval, and switcher for the HETI printout and HO Printout",
+              "details": "",
+              "author": "mntinchay",
+              "date": "2026-09-25T07:54:18Z"
+            }
+          ]
+        },
+        {
+          "id": "65514f39a2ba81d5771461f8805959d260a01464",
+          "version": "26.9.3.0",
+          "appName": "HOXT - Projects",
+          "date": "2026-09-25T07:51:17Z",
+          "commits": [
+            {
+              "sha": "65514f39a2ba81d5771461f8805959d260a01464",
+              "summary": "mntinchay 9/25 - page extensions for each modules to redirect to BU Dimension Checker for posting, printing, make order, send approval, and switcher for the HETI printout and HO Printout",
+              "details": "",
+              "author": "Mike Tinchay",
+              "date": "2026-09-25T07:51:17Z"
+            },
+            {
+              "sha": "141593cbe90c83eea609e9f5614ee01ed6429e8d",
+              "summary": "Includes Gen Journals",
+              "details": "",
+              "author": "Mike Tinchay",
+              "date": "2026-09-21T07:10:31Z"
+            },
+            {
+              "sha": "902c387179061a336a2eab669f02709bb64f7823",
+              "summary": "Merge pull request #14 from HOXT-Dev/main",
+              "details": "",
+              "author": "mntinchay",
+              "date": "2026-09-21T07:04:56Z"
+            },
+            {
+              "sha": "b34ebc9c2d7cfd83912756eaebbe2d063c81090b",
+              "summary": "Main to MNT",
+              "details": "",
+              "author": "mntinchay",
+              "date": "2026-09-21T07:03:59Z"
+            },
+            {
+              "sha": "98c29ef5808b9dfeb7f127e166b8bb15774b8cda",
+              "summary": "add report layout for Blanket PO Trade and Non Trade and fix 99008 and 99009 signature block and version comment fixes on 99017-19",
+              "details": "",
+              "author": "mntinchay",
+              "date": "2026-09-21T06:57:14Z"
+            }
+          ]
+        },
+        {
+          "id": "e02bfe0a9a363ca19cfeb9fba64e96020c706a19",
+          "version": "26.9.2.6",
+          "appName": "HOXT - Projects",
+          "date": "2026-09-21T05:57:40Z",
+          "commits": [
+            {
+              "sha": "e02bfe0a9a363ca19cfeb9fba64e96020c706a19",
+              "summary": "add report layout for Blanket PO (Non Trade) and fix 99009 signature block",
+              "details": "",
+              "author": "Gian Reyes",
+              "date": "2026-09-21T05:57:40Z"
+            }
+          ]
+        },
+        {
+          "id": "58d675ca05d31cce6ea33e4b4a1b13bfa33ee77f",
+          "version": "26.9.2.5",
+          "appName": "HOXT - Projects",
+          "date": "2026-09-21T03:11:27Z",
+          "commits": [
+            {
+              "sha": "58d675ca05d31cce6ea33e4b4a1b13bfa33ee77f",
+              "summary": "add report layout for Blanket PO and fix 99008 Purchase Order Trade signature block and version comment fixes on 99017-19",
+              "details": "",
+              "author": "Gian Reyes",
+              "date": "2026-09-21T03:11:27Z"
+            },
+            {
+              "sha": "9919c2be4563f5084b53750445384aabdc50253a",
+              "summary": "add report layout for sales credit memo and Purchase Return Shipment",
+              "details": "",
+              "author": "mntinchay",
+              "date": "2026-09-18T08:59:58Z"
+            },
+            {
+              "sha": "fc0ed772b6ca0373025aba9c32b64dfa0e8f7a5d",
+              "summary": "Delete Healthy Options Corporation_HOXT - Projects_26.9.2.4.app",
+              "details": "",
+              "author": "mntinchay",
+              "date": "2026-09-18T08:54:06Z"
+            },
+            {
+              "sha": "1dfdb8e1401a89d36b917797c49dfcc209009ef0",
+              "summary": "Delete Healthy Options Corporation_HOXT - Projects_26.9.2.3.app",
+              "details": "",
+              "author": "mntinchay",
+              "date": "2026-09-18T08:53:57Z"
+            },
+            {
+              "sha": "9a74a872e5b336056fc434bc36ceccaa664cf3da",
+              "summary": "HETI Codeunit update 1 & Staffshop FBD",
+              "details": "",
+              "author": "mntinchay",
+              "date": "2026-09-18T08:52:49Z"
+            }
+          ]
+        },
+        {
+          "id": "53c26f28af6b0451a86482e376acc63b39117b0d",
+          "version": "26.9.2.4",
+          "appName": "HOXT - Projects",
+          "date": "2026-09-18T08:49:09Z",
+          "commits": [
+            {
+              "sha": "53c26f28af6b0451a86482e376acc63b39117b0d",
+              "summary": "HETI Codeunit update 1 & Staffshop FBD",
+              "details": "",
+              "author": "Mike Tinchay",
+              "date": "2026-09-18T08:49:09Z"
+            },
+            {
+              "sha": "c5173a9aeb18456d9119eb85aa0396a594b4e497",
+              "summary": "add report layout for Purchase Return Shipment",
+              "details": "",
+              "author": "Gian Reyes",
+              "date": "2026-09-18T08:37:33Z"
+            },
+            {
+              "sha": "1fc335c9b5a04156d5c2e07aa0b78d3176acd193",
+              "summary": "add report layout for sales credit memo",
+              "details": "",
+              "author": "Gian Reyes",
+              "date": "2026-09-18T07:28:52Z"
+            },
+            {
+              "sha": "c8235d255640fc46e90d43757d580bb959c67881",
+              "summary": "Glr",
+              "details": "",
+              "author": "mntinchay",
+              "date": "2026-09-18T02:18:25Z"
+            },
+            {
+              "sha": "e579cd3cb4ba3948c28ddb714b6dbe62669949ec",
+              "summary": "Delete root/Staffshop/pageextension/pagext99015.HOXT-PR4-Purchase Order.al",
+              "details": "",
+              "author": "mntinchay",
+              "date": "2026-09-18T02:17:59Z"
+            },
+            {
+              "sha": "b215f9aee85bbfff3c06d250a25433dec6f6eefd",
+              "summary": "Stop tracking AL cache; fix .gitignore encoding",
+              "details": ".gitignore was written as UTF-16LE with a BOM, so git read it as one\ngarbage pattern and the .vscode/.alcache/ rule never applied. Rewritten\nas UTF-8, and the 10 already-tracked cache files removed from the index.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>",
+              "author": "Gian Reyes",
+              "date": "2026-09-18T00:22:07Z"
+            },
+            {
+              "sha": "bf5d96d9675cb693ea0d5dc34b8bccd30663cd86",
+              "summary": "Staffshop Update",
+              "details": "",
+              "author": "mntinchay",
+              "date": "2026-09-17T08:50:44Z"
+            },
+            {
+              "sha": "caa6cd9ff3082598b694951966917f4675bf6b2c",
+              "summary": "Staffshop Update",
+              "details": "",
+              "author": "Mike Tinchay",
+              "date": "2026-09-17T08:33:09Z"
+            }
+          ]
+        },
+        {
+          "id": "1cfd2668973d2792e797027035fdddc4f206f389",
+          "version": "26.9.2.2",
+          "appName": "HOXT - Projects",
+          "date": "2026-09-17T05:39:44Z",
+          "commits": [
+            {
+              "sha": "1cfd2668973d2792e797027035fdddc4f206f389",
+              "summary": "add report layout for Purchase Quote",
+              "details": "",
+              "author": "Gian Reyes",
+              "date": "2026-09-17T05:39:44Z"
+            },
+            {
+              "sha": "f50a7835322ce3644823d23052b8c7dfbbcf7d67",
+              "summary": "Updatesssssss",
+              "details": "",
+              "author": "Mike Tinchay",
+              "date": "2026-09-17T05:14:27Z"
+            },
+            {
+              "sha": "46ccadc8d49db805e9d6c0a913873cc6f0a14783",
+              "summary": "Updatesssssss",
+              "details": "",
+              "author": "mntinchay",
+              "date": "2026-09-17T05:05:25Z"
+            },
+            {
+              "sha": "76dd9fa86d3c4199640d5a3d17635f62a9c9134d",
+              "summary": "Updatesssssss",
+              "details": "",
+              "author": "Mike Tinchay",
+              "date": "2026-09-17T05:04:31Z"
+            },
+            {
+              "sha": "2da6fbfe9f8620c2b528252f209629fbf13b6b53",
+              "summary": "fix naming of report to HOXT-PR4: rep99010, 11, 12, 13, 14, 15, 16",
+              "details": "",
+              "author": "Gian Reyes",
+              "date": "2026-09-17T04:39:10Z"
+            },
+            {
+              "sha": "294b2f9e3b3b651bdcb8ae27373abf8752ede11d",
+              "summary": "Revert \"fix naming of report to HOXT-PR4: rep99010, 11, 12, 13, 14, 15, 16\"",
+              "details": "This reverts commit d7785dbaed51c0270229b8699a49aa6c99d03736.",
+              "author": "Gian Reyes",
+              "date": "2026-09-17T01:06:19Z"
+            },
+            {
+              "sha": "51d13fa8acc4df171470611971d847a51c1f82b0",
+              "summary": "26.9.2.0: Report Management for HETI Stores to switch - mntinchay",
+              "details": "",
+              "author": "mntinchay",
+              "date": "2026-09-17T00:56:28Z"
+            }
+          ]
+        },
+        {
+          "id": "31bce7ac78016b941241df5a0e7e97d6dde57781",
+          "version": "26.9.2.1",
+          "appName": "HOXT - Projects",
+          "date": "2026-09-17T00:52:41Z",
+          "commits": [
+            {
+              "sha": "31bce7ac78016b941241df5a0e7e97d6dde57781",
+              "summary": "Automatic switch HO to HETI Printing",
+              "details": "",
+              "author": "Mike Tinchay",
+              "date": "2026-09-17T00:52:41Z"
+            },
+            {
+              "sha": "d7785dbaed51c0270229b8699a49aa6c99d03736",
+              "summary": "fix naming of report to HOXT-PR4: rep99010, 11, 12, 13, 14, 15, 16",
+              "details": "",
+              "author": "Gian Reyes",
+              "date": "2026-09-17T00:06:34Z"
+            },
+            {
+              "sha": "1dd6fbd49c89d36e439808f7ccd80f135b9c9b22",
+              "summary": "Ignore AL compiler cache",
+              "details": "",
+              "author": "Mike Tinchay",
+              "date": "2026-09-16T09:32:47Z"
+            },
+            {
+              "sha": "8ca430bae3e6fc76b6f0972126359b3db707c24b",
+              "summary": "Ignore AL compiler cache",
+              "details": "",
+              "author": "Mike Tinchay",
+              "date": "2026-09-16T09:31:10Z"
+            },
+            {
+              "sha": "9b07146c69e2047510923f482b0bed64e5ddf783",
+              "summary": "Rename Sales Order and Sales Invoice RDLC layouts, remove unused layouts",
+              "details": "- Rename 'HOXT-PR4-Sales Order Confirmation.rdlc' to 'HOXT-PR4-Sales Order.rdlc'\n  and point rep99014 (HO Sales Order Confirmation) at it\n- Rename 'HOXT-PR4-Sales Draft Invoice.rdlc' to 'HOXT-PR4-Sales Invoice.rdlc'\n  and point rep99016 (HO Sales Draft Invoice) at it\n- Remove the Archived Sales Order, Purchase Return and Sales Order Invoice\n  layouts, which no report uses",
+              "author": "Gian Reyes",
+              "date": "2026-09-15T08:13:13Z"
+            },
+            {
+              "sha": "3b987135d3341784c8e2f15c4754d24173364333",
+              "summary": "brought back salesorder",
+              "details": "",
+              "author": "Gian Reyes",
+              "date": "2026-09-15T07:54:40Z"
+            },
+            {
+              "sha": "b146d8d9bbbbe38f229ff2903900784ea950b956",
+              "summary": "brought back salesorder",
+              "details": "",
+              "author": "Gian Reyes",
+              "date": "2026-09-15T07:54:32Z"
+            },
+            {
+              "sha": "e2c0199774d7b115d22a399cdbf445b4105e35a2",
+              "summary": "ewan",
+              "details": "",
+              "author": "Mike Tinchay",
+              "date": "2026-09-15T07:41:23Z"
+            },
+            {
+              "sha": "7be4e25cb364d88f1082b1c2424a4e44d5750f40",
+              "summary": "delete accidental images",
+              "details": "",
+              "author": "Gian Reyes",
+              "date": "2026-09-15T07:22:17Z"
+            },
+            {
+              "sha": "35360e173dc9894c4a859c61ba81af56f0ad2c99",
+              "summary": "fix rep99014 Sales Order Confirmation skipping every other sales line",
+              "details": "",
+              "author": "Gian Reyes",
+              "date": "2026-09-15T06:32:26Z"
+            }
+          ]
+        },
+        {
+          "id": "235e902c41993d09a896148fb51369945145011f",
+          "version": "26.9.1.10",
+          "appName": "HOXT - Projects",
+          "date": "2026-09-15T06:02:29Z",
+          "commits": [
+            {
+              "sha": "235e902c41993d09a896148fb51369945145011f",
+              "summary": "add Archived Sales Order report layout and changed rep99014 file name from SalesOrder to SalesOrderConfirmation",
+              "details": "",
+              "author": "Gian Reyes",
+              "date": "2026-09-15T06:02:29Z"
+            }
+          ]
+        },
+        {
+          "id": "697346d717fdc9b2ccc43fcd2b826259ec08f8e0",
+          "version": "26.9.1.9",
+          "appName": "HOXT - Projects",
+          "date": "2026-09-14T08:29:33Z",
+          "commits": [
+            {
+              "sha": "697346d717fdc9b2ccc43fcd2b826259ec08f8e0",
+              "summary": "add report layout for Sales Invoice",
+              "details": "",
+              "author": "Gian Reyes",
+              "date": "2026-09-14T08:29:33Z"
+            }
+          ]
+        },
+        {
+          "id": "245f371b551a7d8331bf5d6b090c9396485ec698",
+          "version": "26.9.1.8",
+          "appName": "HOXT - Projects",
+          "date": "2026-09-14T07:40:49Z",
+          "commits": [
+            {
+              "sha": "245f371b551a7d8331bf5d6b090c9396485ec698",
+              "summary": "add report layout for Sales Shipment",
+              "details": "",
+              "author": "Gian Reyes",
+              "date": "2026-09-14T07:40:49Z"
+            },
+            {
+              "sha": "626147586db07ed25a6cb318b666895258c7a2cc",
+              "summary": "switch Sales Order Confirmation to RDLC layout with company logo",
+              "details": "",
+              "author": "Gian Reyes",
+              "date": "2026-09-14T05:46:48Z"
+            }
+          ]
+        },
+        {
+          "id": "c3193d8b1c2b5cb8d437229440934bf058942ed1",
+          "version": "26.9.1.7",
+          "appName": "HOXT - Projects",
+          "date": "2026-09-12T04:09:23Z",
+          "commits": [
+            {
+              "sha": "c3193d8b1c2b5cb8d437229440934bf058942ed1",
+              "summary": "add report layout for Sales Order Confirmation",
+              "details": "- add HETI Sales Order Confirmation report (99014) with RDLC layout\n- use HOXT HETI Company Info. Setup for company name and address\n- match standard format: Incl./Excl. VAT captions, formatted line amounts, totals rows\n- hide Legal Office and VAT Registration No. captions when empty\n- fix header comment on Purchase Credit Memo\n- bump version to 26.9.1.7",
+              "author": "Gian Reyes",
+              "date": "2026-09-12T04:09:23Z"
+            },
+            {
+              "sha": "c8590f4627b5646c9af347c2939b0920571f0288",
+              "summary": "fix Receipt No. caption and missing trade name for Purchase Receipt",
+              "details": "- change 'Shipment No.' caption to 'Receipt No.'\n- fill company address from the Responsibility Center so 'Trade' shows under the page number\n- always show Pay-to Address, even when buy-from and pay-to vendor are the same",
+              "author": "Gian Reyes",
+              "date": "2026-09-12T02:43:47Z"
+            },
+            {
+              "sha": "26440a85d25ebca8823ce7b3a1b9306a44f5441d",
+              "summary": "fix payment terms description and VAT % for Purchase Order (Non-Trade)",
+              "details": "- show Payment Terms description instead of the code\n- hardcode VAT % to 12% for HETI\n- add electronically approved status disclaimer",
+              "author": "Gian Reyes",
+              "date": "2026-09-12T01:17:13Z"
+            }
+          ]
+        },
+        {
+          "id": "e4240d7cff923ef540ef6d8e9dd8ec423abba47a",
+          "version": "26.9.1.6",
+          "appName": "HOXT - Projects",
+          "date": "2026-09-12T00:38:04Z",
+          "commits": [
+            {
+              "sha": "e4240d7cff923ef540ef6d8e9dd8ec423abba47a",
+              "summary": "add report layout for Purchase Credit Memo",
+              "details": "",
+              "author": "Gian Reyes",
+              "date": "2026-09-12T00:38:04Z"
+            },
+            {
+              "sha": "7263bfb2ff35dae7f3e8b890ce098a1748657f32",
+              "summary": "Remove obsolete cache files and add new cache entries for updated AL project components",
+              "details": "",
+              "author": "Gian Reyes",
+              "date": "2026-09-12T00:21:23Z"
+            }
+          ]
+        },
+        {
+          "id": "b13e8afef53fa413539b2407c845533b9ab99de3",
+          "version": "26.9.1.5",
+          "appName": "HOXT - Projects",
+          "date": "2026-09-11T07:55:20Z",
+          "commits": [
+            {
+              "sha": "b13e8afef53fa413539b2407c845533b9ab99de3",
+              "summary": "add report layout for purchase return",
+              "details": "",
+              "author": "Gian Reyes",
+              "date": "2026-09-11T07:55:20Z"
+            },
+            {
+              "sha": "d5df64a6110aec09a4e155d908547bac4fce54a0",
+              "summary": "fix github synt",
+              "details": "",
+              "author": "Mike Tinchay",
+              "date": "2026-09-11T07:44:32Z"
+            },
+            {
+              "sha": "2ad8a12e90706d386d15fc20d9e47d248c5f625f",
+              "summary": "Update rep99008.HOXT-PR4-PurchaseOrderTrade.al",
+              "details": "",
+              "author": "mntinchay",
+              "date": "2026-09-11T07:39:46Z"
+            },
+            {
+              "sha": "4dc33aa737e1f7fd98514a22b378ced75d552b66",
+              "summary": "Multiple fixes",
+              "details": "",
+              "author": "mntinchay",
+              "date": "2026-09-11T07:22:47Z"
+            }
+          ]
+        },
+        {
+          "id": "04b2447cc5449a4c664665f3b519b20380773070",
+          "version": "26.9.1.4",
+          "appName": "HOXT - Projects",
+          "date": "2026-09-11T07:07:07Z",
+          "commits": [
+            {
+              "sha": "04b2447cc5449a4c664665f3b519b20380773070",
+              "summary": "Fix wrong tags",
+              "details": "",
+              "author": "Mike Tinchay",
+              "date": "2026-09-11T07:07:07Z"
+            },
+            {
+              "sha": "cd5383b05506cfde1b04b676a56f7bb3598e8ce9",
+              "summary": "add report layout for Purchase return & status disclaimer for PO Trade",
+              "details": "",
+              "author": "Gian Reyes",
+              "date": "2026-09-11T06:54:52Z"
+            },
+            {
+              "sha": "350d01b3c0e406d64c4cbba26f47f1de3c36a8a9",
+              "summary": "add report layout for Purchase Invoice",
+              "details": "",
+              "author": "Gian Reyes",
+              "date": "2026-09-11T04:52:35Z"
+            },
+            {
+              "sha": "3bfc64da81bbf29c1fee877cf788a84e0395be10",
+              "summary": "Mirror function for FormatAddr.GetCompanyAddr(Responsibility Center, RespCenter, CompanyInfo2, CompanyAddr)",
+              "details": "",
+              "author": "Mike Tinchay",
+              "date": "2026-09-11T03:03:17Z"
+            }
+          ]
+        },
+        {
+          "id": "0e8a9c2c317c9741abe49a2af6e8458d076e141b",
+          "version": "26.9.1.2",
+          "appName": "HOXT - Projects",
+          "date": "2026-09-11T01:40:14Z",
+          "commits": [
+            {
+              "sha": "0e8a9c2c317c9741abe49a2af6e8458d076e141b",
+              "summary": "added report layout for Purchase Receipt",
+              "details": "",
+              "author": "Gian Reyes",
+              "date": "2026-09-11T01:40:14Z"
+            },
+            {
+              "sha": "c0cb1bd8b23663281deb46bd09c2403d3adc56eb",
+              "summary": "added report layout for nontrade PO",
+              "details": "",
+              "author": "mntinchay",
+              "date": "2026-09-10T08:24:50Z"
+            }
+          ]
+        },
+        {
+          "id": "967524ec2defe53a72040dd89aa67939c11e9a99",
+          "version": "26.9.1.1",
+          "appName": "HOXT - Projects",
+          "date": "2026-09-10T08:09:15Z",
+          "commits": [
+            {
+              "sha": "967524ec2defe53a72040dd89aa67939c11e9a99",
+              "summary": "added report layout for nontrade PO",
+              "details": "",
+              "author": "Gian Reyes",
+              "date": "2026-09-10T08:09:15Z"
+            },
+            {
+              "sha": "370096ad663dd3b48cb3874c9d92d12aa1f09f51",
+              "summary": "Project HETI",
+              "details": "",
+              "author": "mntinchay",
+              "date": "2026-09-10T07:03:17Z"
+            }
+          ]
+        }
+      ],
       "versionCache": {
         "5e86e43216f6a7fce0f30f2eea2a77ec3db3d18c": "26.9.0.0",
         "5e7798c4511b711dc8028d02e0223e534964ba3d": "26.9.0.2",
@@ -42,7 +1766,7 @@
         "bc5b6706baa0f6fdf9a9e63d16769991a247a28c": "26.9.3.5"
       },
       "notesError": "",
-      "lastSyncedAt": "2026-10-08T00:13:23.350Z"
+      "lastSyncedAt": "2026-10-08T00:20:36.852Z"
     },
     "cloudenh": {
       "owner": "HOXT-Dev",
@@ -375,7 +2099,7 @@
           "fileDir": "root/tableextension"
         }
       ],
-      "lastSyncedAt": "2026-10-08T00:13:33.265Z",
+      "lastSyncedAt": "2026-10-08T00:20:45.876Z",
       "apps": [
         {
           "name": "HOXT - Cloud Enhancements",
@@ -546,7 +2270,7 @@
           "fileDir": "root/tableextension"
         }
       ],
-      "lastSyncedAt": "2026-10-08T00:13:34.461Z",
+      "lastSyncedAt": "2026-10-08T00:20:47.153Z",
       "apps": [
         {
           "name": "HOXT - OnPrem Enhancements",
@@ -1885,7 +3609,7 @@
           "fileDir": "root/Replication To NAV API"
         }
       ],
-      "lastSyncedAt": "2026-10-08T00:14:09.193Z",
+      "lastSyncedAt": "2026-10-08T00:21:20.585Z",
       "apps": [
         {
           "name": "HOXT - Custom API",
@@ -2278,7 +4002,7 @@
           "fileDir": "root/table"
         }
       ],
-      "lastSyncedAt": "2026-10-08T00:14:12.891Z",
+      "lastSyncedAt": "2026-10-08T00:21:24.114Z",
       "apps": [
         {
           "name": "HOXT - Developer's Tool",
@@ -2339,7 +4063,7 @@
       "notesError": ""
     }
   },
-  "lastRunAt": "2026-10-08T00:14:12.891Z",
+  "lastRunAt": "2026-10-08T00:21:24.114Z",
   "lastRunStatus": "success",
   "lastRunError": ""
 }
