@@ -2255,9 +2255,31 @@
       "branch": "main",
       "folder": "",
       "projectsFolder": "",
-      "objectMeta": {},
+      "objectMeta": {
+        "table:99008": {
+          "definition": "TEST",
+          "status": "active",
+          "remarks": "",
+          "updatedAt": "2026-10-08T05:20:24.294Z"
+        }
+      },
       "releaseNotes": [],
-      "pendingObjects": [],
+      "pendingObjects": [
+        {
+          "id": "p3kc0rvz8c86",
+          "objectType": "table",
+          "objectId": 99008,
+          "name": "TEST",
+          "sourceTable": "",
+          "extends": "",
+          "folderPath": "",
+          "requestedBy": "Gene Manahan",
+          "requestedAt": "2026-10-08T05:20:24.294Z",
+          "status": "pending",
+          "error": "",
+          "filePath": ""
+        }
+      ],
       "version": "26.9.0.0",
       "objects": [
         {
