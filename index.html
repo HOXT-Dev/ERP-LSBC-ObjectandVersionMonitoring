@@ -2127,7 +2127,7 @@ function viewHoxtColl(kind){
     </div>
     ${(()=>{ const src = devToolSyncSettings().sources[kind]; const last = autoNotesOf(kind)[0];
       return (src&&src.version ? `<div class="hint" style="font-size:11.5px;color:var(--text-faint);margin-top:2px;">Version in GitHub: ${vchip(src.version)}${last?` · latest release: <b>${escapeHtml(autoNoteHeadline(last))}</b>`:''}</div>` : ''); })()}
-    ${(data.repoUnmatchedFolders||[]).length ? `<div class="hint" style="font-size:11.5px;color:var(--warning);margin-top:6px;">${icon('alert')||''} Found in the repo but no matching ${cc.singular} Name/Code: ${data.repoUnmatchedFolders.map(f=>`<span class="mono">${escapeHtml(f)}</span>`).join(', ')}. Rename the folder or the ${cc.singular.toLowerCase()} so they match, and objects will sync in automatically. ${(data.repoUnmatchedFolders||[]).length===1 ? `<b>If this one folder is just a container for all your ${cc.plural.toLowerCase()} (like <span class="mono">root</span>), set Projects Folder to it under Settings → Dev-tool Sync instead.</b>` : ''}</div>` : ''}
+    ${(data.repoUnmatchedFolders||[]).length ? `<div class="hint" style="font-size:11.5px;color:var(--warning);margin-top:6px;">${icon('alert')||''} Found in the repo but no matching ${cc.singular} Name/Code: ${data.repoUnmatchedFolders.map(f=>`<span class="mono">${escapeHtml(f)}</span>`).join(', ')}. Rename the folder or the ${cc.singular.toLowerCase()} so they match, and objects will sync in automatically. ${(data.repoUnmatchedFolders||[]).length===1 ? `<b>If this one folder is just a container for all your ${cc.plural.toLowerCase()} (like <span class="mono">root</span>), set Projects Folder to it under Settings → Dev-tool Sync instead.</b>` : ''}${can('projects','modify')?` <button class="btn btn-sm btn-primary" id="hoxtCreateFromRepoBtn" style="margin-left:6px;">${icon('plus')} Create ${data.repoUnmatchedFolders.length} ${data.repoUnmatchedFolders.length===1?cc.singular:cc.plural} from these folders</button>`:''}</div>` : ''}
     <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">
       <button class="btn" id="hoxtReleaseNotesBtn">${icon('history')} Release Notes</button>
       ${canEdit?`<button class="btn btn-primary" id="hoxtInfoSaveBtn">Save</button>`:''}
@@ -5338,6 +5338,19 @@ function attachContentHandlers(){
   }
   const hoxtReleaseNotesBtn = document.getElementById('hoxtReleaseNotesBtn');
   if(hoxtReleaseNotesBtn) hoxtReleaseNotesBtn.addEventListener('click', ()=> openReleaseNotesModal(hoxtNotesCtx(hoxtKind)));
+  const hoxtCreateFromRepoBtn = document.getElementById('hoxtCreateFromRepoBtn');
+  if(hoxtCreateFromRepoBtn) hoxtCreateFromRepoBtn.addEventListener('click', ()=>{
+    const data = hoxtData(hoxtKind);
+    const prefix = hoxtKind==='apis' ? 'API' : 'PR';
+    // Next free code in the same style as the examples (PR4, API1…): prefix + number
+    let n = data.projects.reduce((m,p)=>{ const x = new RegExp('^'+prefix+'(\\d+)$','i').exec((p.code||'').trim()); return x ? Math.max(m, +x[1]) : m; }, 0);
+    const folders = (data.repoUnmatchedFolders||[]).slice();
+    folders.forEach(f=>{ n++; data.projects.push({id:uid(), name:f, code:`${prefix}${n}`, status:'active', objects:[], objectCount:0}); });
+    applyHoxtProjectSync(hoxtKind); // fills each new record's objects + version straight away
+    saveDB();
+    toast(`Created ${folders.length} ${folders.length===1?HOXT_COLL[hoxtKind].singular:HOXT_COLL[hoxtKind].plural} from the repo folders.`, 'success');
+    render();
+  });
   const hoxtAddItemBtn = document.getElementById('hoxtAddItemBtn');
   if(hoxtAddItemBtn) hoxtAddItemBtn.addEventListener('click', ()=> openHoxtItemModal(hoxtKind, null));
   document.querySelectorAll('[data-hoxt-item]').forEach(el=>{
