@@ -10,11 +10,11 @@
       "releaseNotes": [],
       "pendingObjects": [],
       "notesOnly": true,
-      "version": "26.9.3.5",
+      "version": "26.10.0.0",
       "apps": [
         {
           "name": "HOXT - Projects",
-          "version": "26.9.3.5",
+          "version": "26.10.0.0",
           "path": ""
         }
       ],
@@ -24,7 +24,7 @@
           "objectId": 99025,
           "description": "HOXT-PR3 Item Card",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Canele/pageextension"
         },
@@ -33,7 +33,7 @@
           "objectId": 99004,
           "description": "HOXT-PR3 Item",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Canele/tableextension"
         },
@@ -42,7 +42,7 @@
           "objectId": 99011,
           "description": "HOXT-PR4-Report Layout Mgt",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/codeunit"
         },
@@ -51,7 +51,7 @@
           "objectId": 99013,
           "description": "HOXT-PR4-Report Layout Subs",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/codeunit"
         },
@@ -60,7 +60,7 @@
           "objectId": 99014,
           "description": "HOXT-PR4-BU Dim. PrePost Check",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/codeunit"
         },
@@ -69,7 +69,7 @@
           "objectId": 99015,
           "description": "HOXT-PR4-Insert BU Dimensions",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/codeunit"
         },
@@ -78,7 +78,7 @@
           "objectId": 99010,
           "description": "HOXT-HETI Company Info. Setup",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/page"
         },
@@ -87,7 +87,7 @@
           "objectId": 99032,
           "description": "HOXT-PR4-Purchase Order",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -96,7 +96,7 @@
           "objectId": 99033,
           "description": "HOXT-PR4-Purchase Order List",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -105,7 +105,7 @@
           "objectId": 99034,
           "description": "HOXT-PR4-Ret.Purch.OrderStore",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -114,7 +114,7 @@
           "objectId": 99035,
           "description": "HOXT-PR4-Ret.Purch.Order",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -123,7 +123,7 @@
           "objectId": 99036,
           "description": "HOXT-PR4-Blank.PurchaseOrders",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -132,7 +132,7 @@
           "objectId": 99037,
           "description": "HOXT-PR4-Blank.PurchaseOrder",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -141,7 +141,7 @@
           "objectId": 99038,
           "description": "HOXT-PR4-PurchaseQuotes",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -150,7 +150,7 @@
           "objectId": 99039,
           "description": "HOXT-PR4-PurchaseQuote",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -159,7 +159,7 @@
           "objectId": 99040,
           "description": "HOXT-PR4-Ret.PurchaseQuotes",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -168,7 +168,7 @@
           "objectId": 99041,
           "description": "HOXT-PR4-Ret.PurchaseQuote",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -177,7 +177,7 @@
           "objectId": 99042,
           "description": "HOXT-PR4-PostedPurch.Receipts",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -186,7 +186,7 @@
           "objectId": 99043,
           "description": "HOXT-PR4-PostedPurch.Receipt",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -195,7 +195,7 @@
           "objectId": 99044,
           "description": "HOXT-PR4-Purchase Invoices",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -204,7 +204,7 @@
           "objectId": 99045,
           "description": "HOXT-PR4-Purchase Invoice",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -213,7 +213,7 @@
           "objectId": 99046,
           "description": "HOXT-PR4-Ret.Purchase Invoices",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -222,7 +222,7 @@
           "objectId": 99047,
           "description": "HOXT-PR4-Ret.Purchase Invoice",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -231,7 +231,7 @@
           "objectId": 99048,
           "description": "HOXT-PR4-PostedPurch.Invoices",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -240,7 +240,7 @@
           "objectId": 99049,
           "description": "HOXT-PR4-PostedPurch.Invoice",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -249,7 +249,7 @@
           "objectId": 99050,
           "description": "HOXT-PR4-Purch.CreditMemos",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -258,7 +258,7 @@
           "objectId": 99051,
           "description": "HOXT-PR4-Purch.CreditMemo",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -267,7 +267,7 @@
           "objectId": 99052,
           "description": "HOXT-PR4-Ret.Purch.CreditMemos",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -276,7 +276,7 @@
           "objectId": 99053,
           "description": "HOXT-PR4-Ret.Purch.CreditMemo",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -285,7 +285,7 @@
           "objectId": 99054,
           "description": "HOXT-PR4-PostedPurch.Cr.Memos",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -294,7 +294,7 @@
           "objectId": 99055,
           "description": "HOXT-PR4-PostedPurch.Cr.Memo",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -303,7 +303,7 @@
           "objectId": 99056,
           "description": "HOXT-PR4-Ret.P.Purch.Cr.Memos",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -312,7 +312,7 @@
           "objectId": 99057,
           "description": "HOXT-PR4-Ret.P.Purch.Cr.Memo",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -321,7 +321,7 @@
           "objectId": 99058,
           "description": "HOXT-PR4-SalesOrderList",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -330,7 +330,7 @@
           "objectId": 99059,
           "description": "HOXT-PR4-SalesOrder",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -339,7 +339,7 @@
           "objectId": 99060,
           "description": "HOXT-PR4-Ret.SalesOrderList",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -348,7 +348,7 @@
           "objectId": 99061,
           "description": "HOXT-PR4-Ret.SalesOrder",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -357,7 +357,7 @@
           "objectId": 99062,
           "description": "HOXT-PR4-PostedSalesShipments",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -366,7 +366,7 @@
           "objectId": 99063,
           "description": "HOXT-PR4-PostedSalesShipment",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -375,7 +375,7 @@
           "objectId": 99064,
           "description": "HOXT-PR4-Ret.P.SalesShipments",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -384,7 +384,7 @@
           "objectId": 99065,
           "description": "HOXT-PR4-Ret.P.SalesShipment",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -393,7 +393,7 @@
           "objectId": 99066,
           "description": "HOXT-PR4-SalesInvoiceList",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -402,7 +402,7 @@
           "objectId": 99067,
           "description": "HOXT-PR4-SalesInvoice",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -411,7 +411,7 @@
           "objectId": 99068,
           "description": "HOXT-PR4-Ret.SalesInvoices",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -420,7 +420,7 @@
           "objectId": 99069,
           "description": "HOXT-PR4-Ret.SalesInvoice",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -429,7 +429,7 @@
           "objectId": 99070,
           "description": "HOXT-PR4-PostedSalesInvoices",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -438,7 +438,7 @@
           "objectId": 99071,
           "description": "HOXT-PR4-PostedSalesInvoice",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -447,7 +447,7 @@
           "objectId": 99072,
           "description": "HOXT-PR4-Ret.P.SalesInvoices",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -456,7 +456,7 @@
           "objectId": 99073,
           "description": "HOXT-PR4-Ret.P.SalesInvoice",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -465,7 +465,7 @@
           "objectId": 99074,
           "description": "HOXT-PR4-SalesCreditMemos",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -474,7 +474,7 @@
           "objectId": 99075,
           "description": "HOXT-PR4-SalesCreditMemo",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -483,7 +483,7 @@
           "objectId": 99076,
           "description": "HOXT-PR4-Ret.SalesCreditMemos",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -492,7 +492,7 @@
           "objectId": 99077,
           "description": "HOXT-PR4-Ret.SalesCreditMemo",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -501,7 +501,7 @@
           "objectId": 99078,
           "description": "HOXT-PR4-Post.SalesCreditMemos",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -510,7 +510,7 @@
           "objectId": 99079,
           "description": "HOXT-PR4-Post.SalesCreditMemo",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -519,7 +519,7 @@
           "objectId": 99080,
           "description": "HOXT-PR4-Ret.P.SalesCr.M.List",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -528,7 +528,7 @@
           "objectId": 99081,
           "description": "HOXT-PR4-Ret.P.SalesCr.Memo",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -537,7 +537,7 @@
           "objectId": 99082,
           "description": "HOXT-PR4-StoreP.Purch.Rec.List",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -546,7 +546,7 @@
           "objectId": 99083,
           "description": "HOXT-PR4-StoreP.Purch.Receipt",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -555,7 +555,7 @@
           "objectId": 99084,
           "description": "HOXT-PR4-VAT Entries",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -564,7 +564,7 @@
           "objectId": 99085,
           "description": "HOXT-PR4-WHT_Entries_PHL",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/pageextension"
         },
@@ -573,7 +573,7 @@
           "objectId": 99009,
           "description": "HOXT-PR4-PurchaseOrderNonTrade",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/reports"
         },
@@ -582,7 +582,7 @@
           "objectId": 99010,
           "description": "HOXT-PR4-Purchase Receipt",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/reports"
         },
@@ -591,7 +591,7 @@
           "objectId": 99011,
           "description": "HOXT-PR4-Purchase Invoice",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/reports"
         },
@@ -600,7 +600,7 @@
           "objectId": 99012,
           "description": "HOXT-PR4-Return Order",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/reports"
         },
@@ -609,7 +609,7 @@
           "objectId": 99013,
           "description": "HOXT-PR4-Purchase Credit Memo",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/reports"
         },
@@ -618,7 +618,7 @@
           "objectId": 99014,
           "description": "HOXT-PR4-Sales Order",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/reports"
         },
@@ -627,7 +627,7 @@
           "objectId": 99015,
           "description": "HOXT-PR4-Sales Shipment",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/reports"
         },
@@ -636,7 +636,7 @@
           "objectId": 99016,
           "description": "HOXT-PR4-Sales Invoice",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/reports"
         },
@@ -645,7 +645,7 @@
           "objectId": 99017,
           "description": "HOXT-PR4-Purchase Quote",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/reports"
         },
@@ -654,7 +654,7 @@
           "objectId": 99018,
           "description": "HOXT-PR4-Sales Credit Memo",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/reports"
         },
@@ -663,7 +663,7 @@
           "objectId": 99019,
           "description": "HOXT-PR4-PurchReturnShipment",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/reports"
         },
@@ -672,7 +672,7 @@
           "objectId": 99021,
           "description": "HOXT-PR4-Blanket PO Non-Trade",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/reports"
         },
@@ -681,7 +681,7 @@
           "objectId": 99032,
           "description": "HOXT HETI Company Info. Setup",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/table"
         },
@@ -690,7 +690,7 @@
           "objectId": 99020,
           "description": "HOXT-PR4-VAT Entry",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/tableextension"
         },
@@ -699,7 +699,7 @@
           "objectId": 99021,
           "description": "HOXT-PR4-WHT_Entry_PHL",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/HETI/tableextension"
         },
@@ -708,7 +708,7 @@
           "objectId": 99003,
           "description": "StaffShopEvents",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Staffshop/codeunit"
         },
@@ -717,7 +717,7 @@
           "objectId": 99001,
           "description": "LSC Retail Sales Order ext",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Staffshop/pageextension"
         },
@@ -726,7 +726,7 @@
           "objectId": 99002,
           "description": "LSC Retail Sales Order List ex",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Staffshop/pageextension"
         },
@@ -735,7 +735,7 @@
           "objectId": 99005,
           "description": "Posted Sales Invoice ext",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Staffshop/pageextension"
         },
@@ -744,7 +744,7 @@
           "objectId": 99006,
           "description": "Posted Sales Invoices ext",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Staffshop/pageextension"
         },
@@ -753,7 +753,7 @@
           "objectId": 99007,
           "description": "Retail Sales Credit Memo",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Staffshop/pageextension"
         },
@@ -762,7 +762,7 @@
           "objectId": 99008,
           "description": "Retail Sales Credit Memos",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Staffshop/pageextension"
         },
@@ -771,7 +771,7 @@
           "objectId": 99009,
           "description": "Posted Sales Credit Memo Ext",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Staffshop/pageextension"
         },
@@ -780,7 +780,7 @@
           "objectId": 99010,
           "description": "Posted Sales Credit Memos ext",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Staffshop/pageextension"
         },
@@ -789,7 +789,7 @@
           "objectId": 99006,
           "description": "StaffShop Receipt",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Staffshop/report"
         },
@@ -798,7 +798,7 @@
           "objectId": 99007,
           "description": "StaffShopReceiptNEW",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Staffshop/report"
         },
@@ -807,7 +807,7 @@
           "objectId": 99000,
           "description": "Sales - Order Conf. ext",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Staffshop/reportextension"
         },
@@ -816,7 +816,7 @@
           "objectId": 99000,
           "description": "MemberFunctions",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Yogi/codeunit"
         },
@@ -825,7 +825,7 @@
           "objectId": 99001,
           "description": "ERPENH-MembershipPointReport",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Yogi/codeunit"
         },
@@ -834,7 +834,7 @@
           "objectId": 99004,
           "description": "HOXT UnprocIncMemPntPrcs",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Yogi/codeunit"
         },
@@ -843,7 +843,7 @@
           "objectId": 99005,
           "description": "HOXT CleanupUnprocIncMemPnt",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Yogi/codeunit"
         },
@@ -852,7 +852,7 @@
           "objectId": 99006,
           "description": "HOXT-MemCheckStatusProcess",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Yogi/codeunit"
         },
@@ -861,7 +861,7 @@
           "objectId": 99007,
           "description": "HOXT-MemAcctCorrectionProcess",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Yogi/codeunit"
         },
@@ -870,7 +870,7 @@
           "objectId": 99000,
           "description": "Membership Points Adj. Card",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Yogi/page"
         },
@@ -879,7 +879,7 @@
           "objectId": 99002,
           "description": "ERPENH-MembershipPointReport",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Yogi/page"
         },
@@ -888,7 +888,7 @@
           "objectId": 99004,
           "description": "HOXT UnprocIncMemPntExcList",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Yogi/page"
         },
@@ -897,7 +897,7 @@
           "objectId": 99006,
           "description": "HOXT-MemCheckStatusHeader",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Yogi/page"
         },
@@ -906,7 +906,7 @@
           "objectId": 99007,
           "description": "HOXT-MemCheckStatusLines",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Yogi/page"
         },
@@ -915,7 +915,7 @@
           "objectId": 99008,
           "description": "HOXT UIMPManualPointReg.",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Yogi/page"
         },
@@ -924,7 +924,7 @@
           "objectId": 99000,
           "description": "User Setup Page Ext",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Yogi/pageextension"
         },
@@ -933,7 +933,7 @@
           "objectId": 99021,
           "description": "ERPENH-MemAccount 05232026",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Yogi/pageextension"
         },
@@ -942,7 +942,7 @@
           "objectId": 99001,
           "description": "HOCustom-Yogi",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Yogi/permissionset"
         },
@@ -951,7 +951,7 @@
           "objectId": 99001,
           "description": "Inactive Member Points Report",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Yogi/report"
         },
@@ -960,7 +960,7 @@
           "objectId": 99002,
           "description": "ActiveToInactiveMemberPoints",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Yogi/report"
         },
@@ -969,7 +969,7 @@
           "objectId": 99003,
           "description": "MonthlyMembershipPoints",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Yogi/report"
         },
@@ -978,7 +978,7 @@
           "objectId": 99004,
           "description": "Block NON-V Members",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Yogi/report"
         },
@@ -987,7 +987,7 @@
           "objectId": 99005,
           "description": "Block V-Members",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Yogi/report"
         },
@@ -996,7 +996,7 @@
           "objectId": 99008,
           "description": "HOXT UIMPDateRangeFilter",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Yogi/report"
         },
@@ -1005,7 +1005,7 @@
           "objectId": 99000,
           "description": "Member Summary Point Entry",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Yogi/table"
         },
@@ -1014,7 +1014,7 @@
           "objectId": 99002,
           "description": "ERPENH-MembershipPointReport",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Yogi/table"
         },
@@ -1023,7 +1023,7 @@
           "objectId": 99003,
           "description": "Mebership Point Report Archive",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Yogi/table"
         },
@@ -1032,7 +1032,7 @@
           "objectId": 99004,
           "description": "HOXT-MemCheckStatusHeader",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Yogi/table"
         },
@@ -1041,7 +1041,7 @@
           "objectId": 99005,
           "description": "HOXT-MemCheckStatusLines",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Yogi/table"
         },
@@ -1050,7 +1050,7 @@
           "objectId": 99006,
           "description": "HOXT Manual Point Reg.",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Yogi/table"
         },
@@ -1059,7 +1059,7 @@
           "objectId": 99007,
           "description": "HOXT UnprocIncMemPntExc",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Yogi/table"
         },
@@ -1068,7 +1068,7 @@
           "objectId": 99001,
           "description": "ERPENH-MemberPointEntryExt",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Yogi/tableextension"
         },
@@ -1077,7 +1077,7 @@
           "objectId": 99002,
           "description": "User Setup ext",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Yogi/tableextension"
         },
@@ -1086,7 +1086,7 @@
           "objectId": 99003,
           "description": "LSC Member Account ext",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Yogi/tableextension"
         },
@@ -1095,12 +1095,27 @@
           "objectId": 99005,
           "description": "HOXT-Yogi3 LSC Transaction Header",
           "appName": "HOXT - Projects",
-          "appVersion": "26.9.3.5",
+          "appVersion": "26.10.0.0",
           "appDir": "",
           "fileDir": "root/Yogi/tableextension"
         }
       ],
       "autoNotes": [
+        {
+          "id": "3d0ed5bad8f4587cf2a3192d1dc52d18c951ab35",
+          "version": "26.10.0.0",
+          "appName": "HOXT - Projects",
+          "date": "2026-10-08T05:31:43Z",
+          "commits": [
+            {
+              "sha": "3d0ed5bad8f4587cf2a3192d1dc52d18c951ab35",
+              "summary": "HETI BU Dimension Required Effective Date",
+              "details": "",
+              "author": "Mike Tinchay",
+              "date": "2026-10-08T05:31:43Z"
+            }
+          ]
+        },
         {
           "id": "bc5b6706baa0f6fdf9a9e63d16769991a247a28c",
           "version": "26.9.3.5",
@@ -1714,28 +1729,6 @@
               "date": "2026-09-10T08:24:50Z"
             }
           ]
-        },
-        {
-          "id": "967524ec2defe53a72040dd89aa67939c11e9a99",
-          "version": "26.9.1.1",
-          "appName": "HOXT - Projects",
-          "date": "2026-09-10T08:09:15Z",
-          "commits": [
-            {
-              "sha": "967524ec2defe53a72040dd89aa67939c11e9a99",
-              "summary": "added report layout for nontrade PO",
-              "details": "",
-              "author": "Gian Reyes",
-              "date": "2026-09-10T08:09:15Z"
-            },
-            {
-              "sha": "370096ad663dd3b48cb3874c9d92d12aa1f09f51",
-              "summary": "Project HETI",
-              "details": "",
-              "author": "mntinchay",
-              "date": "2026-09-10T07:03:17Z"
-            }
-          ]
         }
       ],
       "versionCache": {
@@ -1763,10 +1756,11 @@
         "76d105116b60d707dc7b0e531bbb942abdf71a0e": "26.9.3.3",
         "9ecd4500cb21aa403cb9c84022ec6fd400a7cb5d": "26.9.3.4",
         "959607dc8a553607f8d61045eb74ab98b62947bd": "26.9.3.5",
-        "bc5b6706baa0f6fdf9a9e63d16769991a247a28c": "26.9.3.5"
+        "bc5b6706baa0f6fdf9a9e63d16769991a247a28c": "26.9.3.5",
+        "3d0ed5bad8f4587cf2a3192d1dc52d18c951ab35": "26.10.0.0"
       },
       "notesError": "",
-      "lastSyncedAt": "2026-10-08T00:32:05.909Z"
+      "lastSyncedAt": "2026-10-08T05:59:01.384Z"
     },
     "cloudenh": {
       "owner": "HOXT-Dev",
@@ -2099,7 +2093,7 @@
           "fileDir": "root/tableextension"
         }
       ],
-      "lastSyncedAt": "2026-10-08T00:32:16.017Z",
+      "lastSyncedAt": "2026-10-08T05:59:10.059Z",
       "apps": [
         {
           "name": "HOXT - Cloud Enhancements",
@@ -2270,7 +2264,7 @@
           "fileDir": "root/tableextension"
         }
       ],
-      "lastSyncedAt": "2026-10-08T00:32:17.247Z",
+      "lastSyncedAt": "2026-10-08T05:59:11.216Z",
       "apps": [
         {
           "name": "HOXT - OnPrem Enhancements",
@@ -3618,7 +3612,7 @@
           "fileDir": "root/Replication To NAV API"
         }
       ],
-      "lastSyncedAt": "2026-10-08T00:32:52.079Z",
+      "lastSyncedAt": "2026-10-08T05:59:41.777Z",
       "apps": [
         {
           "name": "HOXT - Custom API",
@@ -3983,22 +3977,7 @@
         }
       },
       "releaseNotes": [],
-      "pendingObjects": [
-        {
-          "id": "m5ws9psplxp1",
-          "objectType": "page",
-          "objectId": 99003,
-          "name": "TEST",
-          "sourceTable": "Customer",
-          "extends": "",
-          "folderPath": "",
-          "requestedBy": "Gene Manahan",
-          "requestedAt": "2026-10-08T05:30:58.645Z",
-          "status": "pending",
-          "error": "",
-          "filePath": ""
-        }
-      ],
+      "pendingObjects": [],
       "version": "26.9.1.1",
       "objects": [
         {
@@ -4056,7 +4035,7 @@
           "fileDir": "root/table"
         }
       ],
-      "lastSyncedAt": "2026-10-08T00:32:55.604Z",
+      "lastSyncedAt": "2026-10-08T05:59:46.307Z",
       "apps": [
         {
           "name": "HOXT - Developer's Tool",
@@ -4117,7 +4096,7 @@
       "notesError": ""
     }
   },
-  "lastRunAt": "2026-10-08T00:32:55.604Z",
+  "lastRunAt": "2026-10-08T05:59:46.307Z",
   "lastRunStatus": "success",
   "lastRunError": ""
 }
