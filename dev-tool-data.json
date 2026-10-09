@@ -1768,7 +1768,7 @@
         "3d0ed5bad8f4587cf2a3192d1dc52d18c951ab35": "26.10.0.0"
       },
       "notesError": "",
-      "lastSyncedAt": "2026-10-09T00:18:44.775Z"
+      "lastSyncedAt": "2026-10-09T00:28:05.944Z"
     },
     "cloudenh": {
       "owner": "HOXT-Dev",
@@ -2108,7 +2108,7 @@
           "fileDir": "root/tableextension"
         }
       ],
-      "lastSyncedAt": "2026-10-09T00:18:55.071Z",
+      "lastSyncedAt": "2026-10-09T00:28:14.677Z",
       "apps": [
         {
           "name": "HOXT - Cloud Enhancements",
@@ -2280,7 +2280,7 @@
           "fileDir": "root/tableextension"
         }
       ],
-      "lastSyncedAt": "2026-10-09T00:18:56.358Z",
+      "lastSyncedAt": "2026-10-09T00:28:15.756Z",
       "apps": [
         {
           "name": "HOXT - OnPrem Enhancements",
@@ -3629,7 +3629,7 @@
           "fileDir": "root/Replication To NAV API"
         }
       ],
-      "lastSyncedAt": "2026-10-09T00:19:30.891Z",
+      "lastSyncedAt": "2026-10-09T00:28:46.078Z",
       "apps": [
         {
           "name": "HOXT - Custom API",
@@ -3995,22 +3995,7 @@
         }
       },
       "releaseNotes": [],
-      "pendingObjects": [
-        {
-          "id": "dos2d1pe3kd4",
-          "objectType": "page",
-          "objectId": 99003,
-          "name": "Testpage",
-          "sourceTable": "Item",
-          "extends": "",
-          "folderPath": "root",
-          "requestedBy": "Gene Manahan",
-          "requestedAt": "2026-10-09T00:24:25.816Z",
-          "status": "pending",
-          "error": "",
-          "filePath": ""
-        }
-      ],
+      "pendingObjects": [],
       "version": "26.9.1.1",
       "objects": [
         {
@@ -4068,7 +4053,7 @@
           "fileDir": "root/table"
         }
       ],
-      "lastSyncedAt": "2026-10-09T00:19:34.733Z",
+      "lastSyncedAt": "2026-10-09T00:28:50.678Z",
       "apps": [
         {
           "name": "HOXT - Developer's Tool",
@@ -4129,7 +4114,7 @@
       "notesError": ""
     }
   },
-  "lastRunAt": "2026-10-09T00:19:34.733Z",
+  "lastRunAt": "2026-10-09T00:28:50.678Z",
   "lastRunStatus": "success",
   "lastRunError": ""
 }
