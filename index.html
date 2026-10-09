@@ -2534,7 +2534,7 @@ const SYNC_SOURCES = { // order = order shown in Settings > Dev-tool Sync
 };
 const DEVTOOL_DATA_PATH = 'dev-tool-data.json';
 function devSourceDefaults(key){
-  return { owner:'', repo:'', branch:'main', folder:'', projectsFolder:'', objectMeta:{}, releaseNotes:[], pendingObjects:[], ...(NOTES_ONLY_SOURCES[key]?{notesOnly:true}:{}) };
+  return { owner:'', repo:'', branch:'main', folder:'', projectsFolder:'', objectsFolder:'', objectMeta:{}, releaseNotes:[], pendingObjects:[], ...(NOTES_ONLY_SOURCES[key]?{notesOnly:true}:{}) };
 }
 function devToolSyncSettings(){
   const dt = DB.settings.devToolSync || (DB.settings.devToolSync = { sources:{}, lastRunAt:null, lastRunStatus:'', lastRunError:'' });
@@ -2689,6 +2689,7 @@ async function saveDevToolSyncToGithubImpl(commitMessage){
       // Status/Definition/Remarks and release notes, so a save here never loses an in-progress edit
       owner: loc.owner, repo: loc.repo, branch: loc.branch||'main', folder: loc.folder||'',
       projectsFolder: (loc.projectsFolder!=null ? loc.projectsFolder : (remoteSrc && remoteSrc.projectsFolder)) || '',
+      objectsFolder: (loc.objectsFolder!=null ? loc.objectsFolder : (remoteSrc && remoteSrc.objectsFolder)) || '',
       objectMeta: loc.objectMeta || (remoteSrc && remoteSrc.objectMeta) || {},
       releaseNotes: loc.releaseNotes || (remoteSrc && remoteSrc.releaseNotes) || [],
       // Same reasoning: a just-queued "create this object" request is only ever
@@ -3183,6 +3184,7 @@ function settingsDevToolSync(){
           <div class="form-row"><label>Repository</label><input type="text" id="dts_${key}_repo" value="${escapeAttr(shown.repo)}" placeholder="e.g. bc-al-projects" ${canEdit?'':'disabled'}></div>
           <div class="form-row"><label>Branch</label><input type="text" id="dts_${key}_branch" value="${escapeAttr(shown.branch||'main')}" placeholder="main" ${canEdit?'':'disabled'}></div>
           <div class="form-row"><label>Folder <span class="hint">(optional — what to scan; leave blank for the whole repo)</span></label><input type="text" id="dts_${key}_folder" value="${escapeAttr(shown.folder||'')}" placeholder="apps/warehouse" ${canEdit?'':'disabled'}></div>
+          ${!notesOnly?`<div class="form-row"><label>Objects Folder <span class="hint">(where new objects are created — the Tables/, Pages/… folders go inside it, e.g. root)</span></label><input type="text" id="dts_${key}_objectsFolder" value="${escapeAttr(shown.objectsFolder||'')}" placeholder="root" ${canEdit?'':'disabled'}></div>`:''}
           ${notesOnly?`<div class="form-row"><label>Projects Folder <span class="hint">(the folder that contains one subfolder per ${key==='apis'?'API':'project'}, e.g. root)</span></label><input type="text" id="dts_${key}_projectsFolder" value="${escapeAttr(shown.projectsFolder||'')}" placeholder="root" ${canEdit?'':'disabled'}></div>`:''}
         </div>
         <div style="font-size:12px;color:var(--text-faint);">${src.lastSyncedAt?`Last synced ${timeAgo(src.lastSyncedAt)} — ${notesOnly?'':`${(src.objects||[]).length} object(s), `}${(src.autoNotes||[]).length} release(s) in git history${src.version?`, version ${escapeHtml(src.version)}`:''}${src.notesError?` — <span style="color:var(--danger);">release notes: ${escapeHtml(src.notesError)}</span>`:''}`:'Never synced yet.'}</div>
@@ -3262,6 +3264,10 @@ const AL_OBJECT_KINDS = [
   {kw:'pagecustomization', hasId:false, needsExtends:true},
 ].map(k=>({...k, label: AL_TYPE_LABEL[k.kw] || cap(k.kw)}));
 function alObjectKind(kw){ return AL_OBJECT_KINDS.find(k=>k.kw===kw); }
+// Where NEW .al files go: the type folders (Tables/, Pages/…) are created
+// inside this folder. Separate from "Folder" (what gets scanned), which has to
+// stay blank when app.json sits outside the folder the objects live in.
+function devObjectsBase(cfg){ return (cfg.objectsFolder || cfg.folder || '').replace(/\/+$/,''); }
 // <ObjectName>.<Suffix>.al, in a /<TypeFolder>/ subfolder — per your house
 // convention. House style for Table/Page/Codeunit is confirmed from your
 // examples; the rest use the plain capitalized AL keyword as a sensible
@@ -3420,7 +3426,7 @@ function openAddMonitoredObjectModal(sourceKey, opts){
   bindAddMonitoredObjectModal(sourceKey, cfg, apps, opts);
 }
 function addMonitoredObjectModalHtml(sourceKey, cfg, apps, opts, draft){
-  draft = draft || { kw:'table', name:'', sourceTable:'', extends:'', folder: opts.lockedFolder || cfg.folder || '', remarks:'' };
+  draft = draft || { kw:'table', name:'', sourceTable:'', extends:'', folder: opts.lockedFolder || devObjectsBase(cfg), remarks:'' };
   const kind = alObjectKind(draft.kw);
   const range = alKindRange(sourceKey, draft.kw);
   const nextId = kind.hasId ? nextFreeIdForAlKind(sourceKey, draft.kw) : null;
@@ -3457,10 +3463,10 @@ function addMonitoredObjectModalHtml(sourceKey, cfg, apps, opts, draft){
           ? `<div class="readonly-field mono">${escapeAttr(opts.lockedFolder)}/${AL_TYPE_FOLDER[draft.kw]} <span class="hint">(${escapeHtml(opts.lockedFolderLabel||'this item')})</span></div>`
           : apps.length>1
             ? `<select id="amoFolder">
-                <option value="${escapeAttr(cfg.folder||'')}" ${draft.folder===(cfg.folder||'')?'selected':''}>${escapeHtml(cfg.folder||'(repo root)')} <span class="mono">(configured folder)</span></option>
+                <option value="${escapeAttr(devObjectsBase(cfg))}" ${draft.folder===devObjectsBase(cfg)?'selected':''}>${escapeHtml(devObjectsBase(cfg)||'(repo root)')} <span class="mono">(configured folder)</span></option>
                 ${apps.map(a=>`<option value="${escapeAttr(a.path)}" ${a.path===draft.folder?'selected':''}>${escapeHtml(a.name||a.path)} <span class="mono">(${escapeHtml(a.path)})</span></option>`).join('')}
               </select>`
-            : `<div class="readonly-field mono">${escapeAttr(draft.folder || cfg.folder || '(repo root)')}/${AL_TYPE_FOLDER[draft.kw]}${apps.length===0?` <span class="hint">(no app.json found there yet — the file will still be created)</span>`:''}</div>`}
+            : `<div class="readonly-field mono">${escapeAttr(draft.folder || devObjectsBase(cfg) || '(repo root)')}/${AL_TYPE_FOLDER[draft.kw]}${apps.length===0?` <span class="hint">(no app.json found there yet — the file will still be created)</span>`:''}</div>`}
       </div>
       <div class="form-row"><label>Remarks <span class="hint">(optional — carried over once the object appears)</span></label><textarea id="amoRemarks" rows="2">${escapeHtml(draft.remarks)}</textarea></div>
     </div>
@@ -3479,7 +3485,7 @@ function bindAddMonitoredObjectModal(sourceKey, cfg, apps, opts){
     name: document.getElementById('amoName').value,
     sourceTable: document.getElementById('amoSourceTable') ? document.getElementById('amoSourceTable').value : '',
     extends: document.getElementById('amoExtends') ? document.getElementById('amoExtends').value : '',
-    folder: document.getElementById('amoFolder') ? document.getElementById('amoFolder').value : (opts.lockedFolder || cfg.folder || ''),
+    folder: document.getElementById('amoFolder') ? document.getElementById('amoFolder').value : (opts.lockedFolder || devObjectsBase(cfg)),
     remarks: document.getElementById('amoRemarks') ? document.getElementById('amoRemarks').value : '',
   });
   const typeSel = document.getElementById('amoType');
@@ -3496,7 +3502,7 @@ function bindAddMonitoredObjectModal(sourceKey, cfg, apps, opts){
     if(!name){ toast('Object Name is required.', 'warning'); return; }
     if(kind.needsSourceTable && !d.sourceTable.trim()){ toast('Source Table is required for this object type.', 'warning'); return; }
     if(kind.needsExtends && !d.extends.trim()){ toast('Extends is required for this object type.', 'warning'); return; }
-    const folderPath = opts.lockedFolder || d.folder || cfg.folder || '';
+    const folderPath = opts.lockedFolder || d.folder || devObjectsBase(cfg);
     let objectId = null;
     if(kind.hasId){
       objectId = nextFreeIdForAlKind(sourceKey, d.kw);
@@ -5396,6 +5402,8 @@ function attachContentHandlers(){
       dt.sources[key].folder = document.getElementById(`dts_${key}_folder`).value.trim();
       const pfEl = document.getElementById(`dts_${key}_projectsFolder`);
       if(pfEl) dt.sources[key].projectsFolder = pfEl.value.trim();
+      const ofEl = document.getElementById(`dts_${key}_objectsFolder`);
+      if(ofEl) dt.sources[key].objectsFolder = ofEl.value.trim();
     });
     const original = saveDevToolSyncConn.textContent;
     saveDevToolSyncConn.disabled = true; saveDevToolSyncConn.textContent = 'Saving…';
