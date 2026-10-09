@@ -2769,10 +2769,12 @@ async function ghApi(owner, repo, apiPath) {
 }
 function decodeB64Utf8(b64) { return Buffer.from(b64.replace(/\\n/g, ''), 'base64').toString('utf8'); }
 
-const AL_OBJECT_RE = /^\\s*(table|tableextension|page|pageextension|pagecustomization|report|reportextension|codeunit|query|xmlport|enum|enumextension|permissionset|permissionsetextension|profile|controladdin|interface)\\s+(\\d+)\\s+"?([^"\\r\\n{]+?)"?\\s*(\\{|extends)/gim;
+// Declaration line = keyword, numeric id, then a quoted name or one bare identifier. Anything after that on the
+// line (a //version comment, "extends X", ...) and where the opening { sits are deliberately ignored.
+const AL_OBJECT_RE = /^[ \\t]*(table|tableextension|page|pageextension|pagecustomization|report|reportextension|codeunit|query|xmlport|enum|enumextension|permissionset|permissionsetextension|profile|controladdin|interface)[ \\t]+(\\d+)[ \\t]+(?:"([^"\\r\\n]+)"|([^\\s"{]+))/gim;
 function parseAlObjects(text) {
   const out = []; let m; AL_OBJECT_RE.lastIndex = 0;
-  while ((m = AL_OBJECT_RE.exec(text))) out.push({ type: m[1].toLowerCase(), id: Number(m[2]), name: m[3].trim() });
+  while ((m = AL_OBJECT_RE.exec(text))) out.push({ type: m[1].toLowerCase(), id: Number(m[2]), name: (m[3] || m[4]).trim() });
   return out;
 }
 
