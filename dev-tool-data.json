@@ -3988,14 +3988,29 @@
       "objectsFolder": "root",
       "objectMeta": {
         "page:99003": {
-          "definition": "TEST",
+          "definition": "Testpage",
           "status": "active",
           "remarks": "",
-          "updatedAt": "2026-10-08T05:30:58.646Z"
+          "updatedAt": "2026-10-09T00:24:25.816Z"
         }
       },
       "releaseNotes": [],
-      "pendingObjects": [],
+      "pendingObjects": [
+        {
+          "id": "dos2d1pe3kd4",
+          "objectType": "page",
+          "objectId": 99003,
+          "name": "Testpage",
+          "sourceTable": "Item",
+          "extends": "",
+          "folderPath": "root",
+          "requestedBy": "Gene Manahan",
+          "requestedAt": "2026-10-09T00:24:25.816Z",
+          "status": "pending",
+          "error": "",
+          "filePath": ""
+        }
+      ],
       "version": "26.9.1.1",
       "objects": [
         {
