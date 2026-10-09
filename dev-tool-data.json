@@ -6,6 +6,7 @@
       "branch": "main",
       "folder": "",
       "projectsFolder": "root",
+      "objectsFolder": "",
       "objectMeta": {},
       "releaseNotes": [],
       "pendingObjects": [],
@@ -1775,6 +1776,7 @@
       "branch": "main",
       "folder": "",
       "projectsFolder": "",
+      "objectsFolder": "root",
       "objectMeta": {
         "pageextension:81000": {
           "definition": "HOXT General Ledger Entries",
@@ -2262,6 +2264,7 @@
       "branch": "main",
       "folder": "",
       "projectsFolder": "",
+      "objectsFolder": "root",
       "objectMeta": {},
       "releaseNotes": [],
       "pendingObjects": [],
@@ -2313,6 +2316,7 @@
       "branch": "main",
       "folder": "",
       "projectsFolder": "root",
+      "objectsFolder": "",
       "objectMeta": {},
       "releaseNotes": [],
       "pendingObjects": [],
@@ -3981,6 +3985,7 @@
       "branch": "main",
       "folder": "",
       "projectsFolder": "",
+      "objectsFolder": "root",
       "objectMeta": {
         "page:99003": {
           "definition": "TEST",
