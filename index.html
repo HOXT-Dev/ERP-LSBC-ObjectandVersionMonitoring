@@ -2134,6 +2134,7 @@ function viewHoxtColl(kind){
     </div>
   </div>
   ${pendingObjectsPanel(kind, devToolSyncSettings().sources[kind])}
+  ${scanDiagnosticsHtml(devToolSyncSettings().sources[kind])}
   <div class="card" style="padding:0;">
     <div class="section-title" style="padding:16px 18px 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
       <h3>${cc.plural} <span class="hint" style="font-weight:400;">(${items.length})</span></h3>
@@ -2162,8 +2163,7 @@ function openHoxtItemDetail(kind, id){
   const remark = hoxtLatestRemark(data, p, autoNotesOf(kind));
   const objs = (p.objects||[]).slice().sort((a,b)=> String(a.objectType).localeCompare(String(b.objectType)) || (a.objectId-b.objectId));
   const objRows = objs.map(o=>{
-    const t = typeById(o.objectType);
-    return `<tr><td class="mono">${t?escapeHtml(t.code):'—'}</td><td class="mono">${o.objectId}</td><td>${escapeHtml(o.description||'')}</td></tr>`;
+    return `<tr><td class="mono">${escapeHtml(objTypeText(o.objectType))}</td><td class="mono">${o.objectId}</td><td>${escapeHtml(o.description||'')}</td></tr>`;
   }).join('');
   const legacyNote = (!objs.length && p.objectCount) ? `<tr class="empty-row"><td colspan="3">${p.objectCount} object(s) counted, but no object list saved yet — click Update to add them.</td></tr>` : '';
   swapModal(`
@@ -2284,7 +2284,7 @@ function renderHoxtDraftObjects(kind, itemId, canEdit){
   const rows = hoxtDraftObjects.map(o=>{
     const inData = hoxtIsDataType(kind, o.objectType);
     return `<tr data-do="${o.id}">
-      <td style="width:190px;"><select class="ho-type" ${canEdit?'':'disabled'}>${types.map(t=>`<option value="${t.id}" ${t.id===o.objectType?'selected':''}>${escapeHtml(t.name)} (${escapeHtml(t.code)})</option>`).join('')}</select></td>
+      <td style="width:190px;"><select class="ho-type" ${canEdit?'':'disabled'}>${typeById(o.objectType)?'':`<option value="${escapeAttr(o.objectType||'')}" selected>${escapeHtml(objTypeText(o.objectType))} (not in Object Types)</option>`}${types.map(t=>`<option value="${t.id}" ${t.id===o.objectType?'selected':''}>${escapeHtml(t.name)} (${escapeHtml(t.code)})</option>`).join('')}</select></td>
       <td style="width:120px;"><input type="number" class="ho-id mini-input" value="${o.objectId==null?'':o.objectId}" ${canEdit?'':'disabled'}>${inData?`<div class="hint" style="font-size:10.5px;">Data range</div>`:''}</td>
       <td><input type="text" class="ho-desc" value="${escapeAttr(o.description||'')}" placeholder="Description" ${canEdit?'':'disabled'} style="width:100%;"></td>
       <td style="width:40px;text-align:right;">${canEdit?`<button class="btn btn-icon btn-sm btn-ghost ho-del" title="Remove">${icon('trash')}</button>`:''}</td>
@@ -2639,6 +2639,16 @@ function applyHoxtProjectSync(kind){
     const item = data.projects.find(p=> (p.name||'').trim().toLowerCase()===folder.toLowerCase() || (p.code||'').trim().toLowerCase()===folder.toLowerCase());
     if(!item){ unmatched.push(folder); return; }
     item.objects = item.objects || [];
+    // Objects saved before the keyword->registry translation existed carry a raw AL
+    // keyword ("table") as their type, which shows as no type at all. Fix those in
+    // place, and merge any duplicates that produced.
+    const seenHeal = new Set();
+    item.objects = item.objects.filter(x=>{
+      if(!typeById(x.objectType)){ const t = alKindToInternalType(x.objectType); if(t){ x.objectType = t.id; changed = true; } }
+      const k = x.objectType+'#'+x.objectId;
+      if(seenHeal.has(k)){ changed = true; return false; }
+      seenHeal.add(k); return true;
+    });
     byFolder[folder].forEach(o=>{
       // hoxtData's objects[] is keyed by this app's own Object Type registry id
       // (DB.settings.objectTypes, e.g. "tab") everywhere else — manual entries,
@@ -2771,7 +2781,7 @@ function decodeB64Utf8(b64) { return Buffer.from(b64.replace(/\\n/g, ''), 'base6
 
 // Declaration line = keyword, numeric id, then a quoted name or one bare identifier. Anything after that on the
 // line (a //version comment, "extends X", ...) and where the opening { sits are deliberately ignored.
-const AL_OBJECT_RE = /^[ \\t]*(table|tableextension|page|pageextension|pagecustomization|report|reportextension|codeunit|query|xmlport|enum|enumextension|permissionset|permissionsetextension|profile|controladdin|interface)[ \\t]+(\\d+)[ \\t]+(?:"([^"\\r\\n]+)"|([^\\s"{]+))/gim;
+const AL_OBJECT_RE = /^[ \\t]*(table|tableextension|page|pageextension|pagecustomization|report|reportextension|codeunit|query|xmlport|enum|enumextension|permissionset|permissionsetextension|entitlement|profile|controladdin|interface)[ \\t]+(\\d+)[ \\t]+(?:"([^"\\r\\n]+)"|([^\\s"{]+))/gim;
 function parseAlObjects(text) {
   const out = []; let m; AL_OBJECT_RE.lastIndex = 0;
   while ((m = AL_OBJECT_RE.exec(text))) out.push({ type: m[1].toLowerCase(), id: Number(m[2]), name: (m[3] || m[4]).trim() });
@@ -3015,13 +3025,28 @@ async function syncOneSource(key, cfg) {
     return best;
   };
   const byKey = {};
+  const unparsed = []; // .al files that yielded no recognisable object declaration
+  const dupes = [];    // a type+ID declared by more than one file (only one can be listed)
+  let filesWithObjects = 0;
   for (const f of alFiles) {
     const app = appFor(f.path);
     const fileDir = f.path.includes('/') ? f.path.slice(0, f.path.lastIndexOf('/')) : '';
-    for (const o of parseAlObjects(f.text)) {
-      byKey[\`\${o.type}:\${o.id}\`] = { objectType: o.type, objectId: o.id, description: o.name, appName: app ? app.name : '', appVersion: app ? app.version : '', appDir: app ? app.dir : '', fileDir };
+    const found = parseAlObjects(f.text);
+    if (!found.length) {
+      const firstLines = f.text.split(/\\r?\\n/).map(l => l.trim()).filter(Boolean).slice(0, 2).join(' | ').slice(0, 160);
+      unparsed.push({ path: f.path, firstLines });
+    } else filesWithObjects++;
+    for (const o of found) {
+      const k = \`\${o.type}:\${o.id}\`;
+      if (byKey[k]) dupes.push({ key: k, kept: byKey[k].filePath, other: f.path });
+      byKey[k] = { objectType: o.type, objectId: o.id, description: o.name, appName: app ? app.name : '', appVersion: app ? app.version : '', appDir: app ? app.dir : '', fileDir, filePath: f.path };
     }
   }
+  const truncated = !!tree.truncated;
+  console.log(\`[\${key}] scanned \${alFiles.length} .al file(s): \${filesWithObjects} with objects, \${unparsed.length} without\${dupes.length ? \`, \${dupes.length} duplicate type+ID\` : ''}\`);
+  unparsed.slice(0, 15).forEach(u => console.log(\`[\${key}]   no object found in \${u.path}  →  \${u.firstLines}\`));
+  dupes.slice(0, 10).forEach(d => console.log(\`[\${key}]   duplicate \${d.key}: \${d.kept} and \${d.other}\`));
+  if (truncated) console.log(\`::warning::\${key}: GitHub truncated the repo file list (too large) — some files were never scanned.\`);
   // Release notes from git history. Never fatal: if it fails, the previous notes stay and the reason is recorded.
   var autoNotes = cfg.autoNotes || [], versionCache = cfg.versionCache || {}, notesError = '';
   try {
@@ -3043,6 +3068,7 @@ async function syncOneSource(key, cfg) {
     apps: apps.map(a => ({ name: a.name, version: a.version, path: a.dir })),
     objects: Object.values(byKey),
     autoNotes: autoNotes, versionCache: versionCache, notesError: notesError,
+    scanInfo: { alFiles: alFiles.length, withObjects: filesWithObjects, unparsed: unparsed.slice(0, 60), unparsedTotal: unparsed.length, dupes: dupes.slice(0, 60), dupesTotal: dupes.length, truncated: truncated },
     lastSyncedAt: new Date().toISOString(),
   };
 }
@@ -3238,7 +3264,7 @@ const AL_TYPE_LABEL = {
   table:'Table', tableextension:'Table Extension', page:'Page', pageextension:'Page Extension', pagecustomization:'Page Customization',
   report:'Report', reportextension:'Report Extension', codeunit:'Codeunit', query:'Query', xmlport:'XMLport',
   enum:'Enum', enumextension:'Enum Extension', permissionset:'Permission Set', permissionsetextension:'Permission Set Extension',
-  profile:'Profile', controladdin:'Control Add-in', interface:'Interface',
+  profile:'Profile', controladdin:'Control Add-in', interface:'Interface', entitlement:'Entitlement',
 };
 function devObjTypeLabel(t){ return AL_TYPE_LABEL[t] || cap(String(t||'')); }
 // Every AL object kind the "Add Object for Monitoring" form can create. A few
@@ -3295,9 +3321,26 @@ const AL_KINDS_WITH_HOUSE_STYLE = new Set(['table','page','codeunit']);
 // Projects/Custom API objects are all keyed by. AL_TYPE_TO_CODE_HINT (above)
 // already maps an AL keyword to that registry's "code" column; resolve the
 // rest of the way to the actual registry entry here.
+// Fallbacks if someone renamed a code in Settings > Object Types: try the
+// default registry id, then the type's display name.
+const AL_TYPE_ID_HINT = {
+  table:'tab', tableextension:'tbe', page:'pag', pageextension:'pge', pagecustomization:'pag', report:'rep', reportextension:'rpe',
+  codeunit:'cod', query:'que', xmlport:'xml', enum:'enu', enumextension:'enx', permissionset:'pst', permissionsetextension:'pst', interface:'int',
+};
 function alKindToInternalType(kw){
+  const types = DB.settings.objectTypes;
   const code = AL_TYPE_TO_CODE_HINT[kw];
-  return code ? DB.settings.objectTypes.find(t=>t.code.toUpperCase()===code) : null;
+  return (code && types.find(t=>(t.code||'').toUpperCase()===code))
+      || (AL_TYPE_ID_HINT[kw] && types.find(t=>t.id===AL_TYPE_ID_HINT[kw]))
+      || types.find(t=>(t.name||'').replace(/[^a-z]/gi,'').toLowerCase()===kw)
+      || null;
+}
+// What to print in a "Type" column: the registry code, else the AL keyword's
+// readable name (so an unmapped kind still shows what it is), never a bare dash.
+function objTypeText(objectType){
+  const t = typeById(objectType);
+  if(t) return t.code;
+  return AL_TYPE_LABEL[objectType] || (objectType ? String(objectType) : '—');
 }
 // Every Object ID already in use, anywhere in the system, for one internal
 // type — not just whichever page happens to be open. ID ranges are meant to
@@ -3388,6 +3431,21 @@ function devNotesCtx(key){
    for this — Read-only, as used for every other Dev-tool Sync feature,
    is no longer enough once this is turned on).
    ====================================================================== */
+// What the last GitHub scan skipped and why — so "an object isn't showing up"
+// can be answered from the page instead of by guessing.
+function scanDiagnosticsHtml(cfg){
+  if(!cfg || !cfg.lastSyncedAt) return '';
+  const si = cfg.scanInfo;
+  if(!si) return `<div class="card" style="margin-bottom:18px;border-left:3px solid var(--warning);"><div class="hint" style="font-size:12px;color:var(--warning);">This data came from an older version of the sync script, so it can't say which .al files were skipped. Click <b>Push Sync Automation to GitHub</b> (Settings → Dev-tool Sync), then <b>Run Sync Now</b>.</div></div>`;
+  const parts = [];
+  if(si.truncated) parts.push(`<div style="color:var(--danger);margin-bottom:6px;"><b>GitHub cut the file list short</b> (the repo is too large for one scan), so some files were never looked at.</div>`);
+  if(si.unparsedTotal>0) parts.push(`<details style="margin-bottom:6px;"><summary style="cursor:pointer;"><b>${si.unparsedTotal} of ${si.alFiles} .al file(s)</b> had no recognizable object declaration, so they aren't listed. The declaration line should look like <span class="mono">codeunit 50100 "Name"</span>.</summary>
+      <div style="max-height:200px;overflow:auto;margin-top:6px;">${si.unparsed.map(u=>`<div style="padding:3px 0;border-top:1px solid var(--border);"><span class="mono">${escapeHtml(u.path)}</span><div class="hint" style="font-size:11px;color:var(--text-faint);">starts with: ${escapeHtml(u.firstLines||'(empty file)')}</div></div>`).join('')}${si.unparsedTotal>si.unparsed.length?`<div class="hint">…and ${si.unparsedTotal-si.unparsed.length} more.</div>`:''}</div></details>`);
+  if(si.dupesTotal>0) parts.push(`<details><summary style="cursor:pointer;"><b>${si.dupesTotal} object(s)</b> share a type and ID with another file — only one of each pair can be listed.</summary>
+      <div style="max-height:160px;overflow:auto;margin-top:6px;">${si.dupes.map(d=>`<div style="padding:3px 0;border-top:1px solid var(--border);"><span class="mono">${escapeHtml(d.key)}</span> <span class="hint" style="font-size:11px;">in ${escapeHtml(d.kept||'?')} and ${escapeHtml(d.other)}</span></div>`).join('')}</div></details>`);
+  if(!parts.length) return '';
+  return `<div class="card" style="margin-bottom:18px;border-left:3px solid var(--warning);"><div style="font-size:12.5px;">${parts.join('')}</div></div>`;
+}
 function pendingObjectsOf(cfg){ return (cfg.pendingObjects||[]).slice().sort((a,b)=>(b.requestedAt||'').localeCompare(a.requestedAt||'')); }
 function pendingObjectsPanel(sourceKey, cfg){
   const items = pendingObjectsOf(cfg);
@@ -3711,6 +3769,7 @@ function viewDevSource(key){
     </div>
   </div>
   ${pendingObjectsPanel(key, cfg)}
+  ${scanDiagnosticsHtml(cfg)}
   <div class="card" style="padding:0;">
     <div class="section-title" style="padding:16px 18px 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
       <h3>Objects List <span class="hint" style="font-weight:400;">(${all.length})</span></h3>
