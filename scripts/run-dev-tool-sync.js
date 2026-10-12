@@ -48,7 +48,7 @@ function decodeB64Utf8(b64) { return Buffer.from(b64.replace(/\n/g, ''), 'base64
 
 // Declaration line = keyword, numeric id, then a quoted name or one bare identifier. Anything after that on the
 // line (a //version comment, "extends X", ...) and where the opening { sits are deliberately ignored.
-const AL_OBJECT_RE = /^[ \t]*(table|tableextension|page|pageextension|pagecustomization|report|reportextension|codeunit|query|xmlport|enum|enumextension|permissionset|permissionsetextension|profile|controladdin|interface)[ \t]+(\d+)[ \t]+(?:"([^"\r\n]+)"|([^\s"{]+))/gim;
+const AL_OBJECT_RE = /^[ \t]*(table|tableextension|page|pageextension|pagecustomization|report|reportextension|codeunit|query|xmlport|enum|enumextension|permissionset|permissionsetextension|entitlement|profile|controladdin|interface)[ \t]+(\d+)[ \t]+(?:"([^"\r\n]+)"|([^\s"{]+))/gim;
 function parseAlObjects(text) {
   const out = []; let m; AL_OBJECT_RE.lastIndex = 0;
   while ((m = AL_OBJECT_RE.exec(text))) out.push({ type: m[1].toLowerCase(), id: Number(m[2]), name: (m[3] || m[4]).trim() });
@@ -292,13 +292,28 @@ async function syncOneSource(key, cfg) {
     return best;
   };
   const byKey = {};
+  const unparsed = []; // .al files that yielded no recognisable object declaration
+  const dupes = [];    // a type+ID declared by more than one file (only one can be listed)
+  let filesWithObjects = 0;
   for (const f of alFiles) {
     const app = appFor(f.path);
     const fileDir = f.path.includes('/') ? f.path.slice(0, f.path.lastIndexOf('/')) : '';
-    for (const o of parseAlObjects(f.text)) {
-      byKey[`${o.type}:${o.id}`] = { objectType: o.type, objectId: o.id, description: o.name, appName: app ? app.name : '', appVersion: app ? app.version : '', appDir: app ? app.dir : '', fileDir };
+    const found = parseAlObjects(f.text);
+    if (!found.length) {
+      const firstLines = f.text.split(/\r?\n/).map(l => l.trim()).filter(Boolean).slice(0, 2).join(' | ').slice(0, 160);
+      unparsed.push({ path: f.path, firstLines });
+    } else filesWithObjects++;
+    for (const o of found) {
+      const k = `${o.type}:${o.id}`;
+      if (byKey[k]) dupes.push({ key: k, kept: byKey[k].filePath, other: f.path });
+      byKey[k] = { objectType: o.type, objectId: o.id, description: o.name, appName: app ? app.name : '', appVersion: app ? app.version : '', appDir: app ? app.dir : '', fileDir, filePath: f.path };
     }
   }
+  const truncated = !!tree.truncated;
+  console.log(`[${key}] scanned ${alFiles.length} .al file(s): ${filesWithObjects} with objects, ${unparsed.length} without${dupes.length ? `, ${dupes.length} duplicate type+ID` : ''}`);
+  unparsed.slice(0, 15).forEach(u => console.log(`[${key}]   no object found in ${u.path}  →  ${u.firstLines}`));
+  dupes.slice(0, 10).forEach(d => console.log(`[${key}]   duplicate ${d.key}: ${d.kept} and ${d.other}`));
+  if (truncated) console.log(`::warning::${key}: GitHub truncated the repo file list (too large) — some files were never scanned.`);
   // Release notes from git history. Never fatal: if it fails, the previous notes stay and the reason is recorded.
   var autoNotes = cfg.autoNotes || [], versionCache = cfg.versionCache || {}, notesError = '';
   try {
@@ -320,6 +335,7 @@ async function syncOneSource(key, cfg) {
     apps: apps.map(a => ({ name: a.name, version: a.version, path: a.dir })),
     objects: Object.values(byKey),
     autoNotes: autoNotes, versionCache: versionCache, notesError: notesError,
+    scanInfo: { alFiles: alFiles.length, withObjects: filesWithObjects, unparsed: unparsed.slice(0, 60), unparsedTotal: unparsed.length, dupes: dupes.slice(0, 60), dupesTotal: dupes.length, truncated: truncated },
     lastSyncedAt: new Date().toISOString(),
   };
 }
