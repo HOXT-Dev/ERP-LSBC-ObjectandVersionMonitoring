@@ -27,7 +27,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Canele/pageextension"
+          "fileDir": "root/Canele/pageextension",
+          "filePath": "root/Canele/pageextension/pagext99025.HOXT-PR3-Item Card.al"
         },
         {
           "objectType": "tableextension",
@@ -36,7 +37,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Canele/tableextension"
+          "fileDir": "root/Canele/tableextension",
+          "filePath": "root/Canele/tableextension/tabext99004.HOXT-PR3-Item.al"
         },
         {
           "objectType": "codeunit",
@@ -45,7 +47,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/codeunit"
+          "fileDir": "root/HETI/codeunit",
+          "filePath": "root/HETI/codeunit/cod99011.HOXT-PR4-Report Layout Mgt.al"
         },
         {
           "objectType": "codeunit",
@@ -54,7 +57,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/codeunit"
+          "fileDir": "root/HETI/codeunit",
+          "filePath": "root/HETI/codeunit/cod99013.HOXT-PR4-Report Layout Subs.al"
         },
         {
           "objectType": "codeunit",
@@ -63,7 +67,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/codeunit"
+          "fileDir": "root/HETI/codeunit",
+          "filePath": "root/HETI/codeunit/cod99014.HOXT-PR4-BUDimensionCheck.al"
         },
         {
           "objectType": "codeunit",
@@ -72,7 +77,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/codeunit"
+          "fileDir": "root/HETI/codeunit",
+          "filePath": "root/HETI/codeunit/cod99015.HOXT-PR4-Insert BU Dimensions.al"
         },
         {
           "objectType": "page",
@@ -81,7 +87,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/page"
+          "fileDir": "root/HETI/page",
+          "filePath": "root/HETI/page/pag99010.HOXT-HETI Company Info. Setup.al"
         },
         {
           "objectType": "pageextension",
@@ -90,7 +97,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99032.HOXT-PR4-Purchase Order.al"
         },
         {
           "objectType": "pageextension",
@@ -99,7 +107,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99033.HOXT-PR4-PurchaseOrderList.al"
         },
         {
           "objectType": "pageextension",
@@ -108,7 +117,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99034.HOXT-PR4-Ret.Purch.OrderStore.al"
         },
         {
           "objectType": "pageextension",
@@ -117,7 +127,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99035.HOXT-PR4-Ret.Purch.Order.al"
         },
         {
           "objectType": "pageextension",
@@ -126,7 +137,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99036.HOXT-PR4-Blank.PurchaseOrders.al"
         },
         {
           "objectType": "pageextension",
@@ -135,7 +147,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99037.HOXT-PR4-Blank.PurchaseOrder.al"
         },
         {
           "objectType": "pageextension",
@@ -144,7 +157,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99038.HOXT-PR4-PurchaseQuotes.al"
         },
         {
           "objectType": "pageextension",
@@ -153,7 +167,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99039.HOXT-PR4-PurchaseQuote.al"
         },
         {
           "objectType": "pageextension",
@@ -162,7 +177,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99040.HOXT-PR4-Ret.PurchaseQuotes.al"
         },
         {
           "objectType": "pageextension",
@@ -171,7 +187,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99041.HOXT-PR4-Ret.PurchaseQuote.al"
         },
         {
           "objectType": "pageextension",
@@ -180,7 +197,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99042.HOXT-PR4-PostedPurch.Receipts.al"
         },
         {
           "objectType": "pageextension",
@@ -189,7 +207,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99043.HOXT-PR4-PostedPurch.Receipt.al"
         },
         {
           "objectType": "pageextension",
@@ -198,7 +217,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99044.HOXT-PR4-Purchase Invoices.al"
         },
         {
           "objectType": "pageextension",
@@ -207,7 +227,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99045.HOXT-PR4-Purchase Invoice.al"
         },
         {
           "objectType": "pageextension",
@@ -216,7 +237,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99046.HOXT-PR4-Ret.Purchase Invoices.al"
         },
         {
           "objectType": "pageextension",
@@ -225,7 +247,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99047.HOXT-PR4-Ret.Purchase Invoice.al"
         },
         {
           "objectType": "pageextension",
@@ -234,7 +257,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99048.HOXT-PR4-PostedPurch.Invoices.al"
         },
         {
           "objectType": "pageextension",
@@ -243,7 +267,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99049.HOXT-PR4-PostedPurch.Invoice.al"
         },
         {
           "objectType": "pageextension",
@@ -252,7 +277,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99050.HOXT-PR4-Purch.CreditMemos.al"
         },
         {
           "objectType": "pageextension",
@@ -261,7 +287,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99051.HOXT-PR4-Purch.CreditMemo.al"
         },
         {
           "objectType": "pageextension",
@@ -270,7 +297,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99052.HOXT-PR4-Ret.Purch.CreditMemos.al"
         },
         {
           "objectType": "pageextension",
@@ -279,7 +307,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99053.HOXT-PR4-Ret.Purch.CreditMemo.al"
         },
         {
           "objectType": "pageextension",
@@ -288,7 +317,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99054.HOXT-PR4-PostedPurch.Cr.Memos.al"
         },
         {
           "objectType": "pageextension",
@@ -297,7 +327,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99055.HOXT-PR4-PostedPurch.Cr.Memo.al"
         },
         {
           "objectType": "pageextension",
@@ -306,7 +337,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99056.HOXT-PR4-Ret.P.Purch.Cr.Memos.al"
         },
         {
           "objectType": "pageextension",
@@ -315,7 +347,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99057.HOXT-PR4-Ret.P.Purch.Cr.Memo.al"
         },
         {
           "objectType": "pageextension",
@@ -324,7 +357,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99058.HOXT-PR4-SalesOrderList.al"
         },
         {
           "objectType": "pageextension",
@@ -333,7 +367,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99059.HOXT-PR4-SalesOrder.al"
         },
         {
           "objectType": "pageextension",
@@ -342,7 +377,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99060.HOXT-PR4-Ret.SalesOrderList.al"
         },
         {
           "objectType": "pageextension",
@@ -351,7 +387,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99061.HOXT-PR4-Ret.SalesOrder.al"
         },
         {
           "objectType": "pageextension",
@@ -360,7 +397,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99062.HOXT-PR4-PostedSalesShipments.al"
         },
         {
           "objectType": "pageextension",
@@ -369,7 +407,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99063.HOXT-PR4-PostedSalesShipment.al"
         },
         {
           "objectType": "pageextension",
@@ -378,7 +417,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99064.HOXT-PR4-Ret.P.SalesShipments.al"
         },
         {
           "objectType": "pageextension",
@@ -387,7 +427,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99065.HOXT-PR4-Ret.P.SalesShipment.al"
         },
         {
           "objectType": "pageextension",
@@ -396,7 +437,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99066.HOXT-PR4-SalesInvoiceList.al"
         },
         {
           "objectType": "pageextension",
@@ -405,7 +447,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99067.HOXT-PR4-SalesInvoice.al"
         },
         {
           "objectType": "pageextension",
@@ -414,7 +457,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99068.HOXT-PR4-Ret.SalesInvoices.al"
         },
         {
           "objectType": "pageextension",
@@ -423,7 +467,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99069.HOXT-PR4-Ret.SalesInvoice.al"
         },
         {
           "objectType": "pageextension",
@@ -432,7 +477,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99070.HOXT-PR4-PostedSalesInvoices.al"
         },
         {
           "objectType": "pageextension",
@@ -441,7 +487,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99071.HOXT-PR4-PostedSalesInvoice.al"
         },
         {
           "objectType": "pageextension",
@@ -450,7 +497,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99072.HOXT-PR4-Ret.P.SalesInvoices.al"
         },
         {
           "objectType": "pageextension",
@@ -459,7 +507,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99073.HOXT-PR4-Ret.P.SalesInvoice.al"
         },
         {
           "objectType": "pageextension",
@@ -468,7 +517,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99074.HOXT-PR4-SalesCreditMemos.al"
         },
         {
           "objectType": "pageextension",
@@ -477,7 +527,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99075.HOXT-PR4-SalesCreditMemo.al"
         },
         {
           "objectType": "pageextension",
@@ -486,7 +537,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99076.HOXT-PR4-Ret.SalesCreditMemos.al"
         },
         {
           "objectType": "pageextension",
@@ -495,7 +547,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99077.HOXT-PR4-Ret.SalesCreditMemo.al"
         },
         {
           "objectType": "pageextension",
@@ -504,7 +557,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99078.HOXT-PR4-Post.SalesCreditMemos.al"
         },
         {
           "objectType": "pageextension",
@@ -513,7 +567,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99079.HOXT-PR4-Post.SalesCreditMemo.al"
         },
         {
           "objectType": "pageextension",
@@ -522,7 +577,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99080.HOXT-PR4-Ret.P.SalesCr.M.List.al"
         },
         {
           "objectType": "pageextension",
@@ -531,7 +587,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99081.HOXT-PR4-Ret.P.SalesCr.Memo.al"
         },
         {
           "objectType": "pageextension",
@@ -540,7 +597,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99082.HOXT-PR4-StoreP.Purch.Rec.List.al"
         },
         {
           "objectType": "pageextension",
@@ -549,7 +607,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99083.HOXT-PR4-StoreP.Purch.Receipt.al"
         },
         {
           "objectType": "pageextension",
@@ -558,7 +617,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99084.HOXT-PR4-VAT Entries.al"
         },
         {
           "objectType": "pageextension",
@@ -567,7 +627,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/pageextension"
+          "fileDir": "root/HETI/pageextension",
+          "filePath": "root/HETI/pageextension/pagext99085.HOXT-PR4-WHT_Entries_PHL.al"
         },
         {
           "objectType": "report",
@@ -576,7 +637,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/reports"
+          "fileDir": "root/HETI/reports",
+          "filePath": "root/HETI/reports/rep99009.HOXT-PR4-PurchaseOrderNonTrade.al"
         },
         {
           "objectType": "report",
@@ -585,7 +647,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/reports"
+          "fileDir": "root/HETI/reports",
+          "filePath": "root/HETI/reports/rep99010.HOXT-PR4-PurchaseReceipt.al"
         },
         {
           "objectType": "report",
@@ -594,7 +657,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/reports"
+          "fileDir": "root/HETI/reports",
+          "filePath": "root/HETI/reports/rep99011.HOXT-PR4-PurchaseInvoice.al"
         },
         {
           "objectType": "report",
@@ -603,7 +667,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/reports"
+          "fileDir": "root/HETI/reports",
+          "filePath": "root/HETI/reports/rep99012.HOXT-PR4-PurchaseReturn.al"
         },
         {
           "objectType": "report",
@@ -612,7 +677,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/reports"
+          "fileDir": "root/HETI/reports",
+          "filePath": "root/HETI/reports/rep99013.HOXT-PR4-PurchaseCreditMemo.al"
         },
         {
           "objectType": "report",
@@ -621,7 +687,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/reports"
+          "fileDir": "root/HETI/reports",
+          "filePath": "root/HETI/reports/rep99014.HOXT-PR4-SalesOrder.al"
         },
         {
           "objectType": "report",
@@ -630,7 +697,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/reports"
+          "fileDir": "root/HETI/reports",
+          "filePath": "root/HETI/reports/rep99015.HOXT-PR4-SalesShipment.al"
         },
         {
           "objectType": "report",
@@ -639,7 +707,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/reports"
+          "fileDir": "root/HETI/reports",
+          "filePath": "root/HETI/reports/rep99016.HOXT-PR4-SalesInvoice.al"
         },
         {
           "objectType": "report",
@@ -648,7 +717,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/reports"
+          "fileDir": "root/HETI/reports",
+          "filePath": "root/HETI/reports/rep99017.HOXT-PR4-PurchaseQuote.al"
         },
         {
           "objectType": "report",
@@ -657,7 +727,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/reports"
+          "fileDir": "root/HETI/reports",
+          "filePath": "root/HETI/reports/rep99018.HOXT-PR4-SalesCreditMemo.al"
         },
         {
           "objectType": "report",
@@ -666,7 +737,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/reports"
+          "fileDir": "root/HETI/reports",
+          "filePath": "root/HETI/reports/rep99019.HOXT-PR4-PurchaseReturnShipment.al"
         },
         {
           "objectType": "report",
@@ -675,7 +747,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/reports"
+          "fileDir": "root/HETI/reports",
+          "filePath": "root/HETI/reports/rep99021.HOXT-PR4-BlanketPONonTrade.al"
         },
         {
           "objectType": "table",
@@ -684,7 +757,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/table"
+          "fileDir": "root/HETI/table",
+          "filePath": "root/HETI/table/tab99032.HOXT-HETI Company Info. Setup.al"
         },
         {
           "objectType": "tableextension",
@@ -693,7 +767,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/tableextension"
+          "fileDir": "root/HETI/tableextension",
+          "filePath": "root/HETI/tableextension/tabext99020.HOXT-PR4-VAT Entry.al"
         },
         {
           "objectType": "tableextension",
@@ -702,7 +777,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/HETI/tableextension"
+          "fileDir": "root/HETI/tableextension",
+          "filePath": "root/HETI/tableextension/tabext99021.HOXT-PR4-WHT_Entries_PHL.al"
         },
         {
           "objectType": "codeunit",
@@ -711,7 +787,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Staffshop/codeunit"
+          "fileDir": "root/Staffshop/codeunit",
+          "filePath": "root/Staffshop/codeunit/cod99003.HOXT-PR2-StaffShopEvents.al"
         },
         {
           "objectType": "pageextension",
@@ -720,7 +797,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Staffshop/pageextension"
+          "fileDir": "root/Staffshop/pageextension",
+          "filePath": "root/Staffshop/pageextension/pagext99001.HOXT-PR2-LSC Retail Sales Order ext.al"
         },
         {
           "objectType": "pageextension",
@@ -729,7 +807,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Staffshop/pageextension"
+          "fileDir": "root/Staffshop/pageextension",
+          "filePath": "root/Staffshop/pageextension/pagext99002.HOXT-PR2-LSC Retail Sales Order List ex.al"
         },
         {
           "objectType": "pageextension",
@@ -738,7 +817,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Staffshop/pageextension"
+          "fileDir": "root/Staffshop/pageextension",
+          "filePath": "root/Staffshop/pageextension/pagext99005.HOXT-PR2-Posted Sales Invoice ex.al"
         },
         {
           "objectType": "pageextension",
@@ -747,7 +827,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Staffshop/pageextension"
+          "fileDir": "root/Staffshop/pageextension",
+          "filePath": "root/Staffshop/pageextension/pagext99006.HOXT-PR2-Posted Sales Invoices ext.al"
         },
         {
           "objectType": "pageextension",
@@ -756,7 +837,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Staffshop/pageextension"
+          "fileDir": "root/Staffshop/pageextension",
+          "filePath": "root/Staffshop/pageextension/pagext99007.HOXT-PR2-Retail Sales Credit Memo.al"
         },
         {
           "objectType": "pageextension",
@@ -765,7 +847,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Staffshop/pageextension"
+          "fileDir": "root/Staffshop/pageextension",
+          "filePath": "root/Staffshop/pageextension/pagext99008.HOXT-PR2-Retail Sales Credit Memos.al"
         },
         {
           "objectType": "pageextension",
@@ -774,7 +857,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Staffshop/pageextension"
+          "fileDir": "root/Staffshop/pageextension",
+          "filePath": "root/Staffshop/pageextension/pagext99009.HOXT-PR2-Posted Sales Credit Memo Ext.al"
         },
         {
           "objectType": "pageextension",
@@ -783,7 +867,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Staffshop/pageextension"
+          "fileDir": "root/Staffshop/pageextension",
+          "filePath": "root/Staffshop/pageextension/pagext99010.HOXT-PR2-Posted Sales Credit Memos ext.al"
         },
         {
           "objectType": "report",
@@ -792,7 +877,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Staffshop/report"
+          "fileDir": "root/Staffshop/report",
+          "filePath": "root/Staffshop/report/rep99006.HOXT-PR2-StaffShop Receipt.al"
         },
         {
           "objectType": "report",
@@ -801,7 +887,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Staffshop/report"
+          "fileDir": "root/Staffshop/report",
+          "filePath": "root/Staffshop/report/rep99007.HOXT-PR2-StaffShopReceiptNEW.al"
         },
         {
           "objectType": "reportextension",
@@ -810,7 +897,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Staffshop/reportextension"
+          "fileDir": "root/Staffshop/reportextension",
+          "filePath": "root/Staffshop/reportextension/repext99000.HOXT-PR2-Sales - Order Conf. ext.al"
         },
         {
           "objectType": "codeunit",
@@ -819,7 +907,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Yogi/codeunit"
+          "fileDir": "root/Yogi/codeunit",
+          "filePath": "root/Yogi/codeunit/cod99000.HOXT-PR1.0-MemberFunctions.al"
         },
         {
           "objectType": "codeunit",
@@ -828,7 +917,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Yogi/codeunit"
+          "fileDir": "root/Yogi/codeunit",
+          "filePath": "root/Yogi/codeunit/cod99001.HOXT-PR1.1-MembershipPointReport.al"
         },
         {
           "objectType": "codeunit",
@@ -837,7 +927,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Yogi/codeunit"
+          "fileDir": "root/Yogi/codeunit",
+          "filePath": "root/Yogi/codeunit/cod99004.HOXT-PR1.3-UnprocIncMemPntPrcs.al"
         },
         {
           "objectType": "codeunit",
@@ -846,7 +937,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Yogi/codeunit"
+          "fileDir": "root/Yogi/codeunit",
+          "filePath": "root/Yogi/codeunit/cod99005.HOXT-PR1.3-UIMPCleanup.al"
         },
         {
           "objectType": "codeunit",
@@ -855,7 +947,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Yogi/codeunit"
+          "fileDir": "root/Yogi/codeunit",
+          "filePath": "root/Yogi/codeunit/cod99006.HOXT-PR1.2-MemCheckStatusProcess.al"
         },
         {
           "objectType": "codeunit",
@@ -864,7 +957,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Yogi/codeunit"
+          "fileDir": "root/Yogi/codeunit",
+          "filePath": "root/Yogi/codeunit/cod99007.HOXT-PR1.2-MemAcctCorrection.al"
         },
         {
           "objectType": "page",
@@ -873,7 +967,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Yogi/page"
+          "fileDir": "root/Yogi/page",
+          "filePath": "root/Yogi/page/pag99000.HOXT-PR1.0-Membership Points Adj. Card.al"
         },
         {
           "objectType": "page",
@@ -882,7 +977,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Yogi/page"
+          "fileDir": "root/Yogi/page",
+          "filePath": "root/Yogi/page/pag99002.HOXT-PR1.1-MembershipPointReport.al"
         },
         {
           "objectType": "page",
@@ -891,7 +987,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Yogi/page"
+          "fileDir": "root/Yogi/page",
+          "filePath": "root/Yogi/page/pag99004.HOXT-PR1.3-UnprocIncMemPntExcList.al"
         },
         {
           "objectType": "page",
@@ -900,7 +997,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Yogi/page"
+          "fileDir": "root/Yogi/page",
+          "filePath": "root/Yogi/page/pag99006.HOXT-PR1.2-MemCheckStatusHeader.al"
         },
         {
           "objectType": "page",
@@ -909,7 +1007,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Yogi/page"
+          "fileDir": "root/Yogi/page",
+          "filePath": "root/Yogi/page/pag99007.HOXT-PR1.2-MemCheckStatusLines.al"
         },
         {
           "objectType": "page",
@@ -918,7 +1017,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Yogi/page"
+          "fileDir": "root/Yogi/page",
+          "filePath": "root/Yogi/page/pag99008.HOXT-PR1.3-UIMP Manual Point Reg.al"
         },
         {
           "objectType": "pageextension",
@@ -927,7 +1027,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Yogi/pageextension"
+          "fileDir": "root/Yogi/pageextension",
+          "filePath": "root/Yogi/pageextension/pagext99000.HOXT-PR1.0-User Setup Page Ext.al"
         },
         {
           "objectType": "pageextension",
@@ -936,7 +1037,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Yogi/pageextension"
+          "fileDir": "root/Yogi/pageextension",
+          "filePath": "root/Yogi/pageextension/pagext99021.HOXT-PR1.2-MemAcctStatValid.al"
         },
         {
           "objectType": "permissionset",
@@ -945,7 +1047,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Yogi/permissionset"
+          "fileDir": "root/Yogi/permissionset",
+          "filePath": "root/Yogi/permissionset/per99001.ERPENH-PermYogiProject.al"
         },
         {
           "objectType": "report",
@@ -954,7 +1057,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Yogi/report"
+          "fileDir": "root/Yogi/report",
+          "filePath": "root/Yogi/report/rep99001.HOXT-PR1.0-Inactive Member Points Report.al"
         },
         {
           "objectType": "report",
@@ -963,7 +1067,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Yogi/report"
+          "fileDir": "root/Yogi/report",
+          "filePath": "root/Yogi/report/rep99002.HOXT-PR1.0-ActiveToInactiveMemberPoints.al"
         },
         {
           "objectType": "report",
@@ -972,7 +1077,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Yogi/report"
+          "fileDir": "root/Yogi/report",
+          "filePath": "root/Yogi/report/rep99003.HOXT-PR1.0-MonthlyMembershipPoints.al"
         },
         {
           "objectType": "report",
@@ -981,7 +1087,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Yogi/report"
+          "fileDir": "root/Yogi/report",
+          "filePath": "root/Yogi/report/rep99004.HOXT-PR1.0-Block NON-V Members.al"
         },
         {
           "objectType": "report",
@@ -990,7 +1097,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Yogi/report"
+          "fileDir": "root/Yogi/report",
+          "filePath": "root/Yogi/report/rep99005.HOXT-PR1.0-Block V-Members.al"
         },
         {
           "objectType": "report",
@@ -999,7 +1107,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Yogi/report"
+          "fileDir": "root/Yogi/report",
+          "filePath": "root/Yogi/report/rep99008.HOXT-PR1.3-DateRangeFilter.al"
         },
         {
           "objectType": "table",
@@ -1008,7 +1117,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Yogi/table"
+          "fileDir": "root/Yogi/table",
+          "filePath": "root/Yogi/table/tab99000.HOXT-PR1.0-Member Summary Point Entry.al"
         },
         {
           "objectType": "table",
@@ -1017,7 +1127,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Yogi/table"
+          "fileDir": "root/Yogi/table",
+          "filePath": "root/Yogi/table/tab99002.HOXT-PR1.1-MembershipPointReport.al"
         },
         {
           "objectType": "table",
@@ -1026,7 +1137,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Yogi/table"
+          "fileDir": "root/Yogi/table",
+          "filePath": "root/Yogi/table/tab99003.HOXT-PR1.0-Mebership Point Report Archive.al"
         },
         {
           "objectType": "table",
@@ -1035,7 +1147,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Yogi/table"
+          "fileDir": "root/Yogi/table",
+          "filePath": "root/Yogi/table/tab99004.HOXT-PR1.2-MemCheckStatusHeader.al"
         },
         {
           "objectType": "table",
@@ -1044,7 +1157,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Yogi/table"
+          "fileDir": "root/Yogi/table",
+          "filePath": "root/Yogi/table/tab99005.HOXT-PR1.2-MemCheckStatusLines.al"
         },
         {
           "objectType": "table",
@@ -1053,7 +1167,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Yogi/table"
+          "fileDir": "root/Yogi/table",
+          "filePath": "root/Yogi/table/tab99006.HOXT-PR1.3-UIMP Manual Point Registration.al"
         },
         {
           "objectType": "table",
@@ -1062,7 +1177,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Yogi/table"
+          "fileDir": "root/Yogi/table",
+          "filePath": "root/Yogi/table/tab99007.HOXT-PR1.3-UnprocIncMemPntExc.al"
         },
         {
           "objectType": "tableextension",
@@ -1071,7 +1187,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Yogi/tableextension"
+          "fileDir": "root/Yogi/tableextension",
+          "filePath": "root/Yogi/tableextension/tabext99001.HOXT-PR1.1-MemberPointEntryExt.al"
         },
         {
           "objectType": "tableextension",
@@ -1080,7 +1197,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Yogi/tableextension"
+          "fileDir": "root/Yogi/tableextension",
+          "filePath": "root/Yogi/tableextension/tabext99002.HOXT-PR1.0-User Setup ext.al"
         },
         {
           "objectType": "tableextension",
@@ -1089,7 +1207,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Yogi/tableextension"
+          "fileDir": "root/Yogi/tableextension",
+          "filePath": "root/Yogi/tableextension/tabext99003.HOXT-PR1.0-LSC Member Account ext.al"
         },
         {
           "objectType": "tableextension",
@@ -1098,7 +1217,8 @@
           "appName": "HOXT - Projects",
           "appVersion": "26.10.0.0",
           "appDir": "",
-          "fileDir": "root/Yogi/tableextension"
+          "fileDir": "root/Yogi/tableextension",
+          "filePath": "root/Yogi/tableextension/tabext99005.HOXT-PR1.3-TransHeaderExt04292026.al"
         }
       ],
       "autoNotes": [
@@ -1768,7 +1888,16 @@
         "3d0ed5bad8f4587cf2a3192d1dc52d18c951ab35": "26.10.0.0"
       },
       "notesError": "",
-      "lastSyncedAt": "2026-10-12T23:09:36.334Z"
+      "lastSyncedAt": "2026-10-12T23:51:26.978Z",
+      "scanInfo": {
+        "alFiles": 120,
+        "withObjects": 120,
+        "unparsed": [],
+        "unparsedTotal": 0,
+        "dupes": [],
+        "dupesTotal": 0,
+        "truncated": false
+      }
     },
     "cloudenh": {
       "owner": "HOXT-Dev",
@@ -1808,7 +1937,8 @@
           "appName": "HOXT - Cloud Enhancements",
           "appVersion": "26.10.0.1",
           "appDir": "",
-          "fileDir": "root/codeunit"
+          "fileDir": "root/codeunit",
+          "filePath": "root/codeunit/cod81000.HOXT FieldTransfersMgtHO.al"
         },
         {
           "objectType": "enum",
@@ -1817,7 +1947,8 @@
           "appName": "HOXT - Cloud Enhancements",
           "appVersion": "26.10.0.1",
           "appDir": "",
-          "fileDir": "root/enum"
+          "fileDir": "root/enum",
+          "filePath": "root/enum/enu99000.HOXT Company List.al"
         },
         {
           "objectType": "page",
@@ -1826,7 +1957,8 @@
           "appName": "HOXT - Cloud Enhancements",
           "appVersion": "26.10.0.1",
           "appDir": "",
-          "fileDir": "root/page"
+          "fileDir": "root/page",
+          "filePath": "root/page/pag99007.HOXT-PRR DM Items.al"
         },
         {
           "objectType": "pageextension",
@@ -1835,7 +1967,8 @@
           "appName": "HOXT - Cloud Enhancements",
           "appVersion": "26.10.0.1",
           "appDir": "",
-          "fileDir": "root/pageextension"
+          "fileDir": "root/pageextension",
+          "filePath": "root/pageextension/pagext81000.HOXT General Ledger Entries.al"
         },
         {
           "objectType": "pageextension",
@@ -1844,7 +1977,8 @@
           "appName": "HOXT - Cloud Enhancements",
           "appVersion": "26.10.0.1",
           "appDir": "",
-          "fileDir": "root/pageextension"
+          "fileDir": "root/pageextension",
+          "filePath": "root/pageextension/pagext81000.HOXT Purchase Order List.al"
         },
         {
           "objectType": "pageextension",
@@ -1853,7 +1987,8 @@
           "appName": "HOXT - Cloud Enhancements",
           "appVersion": "26.10.0.1",
           "appDir": "",
-          "fileDir": "root/pageextension"
+          "fileDir": "root/pageextension",
+          "filePath": "root/pageextension/pagext81001.HOXT Purchase Order.al"
         },
         {
           "objectType": "pageextension",
@@ -1862,7 +1997,8 @@
           "appName": "HOXT - Cloud Enhancements",
           "appVersion": "26.10.0.1",
           "appDir": "",
-          "fileDir": "root/pageextension"
+          "fileDir": "root/pageextension",
+          "filePath": "root/pageextension/pagext99003.HOXT LSC Purchase Contract.al"
         },
         {
           "objectType": "pageextension",
@@ -1871,7 +2007,8 @@
           "appName": "HOXT - Cloud Enhancements",
           "appVersion": "26.10.0.1",
           "appDir": "",
-          "fileDir": "root/pageextension"
+          "fileDir": "root/pageextension",
+          "filePath": "root/pageextension/pagext99004.HOXT Whse. Receipt Subform.al"
         },
         {
           "objectType": "pageextension",
@@ -1880,7 +2017,8 @@
           "appName": "HOXT - Cloud Enhancements",
           "appVersion": "26.10.0.1",
           "appDir": "",
-          "fileDir": "root/pageextension"
+          "fileDir": "root/pageextension",
+          "filePath": "root/pageextension/pagext99012.HOXT Retail Item List.al"
         },
         {
           "objectType": "pageextension",
@@ -1889,7 +2027,8 @@
           "appName": "HOXT - Cloud Enhancements",
           "appVersion": "26.10.0.1",
           "appDir": "",
-          "fileDir": "root/pageextension"
+          "fileDir": "root/pageextension",
+          "filePath": "root/pageextension/pagext99013.HOXT Item List.al"
         },
         {
           "objectType": "pageextension",
@@ -1898,7 +2037,8 @@
           "appName": "HOXT - Cloud Enhancements",
           "appVersion": "26.10.0.1",
           "appDir": "",
-          "fileDir": "root/pageextension"
+          "fileDir": "root/pageextension",
+          "filePath": "root/pageextension/pagext99014.HOXT LSC Retail Item.al"
         },
         {
           "objectType": "pageextension",
@@ -1907,7 +2047,8 @@
           "appName": "HOXT - Cloud Enhancements",
           "appVersion": "26.10.0.1",
           "appDir": "",
-          "fileDir": "root/pageextension"
+          "fileDir": "root/pageextension",
+          "filePath": "root/pageextension/pagext99015.HOXT Item Card.al"
         },
         {
           "objectType": "pageextension",
@@ -1916,7 +2057,8 @@
           "appName": "HOXT - Cloud Enhancements",
           "appVersion": "26.10.0.1",
           "appDir": "",
-          "fileDir": "root/pageextension"
+          "fileDir": "root/pageextension",
+          "filePath": "root/pageextension/pagext99016.HOXT Purchase Order Archives.al"
         },
         {
           "objectType": "pageextension",
@@ -1925,7 +2067,8 @@
           "appName": "HOXT - Cloud Enhancements",
           "appVersion": "26.10.0.1",
           "appDir": "",
-          "fileDir": "root/pageextension"
+          "fileDir": "root/pageextension",
+          "filePath": "root/pageextension/pagext99017.HOXT Revaluation Journal.al"
         },
         {
           "objectType": "pageextension",
@@ -1934,7 +2077,8 @@
           "appName": "HOXT - Cloud Enhancements",
           "appVersion": "26.10.0.1",
           "appDir": "",
-          "fileDir": "root/pageextension"
+          "fileDir": "root/pageextension",
+          "filePath": "root/pageextension/pagext99019.HOXT Posted Purchase Invoice Lines.al"
         },
         {
           "objectType": "pageextension",
@@ -1943,7 +2087,8 @@
           "appName": "HOXT - Cloud Enhancements",
           "appVersion": "26.10.0.1",
           "appDir": "",
-          "fileDir": "root/pageextension"
+          "fileDir": "root/pageextension",
+          "filePath": "root/pageextension/pagext99020.HOXT VAT Entries.al"
         },
         {
           "objectType": "pageextension",
@@ -1952,7 +2097,8 @@
           "appName": "HOXT - Cloud Enhancements",
           "appVersion": "26.10.0.1",
           "appDir": "",
-          "fileDir": "root/pageextension"
+          "fileDir": "root/pageextension",
+          "filePath": "root/pageextension/pagext99022.HOXT LSC Retail Sales Order.al"
         },
         {
           "objectType": "pageextension",
@@ -1961,7 +2107,8 @@
           "appName": "HOXT - Cloud Enhancements",
           "appVersion": "26.10.0.1",
           "appDir": "",
-          "fileDir": "root/pageextension"
+          "fileDir": "root/pageextension",
+          "filePath": "root/pageextension/pagext99023.HOXT PAS634 PRR DM List.al"
         },
         {
           "objectType": "pageextension",
@@ -1970,7 +2117,8 @@
           "appName": "HOXT - Cloud Enhancements",
           "appVersion": "26.10.0.1",
           "appDir": "",
-          "fileDir": "root/pageextension"
+          "fileDir": "root/pageextension",
+          "filePath": "root/pageextension/pagext99024.HOXT LSC Store Inventory Journal.al"
         },
         {
           "objectType": "pageextension",
@@ -1979,7 +2127,8 @@
           "appName": "HOXT - Cloud Enhancements",
           "appVersion": "26.10.0.1",
           "appDir": "",
-          "fileDir": "root/pageextension"
+          "fileDir": "root/pageextension",
+          "filePath": "root/pageextension/pagext99026.HOXT LSC ItemSpecial Group Links.al"
         },
         {
           "objectType": "pageextension",
@@ -1988,7 +2137,8 @@
           "appName": "HOXT - Cloud Enhancements",
           "appVersion": "26.10.0.1",
           "appDir": "",
-          "fileDir": "root/pageextension"
+          "fileDir": "root/pageextension",
+          "filePath": "root/pageextension/pagext99027.HOXT LSC Retail Sales Order List.al"
         },
         {
           "objectType": "pageextension",
@@ -1997,7 +2147,8 @@
           "appName": "HOXT - Cloud Enhancements",
           "appVersion": "26.10.0.1",
           "appDir": "",
-          "fileDir": "root/pageextension"
+          "fileDir": "root/pageextension",
+          "filePath": "root/pageextension/pagext99028.HOXT-LSCRetailItemList260804.al"
         },
         {
           "objectType": "pageextension",
@@ -2006,7 +2157,8 @@
           "appName": "HOXT - Cloud Enhancements",
           "appVersion": "26.10.0.1",
           "appDir": "",
-          "fileDir": "root/pageextension"
+          "fileDir": "root/pageextension",
+          "filePath": "root/pageextension/pagext99029.HOXT LSC POS Terminal Card.al"
         },
         {
           "objectType": "pageextension",
@@ -2015,7 +2167,8 @@
           "appName": "HOXT - Cloud Enhancements",
           "appVersion": "26.10.0.1",
           "appDir": "",
-          "fileDir": "root/pageextension"
+          "fileDir": "root/pageextension",
+          "filePath": "root/pageextension/pagext99030.HOXT LSC STAFF Staff Card.al"
         },
         {
           "objectType": "pageextension",
@@ -2024,7 +2177,8 @@
           "appName": "HOXT - Cloud Enhancements",
           "appVersion": "26.10.0.1",
           "appDir": "",
-          "fileDir": "root/pageextension"
+          "fileDir": "root/pageextension",
+          "filePath": "root/pageextension/pagext99031.HOXT Transfer Order Subform.al"
         },
         {
           "objectType": "pageextension",
@@ -2033,7 +2187,8 @@
           "appName": "HOXT - Cloud Enhancements",
           "appVersion": "26.10.0.1",
           "appDir": "",
-          "fileDir": "root/pageextension"
+          "fileDir": "root/pageextension",
+          "filePath": "root/pageextension/pagext99086.HOXT RSO Delivery Details.al"
         },
         {
           "objectType": "pageextension",
@@ -2042,7 +2197,8 @@
           "appName": "HOXT - Cloud Enhancements",
           "appVersion": "26.10.0.1",
           "appDir": "",
-          "fileDir": "root/pageextension"
+          "fileDir": "root/pageextension",
+          "filePath": "root/pageextension/pagext99087.HOXT LSC Store Card.al"
         },
         {
           "objectType": "pageextension",
@@ -2051,7 +2207,8 @@
           "appName": "HOXT - Cloud Enhancements",
           "appVersion": "26.10.0.1",
           "appDir": "",
-          "fileDir": "root/pageextension"
+          "fileDir": "root/pageextension",
+          "filePath": "root/pageextension/pagext99088.HOXT Purchase Quote Subform.al"
         },
         {
           "objectType": "report",
@@ -2060,7 +2217,8 @@
           "appName": "HOXT - Cloud Enhancements",
           "appVersion": "26.10.0.1",
           "appDir": "",
-          "fileDir": "root/reports"
+          "fileDir": "root/reports",
+          "filePath": "root/reports/rep99022.RSOOrderConfirmation.al"
         },
         {
           "objectType": "tableextension",
@@ -2069,7 +2227,8 @@
           "appName": "HOXT - Cloud Enhancements",
           "appVersion": "26.10.0.1",
           "appDir": "",
-          "fileDir": "root/tableextension"
+          "fileDir": "root/tableextension",
+          "filePath": "root/tableextension/tabext81000.HOXT Purchase Header.al"
         },
         {
           "objectType": "tableextension",
@@ -2078,7 +2237,8 @@
           "appName": "HOXT - Cloud Enhancements",
           "appVersion": "26.10.0.1",
           "appDir": "",
-          "fileDir": "root/tableextension"
+          "fileDir": "root/tableextension",
+          "filePath": "root/tableextension/tabext99006.HOXT LSC POS Terminal.al"
         },
         {
           "objectType": "tableextension",
@@ -2087,7 +2247,8 @@
           "appName": "HOXT - Cloud Enhancements",
           "appVersion": "26.10.0.1",
           "appDir": "",
-          "fileDir": "root/tableextension"
+          "fileDir": "root/tableextension",
+          "filePath": "root/tableextension/tabext99007.HOXT LSC Staff.al"
         },
         {
           "objectType": "tableextension",
@@ -2096,7 +2257,8 @@
           "appName": "HOXT - Cloud Enhancements",
           "appVersion": "26.10.0.1",
           "appDir": "",
-          "fileDir": "root/tableextension"
+          "fileDir": "root/tableextension",
+          "filePath": "root/tableextension/tabext99008.HOXT Transfer Header.al"
         },
         {
           "objectType": "tableextension",
@@ -2105,7 +2267,8 @@
           "appName": "HOXT - Cloud Enhancements",
           "appVersion": "26.10.0.1",
           "appDir": "",
-          "fileDir": "root/tableextension"
+          "fileDir": "root/tableextension",
+          "filePath": "root/tableextension/tabext99009.HOXT LSC ItemSpecial Group Links .al"
         },
         {
           "objectType": "tableextension",
@@ -2114,7 +2277,8 @@
           "appName": "HOXT - Cloud Enhancements",
           "appVersion": "26.10.0.1",
           "appDir": "",
-          "fileDir": "root/tableextension"
+          "fileDir": "root/tableextension",
+          "filePath": "root/tableextension/tabext99010.HOXT Transfer Shipment Header.al"
         },
         {
           "objectType": "tableextension",
@@ -2123,7 +2287,8 @@
           "appName": "HOXT - Cloud Enhancements",
           "appVersion": "26.10.0.1",
           "appDir": "",
-          "fileDir": "root/tableextension"
+          "fileDir": "root/tableextension",
+          "filePath": "root/tableextension/tabext99011.HOXT Transfer Receipt Header.al"
         },
         {
           "objectType": "tableextension",
@@ -2132,7 +2297,8 @@
           "appName": "HOXT - Cloud Enhancements",
           "appVersion": "26.10.0.1",
           "appDir": "",
-          "fileDir": "root/tableextension"
+          "fileDir": "root/tableextension",
+          "filePath": "root/tableextension/tabext99023.HOXT Sales Header.al"
         },
         {
           "objectType": "tableextension",
@@ -2141,10 +2307,11 @@
           "appName": "HOXT - Cloud Enhancements",
           "appVersion": "26.10.0.1",
           "appDir": "",
-          "fileDir": "root/tableextension"
+          "fileDir": "root/tableextension",
+          "filePath": "root/tableextension/tabext99024.HOXT Store.al"
         }
       ],
-      "lastSyncedAt": "2026-10-12T23:09:44.513Z",
+      "lastSyncedAt": "2026-10-12T23:51:35.731Z",
       "apps": [
         {
           "name": "HOXT - Cloud Enhancements",
@@ -2373,7 +2540,16 @@
         "1ca542a75adde1c2581b75f796de266f3332ff5e": "26.10.0.0",
         "9840e9043f5ac985e81c4159ad5124b9a8c8c1dd": "26.10.0.1"
       },
-      "notesError": ""
+      "notesError": "",
+      "scanInfo": {
+        "alFiles": 38,
+        "withObjects": 38,
+        "unparsed": [],
+        "unparsedTotal": 0,
+        "dupes": [],
+        "dupesTotal": 0,
+        "truncated": false
+      }
     },
     "onpremenh": {
       "owner": "HOXT-Dev",
@@ -2394,10 +2570,11 @@
           "appName": "HOXT - OnPrem Enhancements",
           "appVersion": "26.9.0.0",
           "appDir": "",
-          "fileDir": "root/tableextension"
+          "fileDir": "root/tableextension",
+          "filePath": "root/tableextension/tabext85000.HOXT LSC POS Trans. Line.al"
         }
       ],
-      "lastSyncedAt": "2026-10-12T23:09:45.548Z",
+      "lastSyncedAt": "2026-10-12T23:51:36.938Z",
       "apps": [
         {
           "name": "HOXT - OnPrem Enhancements",
@@ -2425,7 +2602,16 @@
       "versionCache": {
         "19fc8413efe91ac12ab36bfb9016b65da7ada0e3": "26.9.0.0"
       },
-      "notesError": ""
+      "notesError": "",
+      "scanInfo": {
+        "alFiles": 1,
+        "withObjects": 1,
+        "unparsed": [],
+        "unparsedTotal": 0,
+        "dupes": [],
+        "dupesTotal": 0,
+        "truncated": false
+      }
     },
     "apis": {
       "owner": "HOXT-Dev",
@@ -2447,7 +2633,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70001.Bank_Account.al"
         },
         {
           "objectType": "page",
@@ -2456,7 +2643,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70002.Bin_Content.al"
         },
         {
           "objectType": "page",
@@ -2465,7 +2653,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70003.Change_Log_Entry.al"
         },
         {
           "objectType": "page",
@@ -2474,7 +2663,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70004.Employee.al"
         },
         {
           "objectType": "page",
@@ -2483,7 +2673,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70005.FA_Ledger_Entry.al"
         },
         {
           "objectType": "page",
@@ -2492,7 +2683,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70006.Fixed_Asset.al"
         },
         {
           "objectType": "page",
@@ -2501,7 +2693,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70007.Gen_Journal_Line.al"
         },
         {
           "objectType": "page",
@@ -2510,7 +2703,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70008.G_L_Account.al"
         },
         {
           "objectType": "page",
@@ -2519,7 +2713,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70009.G_L_Entry.al"
         },
         {
           "objectType": "page",
@@ -2528,7 +2723,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70010.HOMDiscountModule.al"
         },
         {
           "objectType": "page",
@@ -2537,7 +2733,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70011.HO_MPALedgerEntry.al"
         },
         {
           "objectType": "page",
@@ -2546,7 +2743,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70012.Item.al"
         },
         {
           "objectType": "page",
@@ -2555,7 +2753,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70013.Item_Category.al"
         },
         {
           "objectType": "page",
@@ -2564,7 +2763,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70014.Item_Journal_Line.al"
         },
         {
           "objectType": "page",
@@ -2573,7 +2773,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70015.Item_Ledger_Entry.al"
         },
         {
           "objectType": "page",
@@ -2582,7 +2783,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70016.Item_Unit_of_Measure.al"
         },
         {
           "objectType": "page",
@@ -2591,7 +2793,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70017.IWX_LP_Header.al"
         },
         {
           "objectType": "page",
@@ -2600,7 +2803,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70018.IWX_LP_Header_Archive.al"
         },
         {
           "objectType": "page",
@@ -2609,7 +2813,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70019.IWX_LP_Line.al"
         },
         {
           "objectType": "page",
@@ -2618,7 +2823,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70020.Location.al"
         },
         {
           "objectType": "page",
@@ -2627,7 +2833,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70021.LSC_Attribute_Value.al"
         },
         {
           "objectType": "page",
@@ -2636,7 +2843,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70022.LSC_Division.al"
         },
         {
           "objectType": "page",
@@ -2645,7 +2853,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70023.LSC_Infocode.al"
         },
         {
           "objectType": "page",
@@ -2654,7 +2863,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70024.LSC_Item_Special_Group_Link.al"
         },
         {
           "objectType": "page",
@@ -2663,7 +2873,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70025.LSC_Member_Account.al"
         },
         {
           "objectType": "page",
@@ -2672,7 +2883,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70026.LSC_Member_Account_Upgr_Entry.al"
         },
         {
           "objectType": "page",
@@ -2681,7 +2893,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70027.LSC_Member_Club.al"
         },
         {
           "objectType": "page",
@@ -2690,7 +2903,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70028.LSC_Member_Contact.al"
         },
         {
           "objectType": "page",
@@ -2699,7 +2913,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70029.LSC_Member_Point_Entry.al"
         },
         {
           "objectType": "page",
@@ -2708,7 +2923,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70030.LSC_Member_Sales_Entry.al"
         },
         {
           "objectType": "page",
@@ -2717,7 +2933,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70031.LSC_Member_Scheme.al"
         },
         {
           "objectType": "page",
@@ -2726,7 +2943,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70032.LSC_Membership_Card.al"
         },
         {
           "objectType": "page",
@@ -2735,7 +2953,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70033.LSC_Payment_Statistics.al"
         },
         {
           "objectType": "page",
@@ -2744,7 +2963,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70034.LSC_Posted_Statement.al"
         },
         {
           "objectType": "page",
@@ -2753,7 +2973,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70035.LSC_Posted_Statement_Line.al"
         },
         {
           "objectType": "page",
@@ -2762,7 +2983,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70036.LSC_POS_Terminal.al"
         },
         {
           "objectType": "page",
@@ -2771,7 +2993,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70037.LSC_Retail_Product_Group.al"
         },
         {
           "objectType": "page",
@@ -2780,7 +3003,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70038.LSC_Staff.al"
         },
         {
           "objectType": "page",
@@ -2789,7 +3013,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70039.LSC_Statement.al"
         },
         {
           "objectType": "page",
@@ -2798,7 +3023,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70040.LSC_Statement_Line.al"
         },
         {
           "objectType": "page",
@@ -2807,7 +3033,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70041.LSC_Store.al"
         },
         {
           "objectType": "page",
@@ -2816,7 +3043,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70042.LSC_Tender_Type.al"
         },
         {
           "objectType": "page",
@@ -2825,7 +3053,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70043.LSC_Tender_Type_Setup.al"
         },
         {
           "objectType": "page",
@@ -2834,7 +3063,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70044.LSC_Transaction_Header.al"
         },
         {
           "objectType": "page",
@@ -2843,7 +3073,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70045.LSC_Trans_Coupon_Entry.al"
         },
         {
           "objectType": "page",
@@ -2852,7 +3083,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70046.LSC_Trans_Discount_Entry.al"
         },
         {
           "objectType": "page",
@@ -2861,7 +3093,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70047.LSC_Trans_Inc_Exp_Entry.al"
         },
         {
           "objectType": "page",
@@ -2870,7 +3103,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70048.LSC_Trans_Infocode_Entry.al"
         },
         {
           "objectType": "page",
@@ -2879,7 +3113,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70049.LSC_Trans_Payment_Entry.al"
         },
         {
           "objectType": "page",
@@ -2888,7 +3123,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70050.LSC_Trans_Point_Entry.al"
         },
         {
           "objectType": "page",
@@ -2897,7 +3133,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70051.LSC_Trans_Sales_Entry.al"
         },
         {
           "objectType": "page",
@@ -2906,7 +3143,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70052.LSC_Trans_Tender_Declar_Entr.al"
         },
         {
           "objectType": "page",
@@ -2915,7 +3153,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70053.LSC_Voucher_Entries.al"
         },
         {
           "objectType": "page",
@@ -2924,7 +3163,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70054.HO_MPAEmployee.al"
         },
         {
           "objectType": "page",
@@ -2933,7 +3173,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70055.PAS603_PRR_Store.al"
         },
         {
           "objectType": "page",
@@ -2942,7 +3183,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70056.PAS634_PRR_DM_Item.al"
         },
         {
           "objectType": "page",
@@ -2951,7 +3193,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70057.Posted_Assembly_Header.al"
         },
         {
           "objectType": "page",
@@ -2960,7 +3203,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70058.Posted_Whse_Receipt_Header.al"
         },
         {
           "objectType": "page",
@@ -2969,7 +3213,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70059.Posted_Whse_Receipt_Line.al"
         },
         {
           "objectType": "page",
@@ -2978,7 +3223,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70060.Posted_Whse_Shipment_Header.al"
         },
         {
           "objectType": "page",
@@ -2987,7 +3233,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70061.Posted_Whse_Shipment_Line.al"
         },
         {
           "objectType": "page",
@@ -2996,7 +3243,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70062.Purchase_Header.al"
         },
         {
           "objectType": "page",
@@ -3005,7 +3253,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70063.Purchase_Line.al"
         },
         {
           "objectType": "page",
@@ -3014,7 +3263,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70064.Purchase_Price.al"
         },
         {
           "objectType": "page",
@@ -3023,7 +3273,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70065.Purch_Inv_Header.al"
         },
         {
           "objectType": "page",
@@ -3032,7 +3283,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70066.Purch_Rcpt_Header.al"
         },
         {
           "objectType": "page",
@@ -3041,7 +3293,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70067.Purch_Rcpt_Line.al"
         },
         {
           "objectType": "page",
@@ -3050,7 +3303,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70068.Sales_Header.al"
         },
         {
           "objectType": "page",
@@ -3059,7 +3313,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70069.Sales_Invoice_Header.al"
         },
         {
           "objectType": "page",
@@ -3068,7 +3323,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70070.Sales_Line.al"
         },
         {
           "objectType": "page",
@@ -3077,7 +3333,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70071.Sales_Price.al"
         },
         {
           "objectType": "page",
@@ -3086,7 +3343,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70072.Sales_Shipment_Header.al"
         },
         {
           "objectType": "page",
@@ -3095,7 +3353,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70073.Sales_Shipment_Line.al"
         },
         {
           "objectType": "page",
@@ -3104,7 +3363,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70074.Tracking_Specification.al"
         },
         {
           "objectType": "page",
@@ -3113,7 +3373,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70075.Transfer_Header.al"
         },
         {
           "objectType": "page",
@@ -3122,7 +3383,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70076.Transfer_Line.al"
         },
         {
           "objectType": "page",
@@ -3131,7 +3393,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70077.Transfer_Receipt_Header.al"
         },
         {
           "objectType": "page",
@@ -3140,7 +3403,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70078.Transfer_Shipment_Header.al"
         },
         {
           "objectType": "page",
@@ -3149,7 +3413,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70079.Value_Entry.al"
         },
         {
           "objectType": "page",
@@ -3158,7 +3423,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70080.VAT_Entry.al"
         },
         {
           "objectType": "page",
@@ -3167,7 +3433,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70081.Vendor.al"
         },
         {
           "objectType": "page",
@@ -3176,7 +3443,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70082.Warehouse_Activity_Header.al"
         },
         {
           "objectType": "page",
@@ -3185,7 +3453,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70083.Warehouse_Activity_Line.al"
         },
         {
           "objectType": "page",
@@ -3194,7 +3463,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70084.Warehouse_Entry.al"
         },
         {
           "objectType": "page",
@@ -3203,7 +3473,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70085.Warehouse_Journal_Line.al"
         },
         {
           "objectType": "page",
@@ -3212,7 +3483,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70086.Warehouse_Receipt_Header.al"
         },
         {
           "objectType": "page",
@@ -3221,7 +3493,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70087.Warehouse_Receipt_Line.al"
         },
         {
           "objectType": "page",
@@ -3230,7 +3503,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70088.Warehouse_Shipment_Line.al"
         },
         {
           "objectType": "page",
@@ -3239,7 +3513,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70089.WHT_Entry_PHL.al"
         },
         {
           "objectType": "page",
@@ -3248,7 +3523,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/Page70099.Lake_User.al"
         },
         {
           "objectType": "page",
@@ -3257,7 +3533,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/page70090.Lake_Purchase Invoice Header.al"
         },
         {
           "objectType": "page",
@@ -3266,7 +3543,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/page70091.Lake_FA Depreciation Book.al"
         },
         {
           "objectType": "page",
@@ -3275,7 +3553,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/page70092.Lake_Customer.al"
         },
         {
           "objectType": "page",
@@ -3284,7 +3563,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/page70093.Lake_Transfer Receipt Line.al"
         },
         {
           "objectType": "page",
@@ -3293,7 +3573,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/page70094.Lake_HO_MPAOrderLine.al"
         },
         {
           "objectType": "page",
@@ -3302,7 +3583,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/page70095.Lake_Witholding Tax Posting Setup.al"
         },
         {
           "objectType": "page",
@@ -3311,7 +3593,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/page70096.Lake_Vat Posting Setup.al"
         },
         {
           "objectType": "page",
@@ -3320,7 +3603,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/page70097.Lake_LSC Offer.al"
         },
         {
           "objectType": "page",
@@ -3329,7 +3613,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/page70098.Lake_LSC Information Subcode.al"
         },
         {
           "objectType": "page",
@@ -3338,7 +3623,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/Pages"
+          "fileDir": "root/Data Team API/Pages",
+          "filePath": "root/Data Team API/Pages/page70100.Lake_Sales Invoice Line.al"
         },
         {
           "objectType": "permissionset",
@@ -3347,7 +3633,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/permissionset"
+          "fileDir": "root/Data Team API/permissionset",
+          "filePath": "root/Data Team API/permissionset/Data.permissionset.al"
         },
         {
           "objectType": "permissionset",
@@ -3356,7 +3643,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Data Team API/permissionset"
+          "fileDir": "root/Data Team API/permissionset",
+          "filePath": "root/Data Team API/permissionset/HOAPIPermission.permissionset.al"
         },
         {
           "objectType": "page",
@@ -3365,7 +3653,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/GitHub Snapshots API"
+          "fileDir": "root/GitHub Snapshots API",
+          "filePath": "root/GitHub Snapshots API/Pag75014.HOXT NAV App Installed App.al"
         },
         {
           "objectType": "page",
@@ -3374,7 +3663,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Merkle API"
+          "fileDir": "root/Merkle API",
+          "filePath": "root/Merkle API/Pag98076.LSCTransCouponEntry.al"
         },
         {
           "objectType": "page",
@@ -3383,7 +3673,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Merkle API"
+          "fileDir": "root/Merkle API",
+          "filePath": "root/Merkle API/Pag98086.LSCMemberAccount.al"
         },
         {
           "objectType": "page",
@@ -3392,7 +3683,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Merkle API"
+          "fileDir": "root/Merkle API",
+          "filePath": "root/Merkle API/Pag98087.LSCMemberContact.al"
         },
         {
           "objectType": "page",
@@ -3401,7 +3693,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Merkle API"
+          "fileDir": "root/Merkle API",
+          "filePath": "root/Merkle API/Pag98088.LSCMembershipCard.al"
         },
         {
           "objectType": "page",
@@ -3410,7 +3703,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Merkle API"
+          "fileDir": "root/Merkle API",
+          "filePath": "root/Merkle API/Pag98089.LSCMemberPointEntry.al"
         },
         {
           "objectType": "page",
@@ -3419,7 +3713,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Merkle API"
+          "fileDir": "root/Merkle API",
+          "filePath": "root/Merkle API/Pag98090.LSCMemberAccountUpgrEntry.al"
         },
         {
           "objectType": "page",
@@ -3428,7 +3723,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Merkle API"
+          "fileDir": "root/Merkle API",
+          "filePath": "root/Merkle API/Pag98091.LSCMemberScheme.al"
         },
         {
           "objectType": "codeunit",
@@ -3437,7 +3733,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Relex API/Codeunit"
+          "fileDir": "root/Relex API/Codeunit",
+          "filePath": "root/Relex API/Codeunit/Cod98000.InsertInventoryAndSalesData.al"
         },
         {
           "objectType": "codeunit",
@@ -3446,7 +3743,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Relex API/Codeunit"
+          "fileDir": "root/Relex API/Codeunit",
+          "filePath": "root/Relex API/Codeunit/Cod98001.InsertInventoryAndSalesDataV2.al"
         },
         {
           "objectType": "page",
@@ -3455,7 +3753,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Relex API/Page"
+          "fileDir": "root/Relex API/Page",
+          "filePath": "root/Relex API/Page/Pag98000.ProcessActualInvbyLocList.al"
         },
         {
           "objectType": "page",
@@ -3464,7 +3763,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Relex API/Page"
+          "fileDir": "root/Relex API/Page",
+          "filePath": "root/Relex API/Page/Pag98001.ActualInvbyLocAPI.al"
         },
         {
           "objectType": "page",
@@ -3473,7 +3773,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Relex API/Page"
+          "fileDir": "root/Relex API/Page",
+          "filePath": "root/Relex API/Page/Pag98002.HOItemsbyLocation.al"
         },
         {
           "objectType": "page",
@@ -3482,7 +3783,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Relex API/Page"
+          "fileDir": "root/Relex API/Page",
+          "filePath": "root/Relex API/Page/Pag98003.HOItemsbyLocationMatrix.al"
         },
         {
           "objectType": "page",
@@ -3491,7 +3793,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Relex API/Page"
+          "fileDir": "root/Relex API/Page",
+          "filePath": "root/Relex API/Page/Pag98004.HOPurchanseLineAPI.al"
         },
         {
           "objectType": "page",
@@ -3500,7 +3803,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Relex API/Page"
+          "fileDir": "root/Relex API/Page",
+          "filePath": "root/Relex API/Page/Pag98020.PurchaseHeader.al"
         },
         {
           "objectType": "page",
@@ -3509,7 +3813,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Relex API/Page"
+          "fileDir": "root/Relex API/Page",
+          "filePath": "root/Relex API/Page/Pag98021.PurchaseLine.al"
         },
         {
           "objectType": "page",
@@ -3518,7 +3823,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Relex API/Page"
+          "fileDir": "root/Relex API/Page",
+          "filePath": "root/Relex API/Page/Pag98036.TransferHeaders.al"
         },
         {
           "objectType": "page",
@@ -3527,7 +3833,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Relex API/Page"
+          "fileDir": "root/Relex API/Page",
+          "filePath": "root/Relex API/Page/Pag98037.TransferLineAPI.al"
         },
         {
           "objectType": "page",
@@ -3536,7 +3843,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Relex API/Page"
+          "fileDir": "root/Relex API/Page",
+          "filePath": "root/Relex API/Page/Pag98100.RELX_SalesPrice.al"
         },
         {
           "objectType": "page",
@@ -3545,7 +3853,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Relex API/Page"
+          "fileDir": "root/Relex API/Page",
+          "filePath": "root/Relex API/Page/Pag98101.RELX_PurchasePrice.al"
         },
         {
           "objectType": "page",
@@ -3554,7 +3863,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Relex API/Page"
+          "fileDir": "root/Relex API/Page",
+          "filePath": "root/Relex API/Page/Pag98102.RELX_LSCTransactionHeader.al"
         },
         {
           "objectType": "page",
@@ -3563,7 +3873,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Relex API/Page"
+          "fileDir": "root/Relex API/Page",
+          "filePath": "root/Relex API/Page/Pag98103.RELX_LSCTransSalesEntry.al"
         },
         {
           "objectType": "page",
@@ -3572,7 +3883,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Relex API/Page"
+          "fileDir": "root/Relex API/Page",
+          "filePath": "root/Relex API/Page/Pag98999.temporary_CustomerPriceGroup.al"
         },
         {
           "objectType": "query",
@@ -3581,7 +3893,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Relex API/Query"
+          "fileDir": "root/Relex API/Query",
+          "filePath": "root/Relex API/Query/Que98000.InventoryPerLocation.al"
         },
         {
           "objectType": "query",
@@ -3590,7 +3903,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Relex API/Query"
+          "fileDir": "root/Relex API/Query",
+          "filePath": "root/Relex API/Query/Que98001.QtySoldNotPosted.al"
         },
         {
           "objectType": "table",
@@ -3599,7 +3913,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Relex API/Table"
+          "fileDir": "root/Relex API/Table",
+          "filePath": "root/Relex API/Table/Tab98000.ActualInvbyLoc.al"
         },
         {
           "objectType": "table",
@@ -3608,7 +3923,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Relex API/Table"
+          "fileDir": "root/Relex API/Table",
+          "filePath": "root/Relex API/Table/Tab98001.ActualInvbyLocEntries.al"
         },
         {
           "objectType": "table",
@@ -3617,7 +3933,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Relex API/Table"
+          "fileDir": "root/Relex API/Table",
+          "filePath": "root/Relex API/Table/Tab98002.RELX_ActualInvbyLocV2.al"
         },
         {
           "objectType": "page",
@@ -3626,7 +3943,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Replication To NAV API"
+          "fileDir": "root/Replication To NAV API",
+          "filePath": "root/Replication To NAV API/Pag75000.RNAV_InventoryPostingGroup.al"
         },
         {
           "objectType": "page",
@@ -3635,7 +3953,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Replication To NAV API"
+          "fileDir": "root/Replication To NAV API",
+          "filePath": "root/Replication To NAV API/Pag75001.RNAV_GenBusinessPostingGroup.al"
         },
         {
           "objectType": "page",
@@ -3644,7 +3963,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Replication To NAV API"
+          "fileDir": "root/Replication To NAV API",
+          "filePath": "root/Replication To NAV API/Pag75002.RNAV_GenProdPostingGroup.al"
         },
         {
           "objectType": "page",
@@ -3653,7 +3973,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Replication To NAV API"
+          "fileDir": "root/Replication To NAV API",
+          "filePath": "root/Replication To NAV API/Pag75003.RNAV_GeneralPostingSetup.al"
         },
         {
           "objectType": "page",
@@ -3662,7 +3983,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Replication To NAV API"
+          "fileDir": "root/Replication To NAV API",
+          "filePath": "root/Replication To NAV API/Pag75004.RNAV_VATBusinessPostingGroup.al"
         },
         {
           "objectType": "page",
@@ -3671,7 +3993,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Replication To NAV API"
+          "fileDir": "root/Replication To NAV API",
+          "filePath": "root/Replication To NAV API/Pag75005.RNAV_VATProductPostingGroup.al"
         },
         {
           "objectType": "page",
@@ -3680,7 +4003,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Replication To NAV API"
+          "fileDir": "root/Replication To NAV API",
+          "filePath": "root/Replication To NAV API/Pag75006.RNAV_VATPostingSetup.al"
         },
         {
           "objectType": "page",
@@ -3689,7 +4013,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Replication To NAV API"
+          "fileDir": "root/Replication To NAV API",
+          "filePath": "root/Replication To NAV API/Pag75007.RNAV_ItemCategory.al"
         },
         {
           "objectType": "page",
@@ -3698,7 +4023,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Replication To NAV API"
+          "fileDir": "root/Replication To NAV API",
+          "filePath": "root/Replication To NAV API/Pag75008.RNAV_ProductGroup.al"
         },
         {
           "objectType": "page",
@@ -3707,7 +4033,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Replication To NAV API"
+          "fileDir": "root/Replication To NAV API",
+          "filePath": "root/Replication To NAV API/Pag75009.RNAV_Division.al"
         },
         {
           "objectType": "page",
@@ -3716,7 +4043,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Replication To NAV API"
+          "fileDir": "root/Replication To NAV API",
+          "filePath": "root/Replication To NAV API/Pag75010.RNAV_Item.al"
         },
         {
           "objectType": "page",
@@ -3725,7 +4053,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Replication To NAV API"
+          "fileDir": "root/Replication To NAV API",
+          "filePath": "root/Replication To NAV API/Pag75011.RNAV_ItemUnitofMeasurement.al"
         },
         {
           "objectType": "page",
@@ -3734,7 +4063,8 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Replication To NAV API"
+          "fileDir": "root/Replication To NAV API",
+          "filePath": "root/Replication To NAV API/Pag75012.RNAV_SalesPrice.al"
         },
         {
           "objectType": "page",
@@ -3743,10 +4073,11 @@
           "appName": "HOXT - Custom API",
           "appVersion": "26.9.2.13",
           "appDir": "",
-          "fileDir": "root/Replication To NAV API"
+          "fileDir": "root/Replication To NAV API",
+          "filePath": "root/Replication To NAV API/Pag75013.RNAV_UnitofMeasure.al"
         }
       ],
-      "lastSyncedAt": "2026-10-12T23:10:14.323Z",
+      "lastSyncedAt": "2026-10-12T23:52:08.382Z",
       "apps": [
         {
           "name": "HOXT - Custom API",
@@ -4094,7 +4425,16 @@
         "5c4fb53338a186964ce49ce609725f44a4538826": "26.9.2.12",
         "467b0c26bcfaf93c8949ab781a045b2208dd58ba": "26.9.2.13"
       },
-      "notesError": ""
+      "notesError": "",
+      "scanInfo": {
+        "alFiles": 145,
+        "withObjects": 145,
+        "unparsed": [],
+        "unparsedTotal": 0,
+        "dupes": [],
+        "dupesTotal": 0,
+        "truncated": false
+      }
     },
     "devtool": {
       "owner": "HOXT-Dev",
@@ -4122,7 +4462,8 @@
           "appName": "HOXT - Developer's Tool",
           "appVersion": "26.9.1.1",
           "appDir": "",
-          "fileDir": "root/Pages"
+          "fileDir": "root/Pages",
+          "filePath": "root/Pages/Testpage.Page.al"
         },
         {
           "objectType": "codeunit",
@@ -4131,7 +4472,8 @@
           "appName": "HOXT - Developer's Tool",
           "appVersion": "26.9.1.1",
           "appDir": "",
-          "fileDir": "root/codeunit"
+          "fileDir": "root/codeunit",
+          "filePath": "root/codeunit/cod99008.HOXT AutoEnablePrevNegInv.al"
         },
         {
           "objectType": "page",
@@ -4140,7 +4482,8 @@
           "appName": "HOXT - Developer's Tool",
           "appVersion": "26.9.1.1",
           "appDir": "",
-          "fileDir": "root/page"
+          "fileDir": "root/page",
+          "filePath": "root/page/pag99001.HOXT Data Deletion.al"
         },
         {
           "objectType": "page",
@@ -4149,7 +4492,8 @@
           "appName": "HOXT - Developer's Tool",
           "appVersion": "26.9.1.1",
           "appDir": "",
-          "fileDir": "root/page"
+          "fileDir": "root/page",
+          "filePath": "root/page/pag99011.HOXT API Field Engine.al"
         },
         {
           "objectType": "page",
@@ -4158,7 +4502,8 @@
           "appName": "HOXT - Developer's Tool",
           "appVersion": "26.9.1.1",
           "appDir": "",
-          "fileDir": "root/page"
+          "fileDir": "root/page",
+          "filePath": "root/page/pag99013.HOXT Custom REST API List.al"
         },
         {
           "objectType": "page",
@@ -4167,7 +4512,8 @@
           "appName": "HOXT - Developer's Tool",
           "appVersion": "26.9.1.1",
           "appDir": "",
-          "fileDir": "root/page"
+          "fileDir": "root/page",
+          "filePath": "root/page/pag99014.HOXT Custom REST API Card.al"
         },
         {
           "objectType": "page",
@@ -4176,7 +4522,8 @@
           "appName": "HOXT - Developer's Tool",
           "appVersion": "26.9.1.1",
           "appDir": "",
-          "fileDir": "root/page"
+          "fileDir": "root/page",
+          "filePath": "root/page/pag99015.HOXT Custom API Owner.al"
         },
         {
           "objectType": "permissionset",
@@ -4185,7 +4532,8 @@
           "appName": "HOXT - Developer's Tool",
           "appVersion": "26.9.1.1",
           "appDir": "",
-          "fileDir": "root/permissionset"
+          "fileDir": "root/permissionset",
+          "filePath": "root/permissionset/per99002.HOXT Data Deletion.al"
         },
         {
           "objectType": "permissionset",
@@ -4194,7 +4542,8 @@
           "appName": "HOXT - Developer's Tool",
           "appVersion": "26.9.1.1",
           "appDir": "",
-          "fileDir": "root/permissionset"
+          "fileDir": "root/permissionset",
+          "filePath": "root/permissionset/per99005.HOXT Custom REST API.al"
         },
         {
           "objectType": "table",
@@ -4203,7 +4552,8 @@
           "appName": "HOXT - Developer's Tool",
           "appVersion": "26.9.1.1",
           "appDir": "",
-          "fileDir": "root/table"
+          "fileDir": "root/table",
+          "filePath": "root/table/tab99001.HOXT Data Deletion.al"
         },
         {
           "objectType": "table",
@@ -4212,7 +4562,8 @@
           "appName": "HOXT - Developer's Tool",
           "appVersion": "26.9.1.1",
           "appDir": "",
-          "fileDir": "root/table"
+          "fileDir": "root/table",
+          "filePath": "root/table/tab99042.HOXT Custom REST API List.al"
         },
         {
           "objectType": "table",
@@ -4221,10 +4572,11 @@
           "appName": "HOXT - Developer's Tool",
           "appVersion": "26.9.1.1",
           "appDir": "",
-          "fileDir": "root/table"
+          "fileDir": "root/table",
+          "filePath": "root/table/tab99044.HOXT Custom API Owner.al"
         }
       ],
-      "lastSyncedAt": "2026-10-12T23:10:17.815Z",
+      "lastSyncedAt": "2026-10-12T23:52:12.118Z",
       "apps": [
         {
           "name": "HOXT - Developer's Tool",
@@ -4282,10 +4634,25 @@
         "3249a1f02390ae985076cd015905abad2872feeb": "26.9.0.0",
         "8fb6213477f6d2baf3bf2a288cafb405f62825cd": "26.9.1.1"
       },
-      "notesError": ""
+      "notesError": "",
+      "scanInfo": {
+        "alFiles": 13,
+        "withObjects": 13,
+        "unparsed": [],
+        "unparsedTotal": 0,
+        "dupes": [
+          {
+            "key": "page:99003",
+            "kept": "Pages/TEST.Page.al",
+            "other": "root/Pages/Testpage.Page.al"
+          }
+        ],
+        "dupesTotal": 1,
+        "truncated": false
+      }
     }
   },
-  "lastRunAt": "2026-10-12T23:10:17.815Z",
+  "lastRunAt": "2026-10-12T23:52:12.118Z",
   "lastRunStatus": "success",
   "lastRunError": ""
 }
