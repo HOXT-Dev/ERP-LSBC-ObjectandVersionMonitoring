@@ -138,9 +138,16 @@ a{color:inherit;}
 .sidebar{
   width:250px;flex-shrink:0;background:var(--sidebar-bg);backdrop-filter:blur(20px);
   border-right:1px solid var(--border);display:flex;flex-direction:column;
-  padding:22px 16px;position:sticky;top:0;height:100vh;z-index:40;
+  padding:22px 16px;position:sticky;top:0;height:100vh;height:100dvh;z-index:40;overflow:hidden;
 }
-.brand{display:flex;align-items:center;gap:10px;padding:4px 8px 22px;}
+/* Only the menu scrolls: brand stays at the top, user / Log Out stay at the bottom.
+   Negative margin + matching padding keep the active-item bar (drawn 16px outside
+   the item) inside the scroll area so it isn't clipped. */
+.sidebar-nav{flex:1 1 auto;min-height:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;margin:0 -16px;padding:0 16px;scrollbar-width:thin;scrollbar-color:var(--border-strong) transparent;}
+.sidebar-nav::-webkit-scrollbar{width:6px;}
+.sidebar-nav::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:6px;}
+.sidebar-nav::-webkit-scrollbar-track{background:transparent;}
+.brand{display:flex;align-items:center;gap:10px;padding:4px 8px 22px;flex-shrink:0;}
 .brand-mark{width:34px;height:34px;border-radius:10px;background:var(--accent-grad-mark);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;color:#fff;font-size:14px;box-shadow:0 6px 18px -6px rgba(37,99,235,.65);overflow:hidden;flex-shrink:0;}
 .brand-mark-img{background:var(--surface-solid);}
 .brand-mark-img img{width:100%;height:100%;object-fit:cover;}
@@ -161,7 +168,7 @@ a{color:inherit;}
 .nav-item.active::before{content:'';position:absolute;left:-16px;top:50%;transform:translateY(-50%);width:3px;height:60%;border-radius:4px;background:var(--accent-grad);}
 .nav-item .count{margin-left:auto;font-size:10.5px;font-family:var(--font-mono);background:var(--surface-2);padding:1px 6px;border-radius:20px;color:var(--text-dim);}
 
-.sidebar-footer{margin-top:auto;padding-top:14px;border-top:1px solid var(--border);}
+.sidebar-footer{margin-top:auto;padding-top:14px;border-top:1px solid var(--border);flex-shrink:0;}
 .user-pill{display:flex;align-items:center;gap:9px;padding:8px;border-radius:10px;background:var(--surface-2);}
 .avatar{width:28px;height:28px;border-radius:50%;background:var(--accent-grad-mark);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0;}
 .user-pill select{background:transparent;border:none;color:var(--text);font-size:12px;font-weight:600;width:100%;outline:none;}
@@ -169,13 +176,13 @@ a{color:inherit;}
 
 .main{flex:1;min-width:0;display:flex;flex-direction:column;}
 .topbar{
-  display:flex;align-items:center;justify-content:space-between;padding:18px 32px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px 16px;padding:18px 32px;
   border-bottom:1px solid var(--border);position:sticky;top:0;z-index:30;
   background:var(--surface);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
 }
 .topbar h2{font-size:20px;letter-spacing:-.015em;}
 .topbar .sub{font-size:12.5px;color:var(--text-faint);margin-top:4px;letter-spacing:.01em;}
-.topbar-actions{display:flex;align-items:center;gap:10px;}
+.topbar-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
 .content{padding:28px 32px 60px;flex:1;}
 
 /* ============================= COMPONENTS ============================= */
@@ -383,6 +390,28 @@ html[data-theme="light"] pre.codeblock{background:#0f1523;color:#dbe4f7;}
 }
 .hamburger{display:none;}
 @media(max-width:900px){.hamburger{display:flex;}}
+/* Smaller laptop windows: slimmer sidebar so the page keeps its room */
+@media(min-width:901px) and (max-width:1180px){
+  .sidebar{width:220px;padding:20px 12px;}
+  .sidebar-nav{margin:0 -12px;padding:0 12px;}
+  .nav-item{padding:9px 10px;font-size:13px;}
+  .content{padding:22px 20px 48px;}
+  .topbar{padding:16px 20px;}
+}
+/* Short screens: tighten the vertical spacing so more of the menu fits before it has to scroll */
+@media(max-height:760px){
+  .sidebar{padding-top:14px;padding-bottom:12px;}
+  .brand{padding-bottom:10px;}
+  .nav-label{padding:10px 12px 5px;}
+  .nav-item{padding:7px 12px;margin-bottom:2px;}
+  .sidebar-footer{padding-top:10px;}
+}
+/* Very small windows: nothing in the page should force sideways scrolling of the whole screen */
+@media(max-width:560px){
+  .topbar h2{font-size:17px;}
+  .modal-overlay{padding:16px 8px;}
+  .modal-head,.modal-foot{padding-left:16px;padding-right:16px;}
+}
 </style>
 </head>
 <body>
@@ -1243,6 +1272,7 @@ function renderSidebar(){
       ${brandMarkHtml()}
       <div class="brand-text"><b>BC Object & Version Control Monitoring</b><span>Healthy Options - BS Dev Team</span></div>
     </div>
+    <div class="sidebar-nav">
     ${nav.map(g=>{
       const visibleItems = g.items.filter(it=>canViewNav(it.id));
       if(!visibleItems.length) return '';
@@ -1256,6 +1286,7 @@ function renderSidebar(){
           </div>`).join('')}
       </div>`;
     }).join('')}
+    </div>
     <div class="sidebar-footer">
       <div class="user-pill">
         <div class="avatar">${initials(u?u.name:'?')}</div>
