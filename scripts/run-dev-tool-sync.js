@@ -226,41 +226,105 @@ function alSkeleton(p, version) {
   }
 }
 
+const norm = s => String(s || '').toLowerCase().replace(/[^a-z]/g, '');
+// Every name a type's folder might already go by in a repo: Page / Pages / PageExtension / PageExt ...
+function typeFolderNorms(kw) {
+  const out = new Set();
+  [kw, AL_TYPE_FILESUFFIX[kw], AL_TYPE_FOLDER[kw]].forEach(x => {
+    if (!x) return;
+    const n = norm(x);
+    [n, n.replace('extension', 'ext')].forEach(v => { out.add(v); out.add(v + 's'); });
+  });
+  return out;
+}
+// The folder directly inside `base` that this object type already lives in (using the repo's own spelling), or null.
+function findTypeFolder(dirs, base, kw) {
+  const prefix = base ? base + '/' : '';
+  const names = typeFolderNorms(kw);
+  const kids = dirs.filter(d => d.length > prefix.length && d.startsWith(prefix) && !d.slice(prefix.length).includes('/')).map(d => d.slice(prefix.length));
+  return kids.find(k => names.has(norm(k))) || null;
+}
+async function listBranches(owner, repo) {
+  const names = [];
+  for (let page = 1; page <= 5; page++) {
+    const list = await ghApi(owner, repo, '/branches?per_page=100&page=' + page);
+    list.forEach(b => names.push(b.name));
+    if (list.length < 100) break;
+  }
+  return names;
+}
+async function repoDefaultBranch(cfg) {
+  try { const r = await ghApi(cfg.owner, cfg.repo, ''); return (r && r.default_branch) || ''; } catch (e) { return ''; }
+}
+
 // Creates every still-pending object's .al file in the AL source repo (NOT
-// this repo), using AL_SOURCE_PAT — which needs Contents: Read AND WRITE for
-// this to work, unlike the read-only sync above. Runs before the normal
-// read-sync for that source, so a newly created object shows up as a real
-// discovered object in the SAME run. Non-destructive: only ever creates a
-// file at a brand-new path — if something is already there, the request is
-// marked failed rather than silently overwritten.
+// this repo), using AL_SOURCE_PAT — which needs Contents: Read AND WRITE.
+// Rules, enforced here no matter what the browser sent:
+//  - never on main/master or the repo's default branch — only on the branch the person picked
+//  - goes into the type folder that ALREADY exists inside the target folder (Page, Pages, ...),
+//    using the repo's own spelling; it only creates a folder if the person said yes (createFolder)
+//  - never overwrites: if something is already at that path, the request fails instead
+// Runs before the normal read-sync for that source.
 async function createPendingObjects(key, cfg) {
   const pending = (cfg.pendingObjects || []).filter(p => p.status === 'pending');
   if (!pending.length) return cfg;
+  const blocked = new Set(['main', 'master']);
+  const def = await repoDefaultBranch(cfg);
+  if (def) blocked.add(def);
+  const dirsByBranch = {}; // branch -> directory paths, read once per branch per run
   for (const p of pending) {
     try {
-      const typeFolder = AL_TYPE_FOLDER[p.objectType] || cap1(p.objectType);
+      const branch = p.branch;
+      if (!branch) throw new Error('No branch was chosen for this object — remove it and add it again, picking a branch.');
+      if (blocked.has(branch)) throw new Error(`Creating files directly on "${branch}" is not allowed — pick a different branch.`);
+      if (!dirsByBranch[branch]) {
+        let t;
+        try { t = await ghApi(cfg.owner, cfg.repo, `/git/trees/${encodeURIComponent(branch)}?recursive=1`); }
+        catch (e) { throw new Error(`Branch "${branch}" could not be read (${e.message}).`); }
+        dirsByBranch[branch] = (t.tree || []).filter(e => e.type === 'tree').map(e => e.path);
+      }
+      const base = (p.folderPath || '').replace(/\/+$/, '');
+      let folder = findTypeFolder(dirsByBranch[branch], base, p.objectType);
+      const folderExisted = !!folder;
+      if (!folder) {
+        if (!p.createFolder) {
+          p.status = 'needs-folder';
+          p.error = `There is no folder for ${p.objectType} objects in "${base || '(repo root)'}" on branch "${branch}".`;
+          console.log(`[${key}] "${p.name}" is waiting for an answer: no ${p.objectType} folder in ${base || '(repo root)'} on ${branch}`);
+          continue;
+        }
+        folder = p.newFolderName || AL_TYPE_FOLDER[p.objectType] || cap1(p.objectType);
+      }
       const suffix = AL_TYPE_FILESUFFIX[p.objectType] || cap1(p.objectType);
       const safeName = p.name.replace(/[\\/:*?"<>|]/g, '');
-      const path = [p.folderPath, typeFolder, `${safeName}.${suffix}.al`].filter(Boolean).join('/');
+      const path = [base, folder, `${safeName}.${suffix}.al`].filter(Boolean).join('/');
+      const encPath = path.split('/').map(encodeURIComponent).join('/');
       let exists = null;
-      try { exists = await ghApi(cfg.owner, cfg.repo, `/contents/${path.split('/').map(encodeURIComponent).join('/')}?ref=${encodeURIComponent(cfg.branch || 'main')}`); } catch (e) { /* 404 = good, path is free */ }
-      if (exists) throw new Error(`${path} already exists in the repo — not overwriting it.`);
-      const content = alSkeleton(p, cfg.version);
-      await ghApiPut(cfg.owner, cfg.repo, `/contents/${path.split('/').map(encodeURIComponent).join('/')}`, {
-        message: `Add ${p.objectType} ${p.objectId || ''} "${p.name}" (queued by ${p.requestedBy || 'the app'})`.trim(),
-        content: encodeB64Utf8(content),
-        branch: cfg.branch || 'main',
+      try { exists = await ghApi(cfg.owner, cfg.repo, `/contents/${encPath}?ref=${encodeURIComponent(branch)}`); } catch (e) { /* 404 = the path is free */ }
+      if (exists) throw new Error(`${path} already exists on "${branch}" — not overwriting it.`);
+      await ghApiPut(cfg.owner, cfg.repo, `/contents/${encPath}`, {
+        message: `Add ${p.objectType} ${p.objectId || ''} "${p.name}" (queued by ${p.requestedBy || 'the app'})`.replace(/\s+/g, ' ').trim(),
+        content: encodeB64Utf8(alSkeleton(p, cfg.version)),
+        branch,
       });
-      p.status = 'done'; p.filePath = path; p.error = '';
-      console.log(`[${key}] created ${path}`);
+      if (!folderExisted) dirsByBranch[branch].push(base ? `${base}/${folder}` : folder); // later requests in this run see it
+      p.status = 'done'; p.filePath = path; p.error = ''; p.doneAt = new Date().toISOString();
+      p.url = `https://github.com/${cfg.owner}/${cfg.repo}/blob/${encodeURIComponent(branch)}/${encPath}`;
+      console.log(`[${key}] created ${path} on branch ${branch}${folderExisted ? '' : ' (new folder)'}`);
     } catch (err) {
       p.status = 'error'; p.error = err.message;
       console.error(`::warning::${key} could not create object "${p.name}": ${err.message}`);
     }
   }
-  // Keep the queue from growing forever — forget old successes, but always keep errors
-  // visible until someone clears them (the app's "Remove" button on a non-pending row).
-  cfg.pendingObjects = pending.filter(p => p.status !== 'done').concat((cfg.pendingObjects || []).filter(p => !pending.includes(p)));
+  return cfg;
+}
+// Created objects live on a feature branch until it's merged, so they stay listed here (and keep their ID reserved).
+// Once the read-sync of the main branch actually sees one, it's dropped; otherwise only the 20 newest are kept.
+function prunePending(cfg) {
+  const have = new Set((cfg.objects || []).map(o => `${o.objectType}:${o.objectId}`));
+  const list = (cfg.pendingObjects || []).filter(p => !(p.status === 'done' && p.objectId != null && have.has(`${p.objectType}:${p.objectId}`)));
+  const keep = new Set(list.filter(p => p.status === 'done').sort((a, b) => (b.doneAt || '').localeCompare(a.doneAt || '')).slice(0, 20));
+  cfg.pendingObjects = list.filter(p => p.status !== 'done' || keep.has(p));
   return cfg;
 }
 function cap1(s) { return s ? s[0].toUpperCase() + s.slice(1) : s; }
@@ -314,6 +378,12 @@ async function syncOneSource(key, cfg) {
   unparsed.slice(0, 15).forEach(u => console.log(`[${key}]   no object found in ${u.path}  →  ${u.firstLines}`));
   dupes.slice(0, 10).forEach(d => console.log(`[${key}]   duplicate ${d.key}: ${d.kept} and ${d.other}`));
   if (truncated) console.log(`::warning::${key}: GitHub truncated the repo file list (too large) — some files were never scanned.`);
+  // Branches (for the "Add Object" branch picker) and which folders exist (so the app can tell whether a type folder is there already).
+  let branches = null, branchesError = '';
+  try { branches = await listBranches(cfg.owner, cfg.repo); } catch (e) { branchesError = e.message; console.log(`[${key}] could not list branches: ${e.message}`); }
+  const defaultBranch = await repoDefaultBranch(cfg);
+  const repoFolders = (tree.tree || []).filter(e => e.type === 'tree').map(e => e.path)
+    .filter(d => { const segs = d.split('/'); return segs.length <= 5 && !segs.some(sg => sg.startsWith('.')) && !segs.includes('node_modules'); }).slice(0, 3000);
   // Release notes from git history. Never fatal: if it fails, the previous notes stay and the reason is recorded.
   var autoNotes = cfg.autoNotes || [], versionCache = cfg.versionCache || {}, notesError = '';
   try {
@@ -335,6 +405,7 @@ async function syncOneSource(key, cfg) {
     apps: apps.map(a => ({ name: a.name, version: a.version, path: a.dir })),
     objects: Object.values(byKey),
     autoNotes: autoNotes, versionCache: versionCache, notesError: notesError,
+    branches: branches, branchesError: branchesError, defaultBranch: defaultBranch, repoFolders: repoFolders,
     scanInfo: { alFiles: alFiles.length, withObjects: filesWithObjects, unparsed: unparsed.slice(0, 60), unparsedTotal: unparsed.length, dupes: dupes.slice(0, 60), dupesTotal: dupes.length, truncated: truncated },
     lastSyncedAt: new Date().toISOString(),
   };
@@ -350,6 +421,7 @@ async function main() {
     try {
       data.sources[key] = await createPendingObjects(key, data.sources[key]);
       data.sources[key] = await syncOneSource(key, data.sources[key]);
+      data.sources[key] = prunePending(data.sources[key]);
     } catch (err) {
       lastRunError += `[${key}] ${err.message}\n`;
       console.error(`::warning::${key} sync failed: ${err.message}`);
