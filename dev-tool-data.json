@@ -1888,7 +1888,7 @@
         "3d0ed5bad8f4587cf2a3192d1dc52d18c951ab35": "26.10.0.0"
       },
       "notesError": "",
-      "lastSyncedAt": "2026-10-15T20:00:04.887Z",
+      "lastSyncedAt": "2026-10-16T06:45:39.562Z",
       "scanInfo": {
         "alFiles": 120,
         "withObjects": 120,
@@ -1897,7 +1897,44 @@
         "dupes": [],
         "dupesTotal": 0,
         "truncated": false
-      }
+      },
+      "branches": [
+        "ESM",
+        "GLR",
+        "MNT",
+        "main"
+      ],
+      "branchesError": "",
+      "defaultBranch": "main",
+      "repoFolders": [
+        "root",
+        "root/Canele",
+        "root/Canele/pageextension",
+        "root/Canele/tableextension",
+        "root/HETI",
+        "root/HETI/codeunit",
+        "root/HETI/page",
+        "root/HETI/pageextension",
+        "root/HETI/reportlayouts",
+        "root/HETI/reports",
+        "root/HETI/table",
+        "root/HETI/tableextension",
+        "root/Staffshop",
+        "root/Staffshop/codeunit",
+        "root/Staffshop/pageextension",
+        "root/Staffshop/report",
+        "root/Staffshop/reportextension",
+        "root/Staffshop/reportlayout",
+        "root/Yogi",
+        "root/Yogi/codeunit",
+        "root/Yogi/page",
+        "root/Yogi/pageextension",
+        "root/Yogi/permissionset",
+        "root/Yogi/report",
+        "root/Yogi/reportlayouts",
+        "root/Yogi/table",
+        "root/Yogi/tableextension"
+      ]
     },
     "cloudenh": {
       "owner": "HOXT-Dev",
@@ -2301,7 +2338,7 @@
           "filePath": "root/tableextension/tabext99024.HOXT Store.al"
         }
       ],
-      "lastSyncedAt": "2026-10-15T20:00:15.548Z",
+      "lastSyncedAt": "2026-10-16T06:45:48.370Z",
       "apps": [
         {
           "name": "HOXT - Cloud Enhancements",
@@ -2590,7 +2627,25 @@
         "dupes": [],
         "dupesTotal": 0,
         "truncated": false
-      }
+      },
+      "branches": [
+        "ESM",
+        "GLR",
+        "MNT",
+        "main"
+      ],
+      "branchesError": "",
+      "defaultBranch": "main",
+      "repoFolders": [
+        "root",
+        "root/codeunit",
+        "root/enum",
+        "root/page",
+        "root/pageextension",
+        "root/reportlayouts",
+        "root/reports",
+        "root/tableextension"
+      ]
     },
     "onpremenh": {
       "owner": "HOXT-Dev",
@@ -2615,7 +2670,7 @@
           "filePath": "root/tableextension/tabext85000.HOXT LSC POS Trans. Line.al"
         }
       ],
-      "lastSyncedAt": "2026-10-15T20:00:16.904Z",
+      "lastSyncedAt": "2026-10-16T06:45:49.969Z",
       "apps": [
         {
           "name": "HOXT - OnPrem Enhancements",
@@ -2652,7 +2707,19 @@
         "dupes": [],
         "dupesTotal": 0,
         "truncated": false
-      }
+      },
+      "branches": [
+        "ESM",
+        "GLR",
+        "MNT",
+        "main"
+      ],
+      "branchesError": "",
+      "defaultBranch": "main",
+      "repoFolders": [
+        "root",
+        "root/tableextension"
+      ]
     },
     "apis": {
       "owner": "HOXT-Dev",
@@ -4118,7 +4185,7 @@
           "filePath": "root/Replication To NAV API/Pag75013.RNAV_UnitofMeasure.al"
         }
       ],
-      "lastSyncedAt": "2026-10-15T20:00:53.051Z",
+      "lastSyncedAt": "2026-10-16T06:46:19.133Z",
       "apps": [
         {
           "name": "HOXT - Custom API",
@@ -4475,7 +4542,29 @@
         "dupes": [],
         "dupesTotal": 0,
         "truncated": false
-      }
+      },
+      "branches": [
+        "ESM",
+        "GLR",
+        "MNT",
+        "main"
+      ],
+      "branchesError": "",
+      "defaultBranch": "main",
+      "repoFolders": [
+        "root",
+        "root/Data Team API",
+        "root/Data Team API/Pages",
+        "root/Data Team API/permissionset",
+        "root/GitHub Snapshots API",
+        "root/Merkle API",
+        "root/Relex API",
+        "root/Relex API/Codeunit",
+        "root/Relex API/Page",
+        "root/Relex API/Query",
+        "root/Relex API/Table",
+        "root/Replication To NAV API"
+      ]
     },
     "devtool": {
       "owner": "HOXT-Dev",
@@ -4617,7 +4706,7 @@
           "filePath": "root/table/tab99044.HOXT Custom API Owner.al"
         }
       ],
-      "lastSyncedAt": "2026-10-15T20:00:56.981Z",
+      "lastSyncedAt": "2026-10-16T06:46:22.955Z",
       "apps": [
         {
           "name": "HOXT - Developer's Tool",
@@ -4684,10 +4773,26 @@
         "dupes": [],
         "dupesTotal": 0,
         "truncated": false
-      }
+      },
+      "branches": [
+        "ESM",
+        "GLR",
+        "MNT",
+        "main"
+      ],
+      "branchesError": "",
+      "defaultBranch": "main",
+      "repoFolders": [
+        "root",
+        "root/Pages",
+        "root/codeunit",
+        "root/page",
+        "root/permissionset",
+        "root/table"
+      ]
     }
   },
-  "lastRunAt": "2026-10-15T20:00:56.981Z",
+  "lastRunAt": "2026-10-16T06:46:22.955Z",
   "lastRunStatus": "success",
   "lastRunError": ""
 }
