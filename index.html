@@ -2564,6 +2564,14 @@ const SYNC_SOURCES = { // order = order shown in Settings > Dev-tool Sync
   devtool:   DEV_SOURCES.devtool,
 };
 const DEVTOOL_DATA_PATH = 'dev-tool-data.json';
+// What's in the browser wins (it's what the person just did), with one exception: a request GitHub Actions has
+// already finished stays finished — otherwise saving from a page that hasn't refreshed would turn a created
+// file back into "pending" and the next run would try to create it again.
+function mergePendingObjects(local, remote){
+  if(!local) return remote || [];
+  const done = new Map((remote||[]).filter(p=>p.status==='done').map(p=>[p.id, p]));
+  return local.map(p=> done.has(p.id) ? done.get(p.id) : p);
+}
 function devSourceDefaults(key){
   return { owner:'', repo:'', branch:'main', folder:'', projectsFolder:'', objectsFolder:'', objectMeta:{}, releaseNotes:[], pendingObjects:[], ...(NOTES_ONLY_SOURCES[key]?{notesOnly:true}:{}) };
 }
@@ -2736,7 +2744,7 @@ async function saveDevToolSyncToGithubImpl(commitMessage){
       // Same reasoning: a just-queued "create this object" request is only ever
       // added locally first — if remoteSrc's copy won, saving right after
       // queuing one would silently drop it before GitHub Actions ever saw it.
-      pendingObjects: loc.pendingObjects || (remoteSrc && remoteSrc.pendingObjects) || [],
+      pendingObjects: mergePendingObjects(loc.pendingObjects, remoteSrc && remoteSrc.pendingObjects),
       ...(NOTES_ONLY_SOURCES[key] ? {notesOnly:true} : {}),
     };
   });
@@ -2990,41 +2998,105 @@ function alSkeleton(p, version) {
   }
 }
 
+const norm = s => String(s || '').toLowerCase().replace(/[^a-z]/g, '');
+// Every name a type's folder might already go by in a repo: Page / Pages / PageExtension / PageExt ...
+function typeFolderNorms(kw) {
+  const out = new Set();
+  [kw, AL_TYPE_FILESUFFIX[kw], AL_TYPE_FOLDER[kw]].forEach(x => {
+    if (!x) return;
+    const n = norm(x);
+    [n, n.replace('extension', 'ext')].forEach(v => { out.add(v); out.add(v + 's'); });
+  });
+  return out;
+}
+// The folder directly inside \`base\` that this object type already lives in (using the repo's own spelling), or null.
+function findTypeFolder(dirs, base, kw) {
+  const prefix = base ? base + '/' : '';
+  const names = typeFolderNorms(kw);
+  const kids = dirs.filter(d => d.length > prefix.length && d.startsWith(prefix) && !d.slice(prefix.length).includes('/')).map(d => d.slice(prefix.length));
+  return kids.find(k => names.has(norm(k))) || null;
+}
+async function listBranches(owner, repo) {
+  const names = [];
+  for (let page = 1; page <= 5; page++) {
+    const list = await ghApi(owner, repo, '/branches?per_page=100&page=' + page);
+    list.forEach(b => names.push(b.name));
+    if (list.length < 100) break;
+  }
+  return names;
+}
+async function repoDefaultBranch(cfg) {
+  try { const r = await ghApi(cfg.owner, cfg.repo, ''); return (r && r.default_branch) || ''; } catch (e) { return ''; }
+}
+
 // Creates every still-pending object's .al file in the AL source repo (NOT
-// this repo), using AL_SOURCE_PAT — which needs Contents: Read AND WRITE for
-// this to work, unlike the read-only sync above. Runs before the normal
-// read-sync for that source, so a newly created object shows up as a real
-// discovered object in the SAME run. Non-destructive: only ever creates a
-// file at a brand-new path — if something is already there, the request is
-// marked failed rather than silently overwritten.
+// this repo), using AL_SOURCE_PAT — which needs Contents: Read AND WRITE.
+// Rules, enforced here no matter what the browser sent:
+//  - never on main/master or the repo's default branch — only on the branch the person picked
+//  - goes into the type folder that ALREADY exists inside the target folder (Page, Pages, ...),
+//    using the repo's own spelling; it only creates a folder if the person said yes (createFolder)
+//  - never overwrites: if something is already at that path, the request fails instead
+// Runs before the normal read-sync for that source.
 async function createPendingObjects(key, cfg) {
   const pending = (cfg.pendingObjects || []).filter(p => p.status === 'pending');
   if (!pending.length) return cfg;
+  const blocked = new Set(['main', 'master']);
+  const def = await repoDefaultBranch(cfg);
+  if (def) blocked.add(def);
+  const dirsByBranch = {}; // branch -> directory paths, read once per branch per run
   for (const p of pending) {
     try {
-      const typeFolder = AL_TYPE_FOLDER[p.objectType] || cap1(p.objectType);
+      const branch = p.branch;
+      if (!branch) throw new Error('No branch was chosen for this object — remove it and add it again, picking a branch.');
+      if (blocked.has(branch)) throw new Error(\`Creating files directly on "\${branch}" is not allowed — pick a different branch.\`);
+      if (!dirsByBranch[branch]) {
+        let t;
+        try { t = await ghApi(cfg.owner, cfg.repo, \`/git/trees/\${encodeURIComponent(branch)}?recursive=1\`); }
+        catch (e) { throw new Error(\`Branch "\${branch}" could not be read (\${e.message}).\`); }
+        dirsByBranch[branch] = (t.tree || []).filter(e => e.type === 'tree').map(e => e.path);
+      }
+      const base = (p.folderPath || '').replace(/\\/+$/, '');
+      let folder = findTypeFolder(dirsByBranch[branch], base, p.objectType);
+      const folderExisted = !!folder;
+      if (!folder) {
+        if (!p.createFolder) {
+          p.status = 'needs-folder';
+          p.error = \`There is no folder for \${p.objectType} objects in "\${base || '(repo root)'}" on branch "\${branch}".\`;
+          console.log(\`[\${key}] "\${p.name}" is waiting for an answer: no \${p.objectType} folder in \${base || '(repo root)'} on \${branch}\`);
+          continue;
+        }
+        folder = p.newFolderName || AL_TYPE_FOLDER[p.objectType] || cap1(p.objectType);
+      }
       const suffix = AL_TYPE_FILESUFFIX[p.objectType] || cap1(p.objectType);
       const safeName = p.name.replace(/[\\\\/:*?"<>|]/g, '');
-      const path = [p.folderPath, typeFolder, \`\${safeName}.\${suffix}.al\`].filter(Boolean).join('/');
+      const path = [base, folder, \`\${safeName}.\${suffix}.al\`].filter(Boolean).join('/');
+      const encPath = path.split('/').map(encodeURIComponent).join('/');
       let exists = null;
-      try { exists = await ghApi(cfg.owner, cfg.repo, \`/contents/\${path.split('/').map(encodeURIComponent).join('/')}?ref=\${encodeURIComponent(cfg.branch || 'main')}\`); } catch (e) { /* 404 = good, path is free */ }
-      if (exists) throw new Error(\`\${path} already exists in the repo — not overwriting it.\`);
-      const content = alSkeleton(p, cfg.version);
-      await ghApiPut(cfg.owner, cfg.repo, \`/contents/\${path.split('/').map(encodeURIComponent).join('/')}\`, {
-        message: \`Add \${p.objectType} \${p.objectId || ''} "\${p.name}" (queued by \${p.requestedBy || 'the app'})\`.trim(),
-        content: encodeB64Utf8(content),
-        branch: cfg.branch || 'main',
+      try { exists = await ghApi(cfg.owner, cfg.repo, \`/contents/\${encPath}?ref=\${encodeURIComponent(branch)}\`); } catch (e) { /* 404 = the path is free */ }
+      if (exists) throw new Error(\`\${path} already exists on "\${branch}" — not overwriting it.\`);
+      await ghApiPut(cfg.owner, cfg.repo, \`/contents/\${encPath}\`, {
+        message: \`Add \${p.objectType} \${p.objectId || ''} "\${p.name}" (queued by \${p.requestedBy || 'the app'})\`.replace(/\\s+/g, ' ').trim(),
+        content: encodeB64Utf8(alSkeleton(p, cfg.version)),
+        branch,
       });
-      p.status = 'done'; p.filePath = path; p.error = '';
-      console.log(\`[\${key}] created \${path}\`);
+      if (!folderExisted) dirsByBranch[branch].push(base ? \`\${base}/\${folder}\` : folder); // later requests in this run see it
+      p.status = 'done'; p.filePath = path; p.error = ''; p.doneAt = new Date().toISOString();
+      p.url = \`https://github.com/\${cfg.owner}/\${cfg.repo}/blob/\${encodeURIComponent(branch)}/\${encPath}\`;
+      console.log(\`[\${key}] created \${path} on branch \${branch}\${folderExisted ? '' : ' (new folder)'}\`);
     } catch (err) {
       p.status = 'error'; p.error = err.message;
       console.error(\`::warning::\${key} could not create object "\${p.name}": \${err.message}\`);
     }
   }
-  // Keep the queue from growing forever — forget old successes, but always keep errors
-  // visible until someone clears them (the app's "Remove" button on a non-pending row).
-  cfg.pendingObjects = pending.filter(p => p.status !== 'done').concat((cfg.pendingObjects || []).filter(p => !pending.includes(p)));
+  return cfg;
+}
+// Created objects live on a feature branch until it's merged, so they stay listed here (and keep their ID reserved).
+// Once the read-sync of the main branch actually sees one, it's dropped; otherwise only the 20 newest are kept.
+function prunePending(cfg) {
+  const have = new Set((cfg.objects || []).map(o => \`\${o.objectType}:\${o.objectId}\`));
+  const list = (cfg.pendingObjects || []).filter(p => !(p.status === 'done' && p.objectId != null && have.has(\`\${p.objectType}:\${p.objectId}\`)));
+  const keep = new Set(list.filter(p => p.status === 'done').sort((a, b) => (b.doneAt || '').localeCompare(a.doneAt || '')).slice(0, 20));
+  cfg.pendingObjects = list.filter(p => p.status !== 'done' || keep.has(p));
   return cfg;
 }
 function cap1(s) { return s ? s[0].toUpperCase() + s.slice(1) : s; }
@@ -3078,6 +3150,12 @@ async function syncOneSource(key, cfg) {
   unparsed.slice(0, 15).forEach(u => console.log(\`[\${key}]   no object found in \${u.path}  →  \${u.firstLines}\`));
   dupes.slice(0, 10).forEach(d => console.log(\`[\${key}]   duplicate \${d.key}: \${d.kept} and \${d.other}\`));
   if (truncated) console.log(\`::warning::\${key}: GitHub truncated the repo file list (too large) — some files were never scanned.\`);
+  // Branches (for the "Add Object" branch picker) and which folders exist (so the app can tell whether a type folder is there already).
+  let branches = null, branchesError = '';
+  try { branches = await listBranches(cfg.owner, cfg.repo); } catch (e) { branchesError = e.message; console.log(\`[\${key}] could not list branches: \${e.message}\`); }
+  const defaultBranch = await repoDefaultBranch(cfg);
+  const repoFolders = (tree.tree || []).filter(e => e.type === 'tree').map(e => e.path)
+    .filter(d => { const segs = d.split('/'); return segs.length <= 5 && !segs.some(sg => sg.startsWith('.')) && !segs.includes('node_modules'); }).slice(0, 3000);
   // Release notes from git history. Never fatal: if it fails, the previous notes stay and the reason is recorded.
   var autoNotes = cfg.autoNotes || [], versionCache = cfg.versionCache || {}, notesError = '';
   try {
@@ -3099,6 +3177,7 @@ async function syncOneSource(key, cfg) {
     apps: apps.map(a => ({ name: a.name, version: a.version, path: a.dir })),
     objects: Object.values(byKey),
     autoNotes: autoNotes, versionCache: versionCache, notesError: notesError,
+    branches: branches, branchesError: branchesError, defaultBranch: defaultBranch, repoFolders: repoFolders,
     scanInfo: { alFiles: alFiles.length, withObjects: filesWithObjects, unparsed: unparsed.slice(0, 60), unparsedTotal: unparsed.length, dupes: dupes.slice(0, 60), dupesTotal: dupes.length, truncated: truncated },
     lastSyncedAt: new Date().toISOString(),
   };
@@ -3114,6 +3193,7 @@ async function main() {
     try {
       data.sources[key] = await createPendingObjects(key, data.sources[key]);
       data.sources[key] = await syncOneSource(key, data.sources[key]);
+      data.sources[key] = prunePending(data.sources[key]);
     } catch (err) {
       lastRunError += \`[\${key}] \${err.message}\\n\`;
       console.error(\`::warning::\${key} sync failed: \${err.message}\`);
@@ -3388,7 +3468,7 @@ function allUsedIdsForInternalType(internalTypeId){
   Object.keys(SYNC_SOURCES).forEach(key=>{
     const cfg = dt.sources[key];
     (cfg.objects||[]).forEach(o=>{ const t = alKindToInternalType(o.objectType); if(t && t.id===internalTypeId) used.add(o.objectId); });
-    (cfg.pendingObjects||[]).forEach(o=>{ const t = alKindToInternalType(o.objectType); if(t && t.id===internalTypeId && o.objectId!=null) used.add(o.objectId); });
+    (cfg.pendingObjects||[]).forEach(o=>{ if(o.status==='error') return; const t = alKindToInternalType(o.objectType); if(t && t.id===internalTypeId && o.objectId!=null) used.add(o.objectId); });
   });
   return used;
 }
@@ -3477,37 +3557,73 @@ function scanDiagnosticsHtml(cfg){
   if(!parts.length) return '';
   return `<div class="card" style="margin-bottom:18px;border-left:3px solid var(--warning);"><div style="font-size:12.5px;">${parts.join('')}</div></div>`;
 }
+// ---- Where a new object may go: folders and branches --------------------------------
+function alNorm(s){ return String(s||'').toLowerCase().replace(/[^a-z]/g,''); }
+// Every name a type's folder might already have in a repo: Page / Pages / PageExtension / PageExt …
+function alTypeFolderNorms(kw){
+  const out = new Set();
+  [kw, AL_TYPE_FILESUFFIX[kw], AL_TYPE_FOLDER[kw]].forEach(x=>{
+    if(!x) return;
+    const n = alNorm(x);
+    [n, n.replace('extension','ext')].forEach(v=>{ out.add(v); out.add(v+'s'); });
+  });
+  return out;
+}
+// The folder directly inside `base` that this object type already lives in, in the repo's own spelling.
+// Returns the name (exists), null (known not to exist) or undefined (folder list not synced yet).
+function findExistingTypeFolder(cfg, base, kw){
+  if(!Array.isArray(cfg.repoFolders)) return undefined;
+  const prefix = base ? base+'/' : '';
+  const names = alTypeFolderNorms(kw);
+  const hit = cfg.repoFolders
+    .filter(d=> d.length>prefix.length && d.startsWith(prefix) && !d.slice(prefix.length).includes('/'))
+    .map(d=> d.slice(prefix.length))
+    .find(k=> names.has(alNorm(k)));
+  return hit || null;
+}
+// New files are never allowed on main/master or the repo's default branch (the sync script enforces this too).
+function blockedBranchSet(cfg){ const s = new Set(['main','master']); if(cfg.defaultBranch) s.add(cfg.defaultBranch); return s; }
+function selectableBranches(cfg){ const blocked = blockedBranchSet(cfg); return (cfg.branches||[]).filter(b=>!blocked.has(b)); }
+
 function pendingObjectsOf(cfg){ return (cfg.pendingObjects||[]).slice().sort((a,b)=>(b.requestedAt||'').localeCompare(a.requestedAt||'')); }
 function pendingObjectsPanel(sourceKey, cfg){
   const items = pendingObjectsOf(cfg);
   if(!items.length) return '';
-  const statusBadge = s => s==='done' ? `<span class="badge active"><span class="badge-dot"></span>Created</span>`
-    : s==='error' ? `<span class="badge danger"><span class="badge-dot"></span>Failed</span>`
-    : `<span class="badge pending"><span class="badge-dot"></span>Pending GitHub Actions</span>`;
+  const canEdit = can('projects','modify');
+  const badge = (cls,text)=> `<span class="badge ${cls}"><span class="badge-dot"></span>${text}</span>`;
+  const statusCell = p=>{
+    if(p.status==='done') return badge('active', `Created on ${escapeHtml(p.branch||'its branch')}`)
+      + `<div class="hint" style="font-size:11px;margin-top:2px;">${p.url?`<a href="${escapeAttr(p.url)}" target="_blank" rel="noopener">View file</a> · `:''}Shows in the Objects List once that branch is merged into main and synced.</div>`;
+    if(p.status==='error') return badge('danger','Failed') + `<div class="hint" style="color:var(--danger);font-size:11px;margin-top:2px;">${escapeHtml(p.error||'')}</div>`;
+    if(p.status==='needs-folder') return badge('pending','Needs your answer')
+      + `<div class="hint" style="font-size:11px;margin:2px 0 6px;">${escapeHtml(p.error||'')} Create it?</div>`
+      + (canEdit ? `<button class="btn btn-sm btn-primary" data-pendingobj-createfolder="${sourceKey}:${p.id}">Yes, create the folder</button> <button class="btn btn-sm" data-pendingobj-remove="${sourceKey}:${p.id}">No, don't create it</button>` : '');
+    return badge('pending','Pending GitHub Actions');
+  };
   return `
   <div class="card" style="margin-bottom:18px;">
     <div class="section-title"><h3>${icon('upload')} Objects Queued for Creation <span class="hint" style="font-weight:400;">(${items.length})</span></h3></div>
-    <div class="table-wrap" style="max-height:220px;">
+    <div class="table-wrap" style="max-height:280px;">
       <table>
-        <thead><tr><th>Type</th><th>ID</th><th>Name</th><th>Target Path</th><th>Status</th><th>Requested</th><th></th></tr></thead>
+        <thead><tr><th>Type</th><th>ID</th><th>Name</th><th>Branch</th><th>Target Path</th><th>Status</th><th>Requested</th><th></th></tr></thead>
         <tbody>${items.map(p=>`
           <tr>
             <td>${escapeHtml(devObjTypeLabel(p.objectType))}</td>
             <td class="mono">${p.objectId==null?'—':p.objectId}</td>
             <td>${escapeHtml(p.name)}</td>
-            <td class="mono" style="font-size:11.5px;color:var(--text-faint);">${escapeHtml(p.filePath||`${p.folderPath}/${AL_TYPE_FOLDER[p.objectType]}/${p.name}.${AL_TYPE_FILESUFFIX[p.objectType]}.al`)}</td>
-            <td>${statusBadge(p.status)}${p.status==='error'&&p.error?`<div class="hint" style="color:var(--danger);font-size:11px;margin-top:2px;">${escapeHtml(p.error)}</div>`:''}</td>
+            <td class="mono">${escapeHtml(p.branch||'—')}</td>
+            <td class="mono" style="font-size:11.5px;color:var(--text-faint);">${escapeHtml(p.filePath||[p.folderPath, p.typeFolder||AL_TYPE_FOLDER[p.objectType], `${p.name}.${AL_TYPE_FILESUFFIX[p.objectType]}.al`].filter(Boolean).join('/'))}</td>
+            <td>${statusCell(p)}</td>
             <td style="white-space:nowrap;color:var(--text-faint);font-size:12px;">${timeAgo(p.requestedAt)}</td>
-            <td>${p.status!=='done'&&can('projects','modify')?`<button class="btn btn-icon btn-sm btn-ghost" data-pendingobj-remove="${sourceKey}:${p.id}" title="Remove">${icon('trash')}</button>`:''}</td>
+            <td>${p.status!=='needs-folder'&&canEdit?`<button class="btn btn-icon btn-sm btn-ghost" data-pendingobj-remove="${sourceKey}:${p.id}" title="${p.status==='done'?'Dismiss':'Remove'}">${icon('trash')}</button>`:''}</td>
           </tr>`).join('')}
         </tbody>
       </table>
     </div>
   </div>`;
 }
-// opts: { lockedFolder, lockedFolderLabel } when called from a HOXT Projects /
-// Custom API item (folder is that item's own subfolder, not a choice); omit
-// both to let the form offer a folder/app choice instead (Cloud/OnPrem/Tool).
+// opts: { lockedFolder, lockedFolderLabel } when called from a HOXT Projects / Custom API item (folder is that
+// item's own subfolder, not a choice); omit both to let the form offer a folder/app choice instead.
 function openAddMonitoredObjectModal(sourceKey, opts){
   opts = opts || {};
   const cfg = devToolSyncSettings().sources[sourceKey];
@@ -3517,10 +3633,22 @@ function openAddMonitoredObjectModal(sourceKey, opts){
   bindAddMonitoredObjectModal(sourceKey, cfg, apps, opts);
 }
 function addMonitoredObjectModalHtml(sourceKey, cfg, apps, opts, draft){
-  draft = draft || { kw:'table', name:'', sourceTable:'', extends:'', folder: opts.lockedFolder || devObjectsBase(cfg), remarks:'' };
+  draft = draft || { kw:'table', name:'', sourceTable:'', extends:'', folder: opts.lockedFolder || devObjectsBase(cfg), branch:'', remarks:'' };
   const kind = alObjectKind(draft.kw);
   const range = alKindRange(sourceKey, draft.kw);
   const nextId = kind.hasId ? nextFreeIdForAlKind(sourceKey, draft.kw) : null;
+  const base = (opts.lockedFolder || draft.folder || devObjectsBase(cfg) || '').replace(/\/+$/,'');
+  const existing = findExistingTypeFolder(cfg, base, draft.kw);   // string | null | undefined
+  const folderLine = `<span class="mono">${escapeHtml(base||'(repo root)')}/${escapeHtml(existing || AL_TYPE_FOLDER[draft.kw])}</span>`;
+  const folderNote = existing ? `<div class="hint" style="color:var(--success);font-size:11.5px;margin-top:4px;">✓ This type already has a folder here — the file goes into it.</div>`
+    : existing===null ? `<div class="hint" style="color:var(--warning);font-size:11.5px;margin-top:4px;">There is no folder for this type here yet. You'll be asked whether to create it — if you say no, nothing is created.</div>`
+    : `<div class="hint" style="font-size:11.5px;margin-top:4px;">Folders haven't been read yet. After the next sync (push the updated automation first) this shows whether the folder exists.</div>`;
+  const branches = selectableBranches(cfg);
+  const branchNote = !Array.isArray(cfg.branches)
+      ? `<div class="hint" style="color:var(--warning);font-size:11.5px;margin-top:4px;">The branch list hasn't been read from GitHub yet. Push the updated automation, then Run Sync Now, then reopen this form.</div>`
+    : !branches.length
+      ? `<div class="hint" style="color:var(--danger);font-size:11.5px;margin-top:4px;">This repository has no branch other than <span class="mono">${escapeHtml(cfg.defaultBranch||'main')}</span>, and new objects can't go on it. Create a branch in GitHub, then Run Sync Now to refresh this list.</div>`
+      : `<div class="hint" style="font-size:11.5px;margin-top:4px;">New objects can't be added to <span class="mono">${escapeHtml([...blockedBranchSet(cfg)].join(', '))}</span> — only to another branch.</div>`;
   return `
   <div class="modal">
     <div class="modal-head">
@@ -3528,7 +3656,7 @@ function addMonitoredObjectModalHtml(sourceKey, cfg, apps, opts, draft){
       <button class="close-x" id="modalClose">${icon('close')}</button>
     </div>
     <div style="padding:20px;">
-      <p style="font-size:11.5px;color:var(--text-faint);margin:0 0 14px;">Creates a new <span class="mono">.al</span> file in the linked repo on the next GitHub Actions sync — not instantly. ${AL_KINDS_WITH_HOUSE_STYLE.has(draft.kw)?'':'<b>This object type uses a generic AL skeleton, not your house template — let me know if you want me to match it to real examples.</b>'}</p>
+      <p style="font-size:11.5px;color:var(--text-faint);margin:0 0 14px;">Creates a new <span class="mono">.al</span> file on the branch you pick, on the next GitHub Actions sync — not instantly. ${AL_KINDS_WITH_HOUSE_STYLE.has(draft.kw)?'':'<b>This object type uses a generic AL skeleton, not your house template — let me know if you want me to match it to real examples.</b>'}</p>
       <div class="form-row">
         <label>Object Type</label>
         <select id="amoType">
@@ -3549,23 +3677,77 @@ function addMonitoredObjectModalHtml(sourceKey, cfg, apps, opts, draft){
         <label>Extends <span class="hint">(the base object this customizes)</span></label><input type="text" id="amoExtends" value="${escapeAttr(draft.extends)}" placeholder="e.g. Customer">
       </div>
       <div class="form-row">
+        <label>Branch</label>
+        <select id="amoBranch" ${branches.length?'':'disabled'}>
+          <option value="">Select a branch…</option>
+          ${branches.map(b=>`<option value="${escapeAttr(b)}" ${b===draft.branch?'selected':''}>${escapeHtml(b)}</option>`).join('')}
+        </select>
+        ${branchNote}
+      </div>
+      <div class="form-row">
         <label>Target Location</label>
         ${opts.lockedFolder
-          ? `<div class="readonly-field mono">${escapeAttr(opts.lockedFolder)}/${AL_TYPE_FOLDER[draft.kw]} <span class="hint">(${escapeHtml(opts.lockedFolderLabel||'this item')})</span></div>`
+          ? `<div class="readonly-field">${folderLine} <span class="hint">(${escapeHtml(opts.lockedFolderLabel||'this item')})</span></div>`
           : apps.length>1
             ? `<select id="amoFolder">
-                <option value="${escapeAttr(devObjectsBase(cfg))}" ${draft.folder===devObjectsBase(cfg)?'selected':''}>${escapeHtml(devObjectsBase(cfg)||'(repo root)')} <span class="mono">(configured folder)</span></option>
-                ${apps.map(a=>`<option value="${escapeAttr(a.path)}" ${a.path===draft.folder?'selected':''}>${escapeHtml(a.name||a.path)} <span class="mono">(${escapeHtml(a.path)})</span></option>`).join('')}
-              </select>`
-            : `<div class="readonly-field mono">${escapeAttr(draft.folder || devObjectsBase(cfg) || '(repo root)')}/${AL_TYPE_FOLDER[draft.kw]}${apps.length===0?` <span class="hint">(no app.json found there yet — the file will still be created)</span>`:''}</div>`}
+                <option value="${escapeAttr(devObjectsBase(cfg))}" ${draft.folder===devObjectsBase(cfg)?'selected':''}>${escapeHtml(devObjectsBase(cfg)||'(repo root)')} (configured folder)</option>
+                ${apps.map(a=>`<option value="${escapeAttr(a.path)}" ${a.path===draft.folder?'selected':''}>${escapeHtml(a.name||a.path)} (${escapeHtml(a.path)})</option>`).join('')}
+              </select><div style="margin-top:6px;">${folderLine}</div>`
+            : `<div class="readonly-field">${folderLine}</div>`}
+        ${folderNote}
       </div>
       <div class="form-row"><label>Remarks <span class="hint">(optional — carried over once the object appears)</span></label><textarea id="amoRemarks" rows="2">${escapeHtml(draft.remarks)}</textarea></div>
     </div>
     <div class="modal-foot">
       <button class="btn" id="modalCancel">Cancel</button>
-      <button class="btn btn-primary" id="amoSubmitBtn">${icon('upload')} Queue for Creation</button>
+      <button class="btn btn-primary" id="amoSubmitBtn" ${branches.length?'':'disabled'}>${icon('upload')} Queue for Creation</button>
     </div>
   </div>`;
+}
+// Shared by the form and by the "create the folder?" question: records the request and saves it.
+async function queueMonitoredObject(ctx, entry){
+  const { sourceKey, cfg, opts, kind, objectId, name, d } = ctx;
+  const back = ()=> opts.onDone ? opts.onDone() : closeModal();
+  cfg.pendingObjects = cfg.pendingObjects || [];
+  cfg.pendingObjects.push(entry);
+  // Pre-label it now, so Status/Remarks aren't blank the moment the real object shows up next sync.
+  if(kind.hasId && objectId!=null){
+    const meta = devObjMeta(cfg, entry.objectType, objectId);
+    meta.definition = name.slice(0,30); meta.remarks = (d.remarks||'').trim(); meta.updatedAt = new Date().toISOString();
+  }
+  const btn = document.getElementById('amoSubmitBtn') || document.getElementById('acfYes');
+  if(btn){ btn.disabled = true; btn.textContent = 'Queuing…'; }
+  try{
+    await saveDevToolSyncToGithub(`Queue ${devObjTypeLabel(entry.objectType)} "${name}" for creation on ${entry.branch} (${new Date().toISOString()})`);
+    toast(`Queued for branch "${entry.branch}" — it will be created on the next GitHub Actions sync.`, 'success');
+    back(); render();
+  }catch(err){
+    cfg.pendingObjects = cfg.pendingObjects.filter(p=>p.id!==entry.id);
+    toast(`Could not save the request: ${err.message}`, 'danger');
+    if(btn){ btn.disabled = false; btn.textContent = 'Queue for Creation'; }
+  }
+}
+// There's no folder for this type yet: ask first. Yes -> queue it and let the sync create the folder; No -> nothing is created.
+function askCreateTypeFolder(ctx, entry, base){
+  const { sourceKey, cfg, apps, opts, d } = ctx;
+  const folderName = AL_TYPE_FOLDER[entry.objectType] || entry.objectType;
+  swapModal(`
+  <div class="modal">
+    <div class="modal-head"><h3>${icon('alert')} No folder for this object type</h3><button class="close-x" id="modalClose">${icon('close')}</button></div>
+    <div style="padding:20px;font-size:13px;line-height:1.6;">
+      <p style="margin:0 0 10px;">There is no folder for <b>${escapeHtml(devObjTypeLabel(entry.objectType))}</b> objects in <span class="mono">${escapeHtml(base||'(repo root)')}</span>.</p>
+      <p style="margin:0 0 10px;">Should I create <span class="mono">${escapeHtml((base?base+'/':'')+folderName)}</span> on branch <span class="mono">${escapeHtml(entry.branch)}</span> and put <b>${escapeHtml(entry.name)}</b> in it?</p>
+      <p class="hint" style="margin:0;font-size:12px;">If you say no, nothing is created and the object isn't queued.</p>
+    </div>
+    <div class="modal-foot">
+      <button class="btn" id="acfNo">No, don't create it</button>
+      <button class="btn btn-primary" id="acfYes">Yes, create the folder and the file</button>
+    </div>
+  </div>`);
+  const reopen = ()=>{ swapModal(addMonitoredObjectModalHtml(sourceKey, cfg, apps, opts, d)); bindAddMonitoredObjectModal(sourceKey, cfg, apps, opts); };
+  document.getElementById('modalClose').onclick = reopen;
+  document.getElementById('acfNo').onclick = ()=>{ toast('Okay — nothing was created and the object was not queued.', 'info'); reopen(); };
+  document.getElementById('acfYes').onclick = ()=>{ entry.createFolder = true; entry.newFolderName = folderName; queueMonitoredObject(ctx, entry); };
 }
 function bindAddMonitoredObjectModal(sourceKey, cfg, apps, opts){
   const back = ()=> opts.onDone ? opts.onDone() : closeModal();
@@ -3577,50 +3759,39 @@ function bindAddMonitoredObjectModal(sourceKey, cfg, apps, opts){
     sourceTable: document.getElementById('amoSourceTable') ? document.getElementById('amoSourceTable').value : '',
     extends: document.getElementById('amoExtends') ? document.getElementById('amoExtends').value : '',
     folder: document.getElementById('amoFolder') ? document.getElementById('amoFolder').value : (opts.lockedFolder || devObjectsBase(cfg)),
+    branch: document.getElementById('amoBranch') ? document.getElementById('amoBranch').value : '',
     remarks: document.getElementById('amoRemarks') ? document.getElementById('amoRemarks').value : '',
   });
-  const typeSel = document.getElementById('amoType');
-  if(typeSel) typeSel.addEventListener('change', ()=>{
-    swapModal(addMonitoredObjectModalHtml(sourceKey, cfg, apps, opts, readDraft()));
-    bindAddMonitoredObjectModal(sourceKey, cfg, apps, opts);
-  });
-  const folderSel = document.getElementById('amoFolder');
-  if(folderSel) folderSel.addEventListener('change', ()=>{ /* no re-render needed — only the hidden target path changes, read fresh on submit */ });
-  document.getElementById('amoSubmitBtn').onclick = async ()=>{
+  const rerender = ()=>{ swapModal(addMonitoredObjectModalHtml(sourceKey, cfg, apps, opts, readDraft())); bindAddMonitoredObjectModal(sourceKey, cfg, apps, opts); };
+  const typeSel = document.getElementById('amoType'); if(typeSel) typeSel.addEventListener('change', rerender);
+  const folderSel = document.getElementById('amoFolder'); if(folderSel) folderSel.addEventListener('change', rerender); // the folder check depends on it
+  document.getElementById('amoSubmitBtn').onclick = ()=>{
     const d = readDraft();
     const kind = alObjectKind(d.kw);
     const name = d.name.trim();
     if(!name){ toast('Object Name is required.', 'warning'); return; }
     if(kind.needsSourceTable && !d.sourceTable.trim()){ toast('Source Table is required for this object type.', 'warning'); return; }
     if(kind.needsExtends && !d.extends.trim()){ toast('Extends is required for this object type.', 'warning'); return; }
-    const folderPath = opts.lockedFolder || d.folder || devObjectsBase(cfg);
+    if(!d.branch){ toast('Pick a branch — new objects can\'t be added to main.', 'warning'); return; }
+    if(blockedBranchSet(cfg).has(d.branch)){ toast(`New objects can't be added to "${d.branch}". Pick a different branch.`, 'warning'); return; }
+    if(!selectableBranches(cfg).includes(d.branch)){ toast('That branch is not in the list any more — Run Sync Now to refresh the branch list.', 'warning'); return; }
+    const folderPath = (opts.lockedFolder || d.folder || devObjectsBase(cfg) || '').replace(/\/+$/,'');
     let objectId = null;
     if(kind.hasId){
       objectId = nextFreeIdForAlKind(sourceKey, d.kw);
       if(objectId==null){ toast('No free Object ID is available for this type — check Settings → ID Ranges.', 'warning'); return; }
     }
+    const existing = findExistingTypeFolder(cfg, folderPath, d.kw); // string | null | undefined
     const entry = {
       id: uid(), objectType: d.kw, objectId, name,
       sourceTable: d.sourceTable.trim(), extends: d.extends.trim(),
-      folderPath, requestedBy: currentUser().name || currentUser().email || 'Someone',
+      folderPath, typeFolder: existing || '', createFolder: false, newFolderName: '', branch: d.branch,
+      requestedBy: currentUser().name || currentUser().email || 'Someone',
       requestedAt: new Date().toISOString(), status:'pending', error:'', filePath:'',
     };
-    cfg.pendingObjects = cfg.pendingObjects || [];
-    cfg.pendingObjects.push(entry);
-    // Pre-label it now, so Status/Remarks aren't blank the moment the real object shows up next sync.
-    if(kind.hasId && objectId!=null){
-      const meta = devObjMeta(cfg, d.kw, objectId);
-      meta.definition = name.slice(0,30); meta.remarks = d.remarks.trim(); meta.updatedAt = new Date().toISOString();
-    }
-    const btn = document.getElementById('amoSubmitBtn'); btn.disabled = true; btn.textContent = 'Queuing…';
-    try{
-      await saveDevToolSyncToGithub(`Queue ${devObjTypeLabel(d.kw)} "${name}" for creation (${new Date().toISOString()})`);
-      toast('Queued — it will be created on the next GitHub Actions sync.', 'success');
-      back(); render();
-    }catch(err){
-      toast(`Could not save the request: ${err.message}`, 'danger');
-      btn.disabled = false; btn.textContent = 'Queue for Creation';
-    }
+    const ctx = { sourceKey, cfg, apps, opts, kind, objectId, name, d };
+    if(existing === null){ askCreateTypeFolder(ctx, entry, folderPath); return; } // known to be missing: ask before queuing anything
+    queueMonitoredObject(ctx, entry);  // folder exists — or can't be checked yet, in which case the sync checks and asks if it's missing
   };
 }
 
@@ -5464,6 +5635,18 @@ function attachContentHandlers(){
   if(dsGoToSettings) dsGoToSettings.addEventListener('click', ()=>{ state.settingsTab='devtoolsync'; setView('settings'); });
   const dsAddObjectBtn = document.getElementById('dsAddObjectBtn');
   if(dsAddObjectBtn) dsAddObjectBtn.addEventListener('click', ()=> openAddMonitoredObjectModal(state.view, {}));
+  document.querySelectorAll('[data-pendingobj-createfolder]').forEach(el=>{
+    el.addEventListener('click', async ()=>{
+      const [sourceKey, pendingId] = el.dataset.pendingobjCreatefolder.split(':');
+      const cfg = devToolSyncSettings().sources[sourceKey];
+      const p = (cfg.pendingObjects||[]).find(x=>x.id===pendingId);
+      if(!p) return;
+      p.createFolder = true; p.newFolderName = AL_TYPE_FOLDER[p.objectType] || p.objectType; p.status = 'pending'; p.error = '';
+      try{ await saveDevToolSyncToGithub(`Allow creating the ${p.newFolderName} folder for "${p.name}" (${new Date().toISOString()})`); toast('Okay — the folder will be created on the next sync. Click Run Sync Now to do it right away.', 'success'); }
+      catch(err){ toast(`Could not save: ${err.message}`, 'danger'); }
+      render();
+    });
+  });
   document.querySelectorAll('[data-pendingobj-remove]').forEach(el=>{
     el.addEventListener('click', async ()=>{
       const [sourceKey, pendingId] = el.dataset.pendingobjRemove.split(':');
