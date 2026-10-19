@@ -2141,6 +2141,7 @@ function viewHoxtColl(kind){
     </tr>`;
   }).join('');
   return `
+  ${queueBanner(kind, devToolSyncSettings().sources[kind])}
   <div class="card" style="margin-bottom:18px;">
     <div class="section-title"><h3>${icon('layers')} ${cc.infoTitle}</h3></div>
     <div class="form-grid">
@@ -3585,6 +3586,45 @@ function findExistingTypeFolder(cfg, base, kw){
 function blockedBranchSet(cfg){ const s = new Set(['main','master']); if(cfg.defaultBranch) s.add(cfg.defaultBranch); return s; }
 function selectableBranches(cfg){ const blocked = blockedBranchSet(cfg); return (cfg.branches||[]).filter(b=>!blocked.has(b)); }
 
+// A loud, yellow "this is waiting" notice at the top of the page, with the buttons to actually get it done.
+function queueBanner(sourceKey, cfg){
+  const open = (cfg.pendingObjects||[]).filter(p=>p.status==='pending' || p.status==='needs-folder');
+  if(!open.length) return '';
+  const dt = devToolSyncSettings();
+  const waiting = open.filter(p=>p.status==='pending'), asking = open.filter(p=>p.status==='needs-folder');
+  const oldest = open.map(p=>p.requestedAt||'').sort()[0];
+  const ranSince = !!(dt.lastRunAt && oldest && dt.lastRunAt > oldest);
+  const canRun = !!(ghSettings().owner && ghSettings().repo && ghToken());
+  const lines = [];
+  if(waiting.length) lines.push(`<b>${waiting.length} object${waiting.length===1?'':'s'} waiting in the queue:</b> ${waiting.map(p=>`${escapeHtml(p.name)} <span class="mono">→ ${escapeHtml(p.branch||'?')}</span>`).join(', ')}. Nothing is created in GitHub until the sync runs.`);
+  if(asking.length) lines.push(`<b>${asking.length} need${asking.length===1?'s':''} your answer</b> (a type folder is missing) — see the queue below.`);
+  const when = dt.lastRunAt ? `${timeAgo(dt.lastRunAt)}` : 'never';
+  lines.push(!ranSince
+    ? `The sync hasn't run since this was queued (last run: ${when}). Click <b>Run Sync Now</b>.`
+    : `A sync ran ${when}, after this was queued, but the request is still waiting${dt.lastRunStatus==='error'&&dt.lastRunError?` — it reported: ${escapeHtml(dt.lastRunError)}`:''}. That usually means GitHub still has an older copy of the sync script: click <b>Push Sync Automation to GitHub</b> (Settings → Dev-tool Sync), then <b>Run Sync Now</b>.`);
+  return `
+  <div class="card" style="margin-bottom:18px;border-left:3px solid var(--warning);background:rgba(245,158,11,.07);">
+    <div style="color:var(--warning);font-size:13px;line-height:1.6;">⏳ ${lines.join('<br>')}</div>
+    <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">
+      <button class="btn btn-primary btn-sm" id="queueRunNowBtn" ${canRun?'':'disabled'} title="${canRun?'':'Connect GitHub on the CI/CD tab first'}">${icon('upload')} Run Sync Now</button>
+      <button class="btn btn-sm" id="queueRefreshBtn">${icon('history')} Refresh status</button>
+    </div>
+  </div>`;
+}
+// After "Run Sync Now": re-read the result every 10s (up to ~3 min) so Pending turns into Created/Failed on its own.
+let queuePollTimer = null;
+function startQueuePoll(key){
+  clearInterval(queuePollTimer);
+  let tries = 0;
+  queuePollTimer = setInterval(async ()=>{
+    tries++;
+    try{ await loadDevToolDataFromGithub(); }catch(e){ /* try again next tick */ }
+    const stillWaiting = (devToolSyncSettings().sources[key].pendingObjects||[]).some(p=>p.status==='pending');
+    const typing = document.activeElement && /^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName);
+    if(state.view===key && !state.modal && !typing) render();
+    if(!stillWaiting || tries>=18 || state.view!==key) clearInterval(queuePollTimer);
+  }, 10000);
+}
 function pendingObjectsOf(cfg){ return (cfg.pendingObjects||[]).slice().sort((a,b)=>(b.requestedAt||'').localeCompare(a.requestedAt||'')); }
 function pendingObjectsPanel(sourceKey, cfg){
   const items = pendingObjectsOf(cfg);
@@ -3948,6 +3988,7 @@ function viewDevSource(key){
   }).join('');
   const multiApps = (cfg.apps||[]).length>1;
   return `
+  ${queueBanner(key, cfg)}
   <div class="card" style="margin-bottom:18px;">
     <div class="section-title" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
       <h3>${icon('layers')} ${escapeHtml(label)} Information</h3>
@@ -5633,6 +5674,23 @@ function attachContentHandlers(){
   if(dsReleaseNotesBtn) dsReleaseNotesBtn.addEventListener('click', ()=> openReleaseNotesModal(devNotesCtx(state.view)));
   const dsGoToSettings = document.getElementById('dsGoToSettings');
   if(dsGoToSettings) dsGoToSettings.addEventListener('click', ()=>{ state.settingsTab='devtoolsync'; setView('settings'); });
+  const queueRunNowBtn = document.getElementById('queueRunNowBtn');
+  if(queueRunNowBtn) queueRunNowBtn.addEventListener('click', async ()=>{
+    const key = state.view;
+    queueRunNowBtn.disabled = true; queueRunNowBtn.textContent = 'Starting…';
+    try{
+      await dispatchDevToolSyncWorkflow();
+      toast('Sync started on GitHub — this page refreshes by itself when it finishes (usually under a minute).', 'success');
+      startQueuePoll(key);
+    }catch(err){ toast(`Could not start the sync: ${err.message}`, 'danger'); }
+    render();
+  });
+  const queueRefreshBtn = document.getElementById('queueRefreshBtn');
+  if(queueRefreshBtn) queueRefreshBtn.addEventListener('click', async ()=>{
+    queueRefreshBtn.disabled = true; queueRefreshBtn.textContent = 'Refreshing…';
+    try{ await loadDevToolDataFromGithub(); toast('Status refreshed from GitHub.', 'success'); }catch(err){ toast(`Refresh failed: ${err.message}`, 'danger'); }
+    render();
+  });
   const dsAddObjectBtn = document.getElementById('dsAddObjectBtn');
   if(dsAddObjectBtn) dsAddObjectBtn.addEventListener('click', ()=> openAddMonitoredObjectModal(state.view, {}));
   document.querySelectorAll('[data-pendingobj-createfolder]').forEach(el=>{
