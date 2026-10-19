@@ -1888,7 +1888,7 @@
         "3d0ed5bad8f4587cf2a3192d1dc52d18c951ab35": "26.10.0.0"
       },
       "notesError": "",
-      "lastSyncedAt": "2026-10-19T01:35:57.427Z",
+      "lastSyncedAt": "2026-10-19T21:12:47.754Z",
       "scanInfo": {
         "alFiles": 120,
         "withObjects": 120,
@@ -1965,14 +1965,14 @@
       },
       "releaseNotes": [],
       "pendingObjects": [],
-      "version": "26.10.0.2",
+      "version": "26.10.2.1",
       "objects": [
         {
           "objectType": "codeunit",
           "objectId": 81000,
           "description": "HOXT Field Transfers Mgt. HO",
           "appName": "HOXT - Cloud Enhancements",
-          "appVersion": "26.10.0.2",
+          "appVersion": "26.10.2.1",
           "appDir": "",
           "fileDir": "root/codeunit",
           "filePath": "root/codeunit/cod81000.HOXT FieldTransfersMgtHO.al"
@@ -1982,7 +1982,7 @@
           "objectId": 99000,
           "description": "HOXT Company List",
           "appName": "HOXT - Cloud Enhancements",
-          "appVersion": "26.10.0.2",
+          "appVersion": "26.10.2.1",
           "appDir": "",
           "fileDir": "root/enum",
           "filePath": "root/enum/enu99000.HOXT Company List.al"
@@ -1992,17 +1992,27 @@
           "objectId": 99008,
           "description": "HOXT-PRR DM Items",
           "appName": "HOXT - Cloud Enhancements",
-          "appVersion": "26.10.0.2",
+          "appVersion": "26.10.2.1",
           "appDir": "",
           "fileDir": "root/page",
-          "filePath": "root/page/pag99007.HOXT-PRR DM Items.al"
+          "filePath": "root/page/pag99008.HOXT-PRR DM Items.al"
+        },
+        {
+          "objectType": "page",
+          "objectId": 99009,
+          "description": "HOXT Member Blocked Status",
+          "appName": "HOXT - Cloud Enhancements",
+          "appVersion": "26.10.2.1",
+          "appDir": "",
+          "fileDir": "root/page",
+          "filePath": "root/page/pag99009.HOXT MemBlockedStatus.al"
         },
         {
           "objectType": "pageextension",
           "objectId": 81000,
           "description": "HOXT General Ledger Entries",
           "appName": "HOXT - Cloud Enhancements",
-          "appVersion": "26.10.0.2",
+          "appVersion": "26.10.2.1",
           "appDir": "",
           "fileDir": "root/pageextension",
           "filePath": "root/pageextension/pagext81000.HOXT General Ledger Entries.al"
@@ -2012,7 +2022,7 @@
           "objectId": 81002,
           "description": "HOXT Purchase Order List",
           "appName": "HOXT - Cloud Enhancements",
-          "appVersion": "26.10.0.2",
+          "appVersion": "26.10.2.1",
           "appDir": "",
           "fileDir": "root/pageextension",
           "filePath": "root/pageextension/pagext81000.HOXT Purchase Order List.al"
@@ -2022,7 +2032,7 @@
           "objectId": 81001,
           "description": "HOXT Purchase Order",
           "appName": "HOXT - Cloud Enhancements",
-          "appVersion": "26.10.0.2",
+          "appVersion": "26.10.2.1",
           "appDir": "",
           "fileDir": "root/pageextension",
           "filePath": "root/pageextension/pagext81001.HOXT Purchase Order.al"
@@ -2032,7 +2042,7 @@
           "objectId": 99003,
           "description": "HOXT LSC Purchase Contract",
           "appName": "HOXT - Cloud Enhancements",
-          "appVersion": "26.10.0.2",
+          "appVersion": "26.10.2.1",
           "appDir": "",
           "fileDir": "root/pageextension",
           "filePath": "root/pageextension/pagext99003.HOXT LSC Purchase Contract.al"
@@ -2042,7 +2052,7 @@
           "objectId": 99004,
           "description": "HOXT Whse. Receipt Subform",
           "appName": "HOXT - Cloud Enhancements",
-          "appVersion": "26.10.0.2",
+          "appVersion": "26.10.2.1",
           "appDir": "",
           "fileDir": "root/pageextension",
           "filePath": "root/pageextension/pagext99004.HOXT Whse. Receipt Subform.al"
@@ -2052,7 +2062,7 @@
           "objectId": 99012,
           "description": "HOXT Retail Item List",
           "appName": "HOXT - Cloud Enhancements",
-          "appVersion": "26.10.0.2",
+          "appVersion": "26.10.2.1",
           "appDir": "",
           "fileDir": "root/pageextension",
           "filePath": "root/pageextension/pagext99012.HOXT Retail Item List.al"
@@ -2062,7 +2072,7 @@
           "objectId": 99013,
           "description": "HOXT Item List",
           "appName": "HOXT - Cloud Enhancements",
-          "appVersion": "26.10.0.2",
+          "appVersion": "26.10.2.1",
           "appDir": "",
           "fileDir": "root/pageextension",
           "filePath": "root/pageextension/pagext99013.HOXT Item List.al"
@@ -2072,7 +2082,7 @@
           "objectId": 99014,
           "description": "HOXT LSC Retail Item",
           "appName": "HOXT - Cloud Enhancements",
-          "appVersion": "26.10.0.2",
+          "appVersion": "26.10.2.1",
           "appDir": "",
           "fileDir": "root/pageextension",
           "filePath": "root/pageextension/pagext99014.HOXT LSC Retail Item.al"
@@ -2082,7 +2092,7 @@
           "objectId": 99015,
           "description": "HOXT Item Card",
           "appName": "HOXT - Cloud Enhancements",
-          "appVersion": "26.10.0.2",
+          "appVersion": "26.10.2.1",
           "appDir": "",
           "fileDir": "root/pageextension",
           "filePath": "root/pageextension/pagext99015.HOXT Item Card.al"
@@ -2092,7 +2102,7 @@
           "objectId": 99016,
           "description": "HOXT Purchase Order Archives",
           "appName": "HOXT - Cloud Enhancements",
-          "appVersion": "26.10.0.2",
+          "appVersion": "26.10.2.1",
           "appDir": "",
           "fileDir": "root/pageextension",
           "filePath": "root/pageextension/pagext99016.HOXT Purchase Order Archives.al"
@@ -2102,7 +2112,7 @@
           "objectId": 99017,
           "description": "HOXT Revaluation Journal",
           "appName": "HOXT - Cloud Enhancements",
-          "appVersion": "26.10.0.2",
+          "appVersion": "26.10.2.1",
           "appDir": "",
           "fileDir": "root/pageextension",
           "filePath": "root/pageextension/pagext99017.HOXT Revaluation Journal.al"
@@ -2112,7 +2122,7 @@
           "objectId": 99019,
           "description": "HOXT Posted Purch. Inv. Lines",
           "appName": "HOXT - Cloud Enhancements",
-          "appVersion": "26.10.0.2",
+          "appVersion": "26.10.2.1",
           "appDir": "",
           "fileDir": "root/pageextension",
           "filePath": "root/pageextension/pagext99019.HOXT Posted Purchase Invoice Lines.al"
@@ -2122,7 +2132,7 @@
           "objectId": 99020,
           "description": "HOXT VAT Entries",
           "appName": "HOXT - Cloud Enhancements",
-          "appVersion": "26.10.0.2",
+          "appVersion": "26.10.2.1",
           "appDir": "",
           "fileDir": "root/pageextension",
           "filePath": "root/pageextension/pagext99020.HOXT VAT Entries.al"
@@ -2132,7 +2142,7 @@
           "objectId": 99022,
           "description": "HOXT Retail Sales Order",
           "appName": "HOXT - Cloud Enhancements",
-          "appVersion": "26.10.0.2",
+          "appVersion": "26.10.2.1",
           "appDir": "",
           "fileDir": "root/pageextension",
           "filePath": "root/pageextension/pagext99022.HOXT LSC Retail Sales Order.al"
@@ -2142,7 +2152,7 @@
           "objectId": 99023,
           "description": "HOXT PAS634 PRR DM List",
           "appName": "HOXT - Cloud Enhancements",
-          "appVersion": "26.10.0.2",
+          "appVersion": "26.10.2.1",
           "appDir": "",
           "fileDir": "root/pageextension",
           "filePath": "root/pageextension/pagext99023.HOXT PAS634 PRR DM List.al"
@@ -2152,7 +2162,7 @@
           "objectId": 99024,
           "description": "HOXT LSC Store Inventory Jnl",
           "appName": "HOXT - Cloud Enhancements",
-          "appVersion": "26.10.0.2",
+          "appVersion": "26.10.2.1",
           "appDir": "",
           "fileDir": "root/pageextension",
           "filePath": "root/pageextension/pagext99024.HOXT LSC Store Inventory Journal.al"
@@ -2162,7 +2172,7 @@
           "objectId": 99026,
           "description": "HOXT LSC Item/Spec. Grp. Links",
           "appName": "HOXT - Cloud Enhancements",
-          "appVersion": "26.10.0.2",
+          "appVersion": "26.10.2.1",
           "appDir": "",
           "fileDir": "root/pageextension",
           "filePath": "root/pageextension/pagext99026.HOXT LSC ItemSpecial Group Links.al"
@@ -2172,7 +2182,7 @@
           "objectId": 99027,
           "description": "HOXT Retail Sales Order List",
           "appName": "HOXT - Cloud Enhancements",
-          "appVersion": "26.10.0.2",
+          "appVersion": "26.10.2.1",
           "appDir": "",
           "fileDir": "root/pageextension",
           "filePath": "root/pageextension/pagext99027.HOXT LSC Retail Sales Order List.al"
@@ -2182,7 +2192,7 @@
           "objectId": 99028,
           "description": "HOXT-LSCRetailItemList260804",
           "appName": "HOXT - Cloud Enhancements",
-          "appVersion": "26.10.0.2",
+          "appVersion": "26.10.2.1",
           "appDir": "",
           "fileDir": "root/pageextension",
           "filePath": "root/pageextension/pagext99028.HOXT-LSCRetailItemList260804.al"
@@ -2192,7 +2202,7 @@
           "objectId": 99029,
           "description": "HOXT LSC POS Terminal Card",
           "appName": "HOXT - Cloud Enhancements",
-          "appVersion": "26.10.0.2",
+          "appVersion": "26.10.2.1",
           "appDir": "",
           "fileDir": "root/pageextension",
           "filePath": "root/pageextension/pagext99029.HOXT LSC POS Terminal Card.al"
@@ -2202,7 +2212,7 @@
           "objectId": 99030,
           "description": "HOXT LSC STAFF Staff Card",
           "appName": "HOXT - Cloud Enhancements",
-          "appVersion": "26.10.0.2",
+          "appVersion": "26.10.2.1",
           "appDir": "",
           "fileDir": "root/pageextension",
           "filePath": "root/pageextension/pagext99030.HOXT LSC STAFF Staff Card.al"
@@ -2212,7 +2222,7 @@
           "objectId": 99031,
           "description": "HOXT Transfer Order Subform",
           "appName": "HOXT - Cloud Enhancements",
-          "appVersion": "26.10.0.2",
+          "appVersion": "26.10.2.1",
           "appDir": "",
           "fileDir": "root/pageextension",
           "filePath": "root/pageextension/pagext99031.HOXT Transfer Order Subform.al"
@@ -2222,7 +2232,7 @@
           "objectId": 99087,
           "description": "HOXT LSC Store Card",
           "appName": "HOXT - Cloud Enhancements",
-          "appVersion": "26.10.0.2",
+          "appVersion": "26.10.2.1",
           "appDir": "",
           "fileDir": "root/pageextension",
           "filePath": "root/pageextension/pagext99087.HOXT LSC Store Card.al"
@@ -2232,27 +2242,57 @@
           "objectId": 99088,
           "description": "HOXT Purchase Quote Subform",
           "appName": "HOXT - Cloud Enhancements",
-          "appVersion": "26.10.0.2",
+          "appVersion": "26.10.2.1",
           "appDir": "",
           "fileDir": "root/pageextension",
           "filePath": "root/pageextension/pagext99088.HOXT Purchase Quote Subform.al"
+        },
+        {
+          "objectType": "pageextension",
+          "objectId": 99089,
+          "description": "HOXT LSC Member Accounts",
+          "appName": "HOXT - Cloud Enhancements",
+          "appVersion": "26.10.2.1",
+          "appDir": "",
+          "fileDir": "root/pageextension",
+          "filePath": "root/pageextension/pagext99089.HOXT LSC Member Accounts.al"
+        },
+        {
+          "objectType": "permissionset",
+          "objectId": 99007,
+          "description": "HOXT Member Blocking",
+          "appName": "HOXT - Cloud Enhancements",
+          "appVersion": "26.10.2.1",
+          "appDir": "",
+          "fileDir": "root/permissionset",
+          "filePath": "root/permissionset/pagext99007.HOXT MemberBlock.al"
         },
         {
           "objectType": "report",
           "objectId": 99022,
           "description": "HOXT RSO Christmas Tradeshow",
           "appName": "HOXT - Cloud Enhancements",
-          "appVersion": "26.10.0.2",
+          "appVersion": "26.10.2.1",
           "appDir": "",
           "fileDir": "root/reports",
-          "filePath": "root/reports/rep99022.RSOOrderConfirmation.al"
+          "filePath": "root/reports/rep99022.HOXT RSOOrderConfirmation.al"
+        },
+        {
+          "objectType": "table",
+          "objectId": 99006,
+          "description": "HOXT Member Blocked Status",
+          "appName": "HOXT - Cloud Enhancements",
+          "appVersion": "26.10.2.1",
+          "appDir": "",
+          "fileDir": "root/table",
+          "filePath": "root/table/tab99006.HOXT MemBlockedStatus.al"
         },
         {
           "objectType": "tableextension",
           "objectId": 81000,
           "description": "HOXT Purchase Header",
           "appName": "HOXT - Cloud Enhancements",
-          "appVersion": "26.10.0.2",
+          "appVersion": "26.10.2.1",
           "appDir": "",
           "fileDir": "root/tableextension",
           "filePath": "root/tableextension/tabext81000.HOXT Purchase Header.al"
@@ -2262,7 +2302,7 @@
           "objectId": 99006,
           "description": "HOXT LSC POS Terminal",
           "appName": "HOXT - Cloud Enhancements",
-          "appVersion": "26.10.0.2",
+          "appVersion": "26.10.2.1",
           "appDir": "",
           "fileDir": "root/tableextension",
           "filePath": "root/tableextension/tabext99006.HOXT LSC POS Terminal.al"
@@ -2272,7 +2312,7 @@
           "objectId": 99007,
           "description": "HOXT LSC Staff",
           "appName": "HOXT - Cloud Enhancements",
-          "appVersion": "26.10.0.2",
+          "appVersion": "26.10.2.1",
           "appDir": "",
           "fileDir": "root/tableextension",
           "filePath": "root/tableextension/tabext99007.HOXT LSC Staff.al"
@@ -2282,7 +2322,7 @@
           "objectId": 99008,
           "description": "HOXT Transfer Header",
           "appName": "HOXT - Cloud Enhancements",
-          "appVersion": "26.10.0.2",
+          "appVersion": "26.10.2.1",
           "appDir": "",
           "fileDir": "root/tableextension",
           "filePath": "root/tableextension/tabext99008.HOXT Transfer Header.al"
@@ -2292,7 +2332,7 @@
           "objectId": 99009,
           "description": "HOXT LSC Item/Spec. Grp. Link",
           "appName": "HOXT - Cloud Enhancements",
-          "appVersion": "26.10.0.2",
+          "appVersion": "26.10.2.1",
           "appDir": "",
           "fileDir": "root/tableextension",
           "filePath": "root/tableextension/tabext99009.HOXT LSC ItemSpecial Group Links .al"
@@ -2302,7 +2342,7 @@
           "objectId": 99010,
           "description": "HOXT Transfer Shipment Header",
           "appName": "HOXT - Cloud Enhancements",
-          "appVersion": "26.10.0.2",
+          "appVersion": "26.10.2.1",
           "appDir": "",
           "fileDir": "root/tableextension",
           "filePath": "root/tableextension/tabext99010.HOXT Transfer Shipment Header.al"
@@ -2312,7 +2352,7 @@
           "objectId": 99011,
           "description": "HOXT Transfer Receipt Header",
           "appName": "HOXT - Cloud Enhancements",
-          "appVersion": "26.10.0.2",
+          "appVersion": "26.10.2.1",
           "appDir": "",
           "fileDir": "root/tableextension",
           "filePath": "root/tableextension/tabext99011.HOXT Transfer Receipt Header.al"
@@ -2322,7 +2362,7 @@
           "objectId": 99023,
           "description": "HOXT Sales Header",
           "appName": "HOXT - Cloud Enhancements",
-          "appVersion": "26.10.0.2",
+          "appVersion": "26.10.2.1",
           "appDir": "",
           "fileDir": "root/tableextension",
           "filePath": "root/tableextension/tabext99023.HOXT Sales Header.al"
@@ -2332,21 +2372,50 @@
           "objectId": 99024,
           "description": "HOXT LSC Store",
           "appName": "HOXT - Cloud Enhancements",
-          "appVersion": "26.10.0.2",
+          "appVersion": "26.10.2.1",
           "appDir": "",
           "fileDir": "root/tableextension",
           "filePath": "root/tableextension/tabext99024.HOXT Store.al"
         }
       ],
-      "lastSyncedAt": "2026-10-19T01:36:08.498Z",
+      "lastSyncedAt": "2026-10-19T21:13:00.152Z",
       "apps": [
         {
           "name": "HOXT - Cloud Enhancements",
-          "version": "26.10.0.2",
+          "version": "26.10.2.1",
           "path": ""
         }
       ],
       "autoNotes": [
+        {
+          "id": "c1cf893e48f3c2d038f2bbb44438008071ed2c94",
+          "version": "26.10.2.1",
+          "appName": "HOXT - Cloud Enhancements",
+          "date": "2026-10-15T01:14:18Z",
+          "commits": [
+            {
+              "sha": "c1cf893e48f3c2d038f2bbb44438008071ed2c94",
+              "summary": "INC-33081 - Member Blocking permissions",
+              "details": "",
+              "author": "Mike Tinchay",
+              "date": "2026-10-15T01:14:18Z"
+            },
+            {
+              "sha": "33e18ea40f8fe9b8fa17d76ec8be7c7ddc761c49",
+              "summary": "Rename Reports",
+              "details": "",
+              "author": "Mike Tinchay",
+              "date": "2026-10-13T05:36:57Z"
+            },
+            {
+              "sha": "474ffff4955d7249e50676af2e13a24725c3ad27",
+              "summary": "Update Retail Sales Order",
+              "details": "",
+              "author": "mntinchay",
+              "date": "2026-10-13T02:21:05Z"
+            }
+          ]
+        },
         {
           "id": "7477dc0b3a1fd2345fa4bf64bc6faf8db12dbfe2",
           "version": "26.10.0.2",
@@ -2616,12 +2685,13 @@
         "52a92f121b27e67b2a8d8a2a63f480cf0d716fce": "26.9.0.5",
         "1ca542a75adde1c2581b75f796de266f3332ff5e": "26.10.0.0",
         "9840e9043f5ac985e81c4159ad5124b9a8c8c1dd": "26.10.0.1",
-        "7477dc0b3a1fd2345fa4bf64bc6faf8db12dbfe2": "26.10.0.2"
+        "7477dc0b3a1fd2345fa4bf64bc6faf8db12dbfe2": "26.10.0.2",
+        "c1cf893e48f3c2d038f2bbb44438008071ed2c94": "26.10.2.1"
       },
       "notesError": "",
       "scanInfo": {
-        "alFiles": 37,
-        "withObjects": 37,
+        "alFiles": 41,
+        "withObjects": 41,
         "unparsed": [],
         "unparsedTotal": 0,
         "dupes": [],
@@ -2642,8 +2712,10 @@
         "root/enum",
         "root/page",
         "root/pageextension",
+        "root/permissionset",
         "root/reportlayouts",
         "root/reports",
+        "root/table",
         "root/tableextension"
       ]
     },
@@ -2698,7 +2770,7 @@
           "filePath": "root/tableextension/tabext85000.HOXT LSC POS Trans. Line.al"
         }
       ],
-      "lastSyncedAt": "2026-10-19T01:36:12.120Z",
+      "lastSyncedAt": "2026-10-19T21:13:02.279Z",
       "apps": [
         {
           "name": "HOXT - OnPrem Enhancements",
@@ -4213,7 +4285,7 @@
           "filePath": "root/Replication To NAV API/Pag75013.RNAV_UnitofMeasure.al"
         }
       ],
-      "lastSyncedAt": "2026-10-19T01:36:47.898Z",
+      "lastSyncedAt": "2026-10-19T21:13:39.527Z",
       "apps": [
         {
           "name": "HOXT - Custom API",
@@ -4734,7 +4806,7 @@
           "filePath": "root/table/tab99044.HOXT Custom API Owner.al"
         }
       ],
-      "lastSyncedAt": "2026-10-19T01:36:52.860Z",
+      "lastSyncedAt": "2026-10-19T21:13:44.364Z",
       "apps": [
         {
           "name": "HOXT - Developer's Tool",
@@ -4820,7 +4892,7 @@
       ]
     }
   },
-  "lastRunAt": "2026-10-19T01:36:52.860Z",
+  "lastRunAt": "2026-10-19T21:13:44.364Z",
   "lastRunStatus": "success",
   "lastRunError": ""
 }
