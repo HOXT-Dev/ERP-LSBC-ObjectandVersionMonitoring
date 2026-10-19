@@ -2654,9 +2654,35 @@
       "folder": "",
       "projectsFolder": "",
       "objectsFolder": "root",
-      "objectMeta": {},
+      "objectMeta": {
+        "tableextension:99012": {
+          "definition": "TEST",
+          "status": "active",
+          "remarks": "",
+          "updatedAt": "2026-10-19T01:31:25.985Z"
+        }
+      },
       "releaseNotes": [],
-      "pendingObjects": [],
+      "pendingObjects": [
+        {
+          "id": "gn5qtr41w90g",
+          "objectType": "tableextension",
+          "objectId": 99012,
+          "name": "TEST",
+          "sourceTable": "",
+          "extends": "Customer",
+          "folderPath": "root",
+          "typeFolder": "tableextension",
+          "createFolder": false,
+          "newFolderName": "",
+          "branch": "ESM",
+          "requestedBy": "Gene Manahan",
+          "requestedAt": "2026-10-19T01:31:25.984Z",
+          "status": "pending",
+          "error": "",
+          "filePath": ""
+        }
+      ],
       "version": "26.9.0.0",
       "objects": [
         {
