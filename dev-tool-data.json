@@ -1888,7 +1888,7 @@
         "3d0ed5bad8f4587cf2a3192d1dc52d18c951ab35": "26.10.0.0"
       },
       "notesError": "",
-      "lastSyncedAt": "2026-10-25T19:12:39.274Z",
+      "lastSyncedAt": "2026-10-26T21:09:17.758Z",
       "scanInfo": {
         "alFiles": 120,
         "withObjects": 120,
@@ -2378,7 +2378,7 @@
           "filePath": "root/tableextension/tabext99024.HOXT Store.al"
         }
       ],
-      "lastSyncedAt": "2026-10-25T19:12:50.022Z",
+      "lastSyncedAt": "2026-10-26T21:09:31.554Z",
       "apps": [
         {
           "name": "HOXT - Cloud Enhancements",
@@ -2770,7 +2770,7 @@
           "filePath": "root/tableextension/tabext85000.HOXT LSC POS Trans. Line.al"
         }
       ],
-      "lastSyncedAt": "2026-10-25T19:12:51.839Z",
+      "lastSyncedAt": "2026-10-26T21:09:33.784Z",
       "apps": [
         {
           "name": "HOXT - OnPrem Enhancements",
@@ -4335,7 +4335,7 @@
           "filePath": "root/Replication To NAV API/Pag75013.RNAV_UnitofMeasure.al"
         }
       ],
-      "lastSyncedAt": "2026-10-25T19:13:26.875Z",
+      "lastSyncedAt": "2026-10-26T21:10:20.388Z",
       "apps": [
         {
           "name": "HOXT - Custom API",
@@ -4954,7 +4954,7 @@
           "filePath": "root/table/tab99044.HOXT Custom API Owner.al"
         }
       ],
-      "lastSyncedAt": "2026-10-25T19:13:31.096Z",
+      "lastSyncedAt": "2026-10-26T21:10:26.927Z",
       "apps": [
         {
           "name": "HOXT - Developer's Tool",
@@ -5040,7 +5040,7 @@
       ]
     }
   },
-  "lastRunAt": "2026-10-25T19:13:31.096Z",
+  "lastRunAt": "2026-10-26T21:10:26.927Z",
   "lastRunStatus": "success",
   "lastRunError": ""
 }
