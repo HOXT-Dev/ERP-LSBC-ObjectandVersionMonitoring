@@ -1888,7 +1888,7 @@
         "3d0ed5bad8f4587cf2a3192d1dc52d18c951ab35": "26.10.0.0"
       },
       "notesError": "",
-      "lastSyncedAt": "2026-10-29T21:21:16.407Z",
+      "lastSyncedAt": "2026-10-30T20:59:23.229Z",
       "scanInfo": {
         "alFiles": 120,
         "withObjects": 120,
@@ -2378,7 +2378,7 @@
           "filePath": "root/tableextension/tabext99024.HOXT Store.al"
         }
       ],
-      "lastSyncedAt": "2026-10-29T21:21:28.727Z",
+      "lastSyncedAt": "2026-10-30T20:59:33.851Z",
       "apps": [
         {
           "name": "HOXT - Cloud Enhancements",
@@ -2770,7 +2770,7 @@
           "filePath": "root/tableextension/tabext85000.HOXT LSC POS Trans. Line.al"
         }
       ],
-      "lastSyncedAt": "2026-10-29T21:21:30.835Z",
+      "lastSyncedAt": "2026-10-30T20:59:35.660Z",
       "apps": [
         {
           "name": "HOXT - OnPrem Enhancements",
@@ -2832,14 +2832,14 @@
       "releaseNotes": [],
       "pendingObjects": [],
       "notesOnly": true,
-      "version": "26.10.0.1",
+      "version": "26.10.0.2",
       "objects": [
         {
           "objectType": "page",
           "objectId": 70001,
           "description": "Lake_Bank_Account",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70001.Bank_Account.al"
@@ -2849,7 +2849,7 @@
           "objectId": 70002,
           "description": "Lake_Bin_Content",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70002.Bin_Content.al"
@@ -2859,7 +2859,7 @@
           "objectId": 70003,
           "description": "Lake_Change_Log_Entry",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70003.Change_Log_Entry.al"
@@ -2869,7 +2869,7 @@
           "objectId": 70004,
           "description": "Lake_Employee",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70004.Employee.al"
@@ -2879,7 +2879,7 @@
           "objectId": 70005,
           "description": "Lake_FA_Ledger_Entry",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70005.FA_Ledger_Entry.al"
@@ -2889,7 +2889,7 @@
           "objectId": 70006,
           "description": "Lake_Fixed_Asset",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70006.Fixed_Asset.al"
@@ -2899,7 +2899,7 @@
           "objectId": 70007,
           "description": "Lake_Gen_Journal_Line",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70007.Gen_Journal_Line.al"
@@ -2909,7 +2909,7 @@
           "objectId": 70008,
           "description": "Lake_G_L_Account",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70008.G_L_Account.al"
@@ -2919,7 +2919,7 @@
           "objectId": 70009,
           "description": "Lake_G_L_Entry",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70009.G_L_Entry.al"
@@ -2929,7 +2929,7 @@
           "objectId": 70010,
           "description": "Lake_HOMDiscountModule",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70010.HOMDiscountModule.al"
@@ -2939,7 +2939,7 @@
           "objectId": 70011,
           "description": "Lake_HO_MPALedgerEntry",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70011.HO_MPALedgerEntry.al"
@@ -2949,7 +2949,7 @@
           "objectId": 70012,
           "description": "Lake_Item",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70012.Item.al"
@@ -2959,7 +2959,7 @@
           "objectId": 70013,
           "description": "Lake_Item_Category",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70013.Item_Category.al"
@@ -2969,7 +2969,7 @@
           "objectId": 70014,
           "description": "Lake_Item_Journal_Line",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70014.Item_Journal_Line.al"
@@ -2979,7 +2979,7 @@
           "objectId": 70015,
           "description": "Lake_Item_Ledger_Entry",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70015.Item_Ledger_Entry.al"
@@ -2989,7 +2989,7 @@
           "objectId": 70016,
           "description": "Lake_Item_Unit_of_Measure",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70016.Item_Unit_of_Measure.al"
@@ -2999,7 +2999,7 @@
           "objectId": 70017,
           "description": "Lake_IWX_LP_Header",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70017.IWX_LP_Header.al"
@@ -3009,7 +3009,7 @@
           "objectId": 70018,
           "description": "Lake_IWX_LP_Header_Archive",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70018.IWX_LP_Header_Archive.al"
@@ -3019,7 +3019,7 @@
           "objectId": 70019,
           "description": "Lake_IWX_LP_Line",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70019.IWX_LP_Line.al"
@@ -3029,7 +3029,7 @@
           "objectId": 70020,
           "description": "Lake_Location",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70020.Location.al"
@@ -3039,7 +3039,7 @@
           "objectId": 70021,
           "description": "Lake_LSC_Attribute_Value",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70021.LSC_Attribute_Value.al"
@@ -3049,7 +3049,7 @@
           "objectId": 70022,
           "description": "Lake_LSC Division",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70022.LSC_Division.al"
@@ -3059,7 +3059,7 @@
           "objectId": 70023,
           "description": "Lake_LSC_Infocode",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70023.LSC_Infocode.al"
@@ -3069,7 +3069,7 @@
           "objectId": 70024,
           "description": "Lake_LSC_Item_Spcl_Grp_Link",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70024.LSC_Item_Special_Group_Link.al"
@@ -3079,7 +3079,7 @@
           "objectId": 70025,
           "description": "Lake_LSC_Member_Account",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70025.LSC_Member_Account.al"
@@ -3089,7 +3089,7 @@
           "objectId": 70026,
           "description": "Lake_LSC_Mem_Accnt_Upgr_Entry",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70026.LSC_Member_Account_Upgr_Entry.al"
@@ -3099,7 +3099,7 @@
           "objectId": 70027,
           "description": "Lake_LSC_Member_Club",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70027.LSC_Member_Club.al"
@@ -3109,7 +3109,7 @@
           "objectId": 70028,
           "description": "Lake_LSC_Member_Contact",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70028.LSC_Member_Contact.al"
@@ -3119,7 +3119,7 @@
           "objectId": 70029,
           "description": "Lake_LSC_Member_Point_Entry",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70029.LSC_Member_Point_Entry.al"
@@ -3129,7 +3129,7 @@
           "objectId": 70030,
           "description": "Lake_LSC_Member_Sales_Entry",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70030.LSC_Member_Sales_Entry.al"
@@ -3139,7 +3139,7 @@
           "objectId": 70031,
           "description": "Lake_LSC_Member_Scheme",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70031.LSC_Member_Scheme.al"
@@ -3149,7 +3149,7 @@
           "objectId": 70032,
           "description": "Lake_LSC_Membership_Card",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70032.LSC_Membership_Card.al"
@@ -3159,7 +3159,7 @@
           "objectId": 70033,
           "description": "Lake_LSC_Payment_Statistics",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70033.LSC_Payment_Statistics.al"
@@ -3169,7 +3169,7 @@
           "objectId": 70034,
           "description": "Lake_LSC_Posted_Statement",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70034.LSC_Posted_Statement.al"
@@ -3179,7 +3179,7 @@
           "objectId": 70035,
           "description": "Lake_LSC_Posted_Statement_Line",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70035.LSC_Posted_Statement_Line.al"
@@ -3189,7 +3189,7 @@
           "objectId": 70036,
           "description": "Lake_LSC_POS_Terminal",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70036.LSC_POS_Terminal.al"
@@ -3199,7 +3199,7 @@
           "objectId": 70037,
           "description": "Lake_LSC_Retail_Product_Group",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70037.LSC_Retail_Product_Group.al"
@@ -3209,7 +3209,7 @@
           "objectId": 70038,
           "description": "Lake_LSC_Staff",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70038.LSC_Staff.al"
@@ -3219,7 +3219,7 @@
           "objectId": 70039,
           "description": "Lake_LSC_Statement",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70039.LSC_Statement.al"
@@ -3229,7 +3229,7 @@
           "objectId": 70040,
           "description": "Lake_LSC_Statement_Line",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70040.LSC_Statement_Line.al"
@@ -3239,7 +3239,7 @@
           "objectId": 70041,
           "description": "Lake_LSC_Store",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70041.LSC_Store.al"
@@ -3249,7 +3249,7 @@
           "objectId": 70042,
           "description": "Lake_LSC_Tender_Type",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70042.LSC_Tender_Type.al"
@@ -3259,7 +3259,7 @@
           "objectId": 70043,
           "description": "Lake_LSC_Tender_Type_Setup",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70043.LSC_Tender_Type_Setup.al"
@@ -3269,7 +3269,7 @@
           "objectId": 70044,
           "description": "Lake_LSC_Transaction_Header",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70044.LSC_Transaction_Header.al"
@@ -3279,7 +3279,7 @@
           "objectId": 70045,
           "description": "Lake_LSC_Trans_Coupon_Entry",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70045.LSC_Trans_Coupon_Entry.al"
@@ -3289,7 +3289,7 @@
           "objectId": 70046,
           "description": "Lake_LSC_Trans_Discount_Entry",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70046.LSC_Trans_Discount_Entry.al"
@@ -3299,7 +3299,7 @@
           "objectId": 70047,
           "description": "Lake_LSC_Trans_Inc_Exp_Entry",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70047.LSC_Trans_Inc_Exp_Entry.al"
@@ -3309,7 +3309,7 @@
           "objectId": 70048,
           "description": "Lake_LSC_Trans_Infocode_Entry",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70048.LSC_Trans_Infocode_Entry.al"
@@ -3319,7 +3319,7 @@
           "objectId": 70049,
           "description": "Lake_LSC_Trans_Payment_Entry",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70049.LSC_Trans_Payment_Entry.al"
@@ -3329,7 +3329,7 @@
           "objectId": 70050,
           "description": "Lake_LSC_Trans_Point_Entry",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70050.LSC_Trans_Point_Entry.al"
@@ -3339,7 +3339,7 @@
           "objectId": 70051,
           "description": "Lake_LSC_Trans_Sales_Entry",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70051.LSC_Trans_Sales_Entry.al"
@@ -3349,7 +3349,7 @@
           "objectId": 70052,
           "description": "Lake_LSC_Trans_Tndr_Decl_Entr",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70052.LSC_Trans_Tender_Declar_Entr.al"
@@ -3359,7 +3359,7 @@
           "objectId": 70053,
           "description": "Lake_LSC_Voucher_Entries",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70053.LSC_Voucher_Entries.al"
@@ -3369,7 +3369,7 @@
           "objectId": 70054,
           "description": "Lake_HO_MPAEmployee",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70054.HO_MPAEmployee.al"
@@ -3379,7 +3379,7 @@
           "objectId": 70055,
           "description": "Lake_PAS603_PRR_Store",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70055.PAS603_PRR_Store.al"
@@ -3389,7 +3389,7 @@
           "objectId": 70056,
           "description": "Lake_PAS634_PRR_DM_Item",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70056.PAS634_PRR_DM_Item.al"
@@ -3399,7 +3399,7 @@
           "objectId": 70057,
           "description": "Lake_Posted_Assembly_Header",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70057.Posted_Assembly_Header.al"
@@ -3409,7 +3409,7 @@
           "objectId": 70058,
           "description": "Lake_Posted_Whse_Receipt_Hdr",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70058.Posted_Whse_Receipt_Header.al"
@@ -3419,7 +3419,7 @@
           "objectId": 70059,
           "description": "Lake_Posted_Whse_Receipt_Line",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70059.Posted_Whse_Receipt_Line.al"
@@ -3429,7 +3429,7 @@
           "objectId": 70060,
           "description": "Lake_Posted_Whse_Shipment_Hdr",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70060.Posted_Whse_Shipment_Header.al"
@@ -3439,7 +3439,7 @@
           "objectId": 70061,
           "description": "Lake_Posted_Whse_Shipment_Line",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70061.Posted_Whse_Shipment_Line.al"
@@ -3449,7 +3449,7 @@
           "objectId": 70062,
           "description": "Lake_Purchase_Header",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70062.Purchase_Header.al"
@@ -3459,7 +3459,7 @@
           "objectId": 70063,
           "description": "Lake_Purchase_Line",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70063.Purchase_Line.al"
@@ -3469,7 +3469,7 @@
           "objectId": 70064,
           "description": "Lake_Purchase_Price",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70064.Purchase_Price.al"
@@ -3479,7 +3479,7 @@
           "objectId": 70065,
           "description": "Lake_Purch_Inv_Header",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70065.Purch_Inv_Header.al"
@@ -3489,7 +3489,7 @@
           "objectId": 70066,
           "description": "Lake_Purch_Rcpt_Header",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70066.Purch_Rcpt_Header.al"
@@ -3499,7 +3499,7 @@
           "objectId": 70067,
           "description": "Lake_Purch_Rcpt_Line",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70067.Purch_Rcpt_Line.al"
@@ -3509,7 +3509,7 @@
           "objectId": 70068,
           "description": "Lake_Sales_Header",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70068.Sales_Header.al"
@@ -3519,7 +3519,7 @@
           "objectId": 70069,
           "description": "Lake_Sales_Invoice_Header",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70069.Sales_Invoice_Header.al"
@@ -3529,7 +3529,7 @@
           "objectId": 70070,
           "description": "Lake_Sales_Line",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70070.Sales_Line.al"
@@ -3539,7 +3539,7 @@
           "objectId": 70071,
           "description": "Lake_Sales_Price",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70071.Sales_Price.al"
@@ -3549,7 +3549,7 @@
           "objectId": 70072,
           "description": "Lake_Sales_Shipment_Header",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70072.Sales_Shipment_Header.al"
@@ -3559,7 +3559,7 @@
           "objectId": 70073,
           "description": "Lake_Sales_Shipment_Line",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70073.Sales_Shipment_Line.al"
@@ -3569,7 +3569,7 @@
           "objectId": 70074,
           "description": "Lake_Tracking_Specification",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70074.Tracking_Specification.al"
@@ -3579,7 +3579,7 @@
           "objectId": 70075,
           "description": "Lake_Transfer_Header",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70075.Transfer_Header.al"
@@ -3589,7 +3589,7 @@
           "objectId": 70076,
           "description": "Lake_Transfer_Line",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70076.Transfer_Line.al"
@@ -3599,7 +3599,7 @@
           "objectId": 70077,
           "description": "Lake_Transfer_Receipt_Header",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70077.Transfer_Receipt_Header.al"
@@ -3609,7 +3609,7 @@
           "objectId": 70078,
           "description": "Lake_Transfer_Shipment_Header",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70078.Transfer_Shipment_Header.al"
@@ -3619,7 +3619,7 @@
           "objectId": 70079,
           "description": "Lake_Value_Entry",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70079.Value_Entry.al"
@@ -3629,7 +3629,7 @@
           "objectId": 70080,
           "description": "Lake_VAT_Entry",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70080.VAT_Entry.al"
@@ -3639,7 +3639,7 @@
           "objectId": 70081,
           "description": "Lake_Vendor",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70081.Vendor.al"
@@ -3649,7 +3649,7 @@
           "objectId": 70082,
           "description": "Lake_Warehouse_Activity_Header",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70082.Warehouse_Activity_Header.al"
@@ -3659,7 +3659,7 @@
           "objectId": 70083,
           "description": "Lake_Warehouse_Activity_Line",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70083.Warehouse_Activity_Line.al"
@@ -3669,7 +3669,7 @@
           "objectId": 70084,
           "description": "Lake_Warehouse_Entry",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70084.Warehouse_Entry.al"
@@ -3679,7 +3679,7 @@
           "objectId": 70085,
           "description": "Lake_Warehouse_Journal_Line",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70085.Warehouse_Journal_Line.al"
@@ -3689,7 +3689,7 @@
           "objectId": 70086,
           "description": "Lake_Warehouse_Receipt_Header",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70086.Warehouse_Receipt_Header.al"
@@ -3699,7 +3699,7 @@
           "objectId": 70087,
           "description": "Lake_Warehouse_Receipt_Line",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70087.Warehouse_Receipt_Line.al"
@@ -3709,7 +3709,7 @@
           "objectId": 70088,
           "description": "Lake_Warehouse_Shipment_Line",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70088.Warehouse_Shipment_Line.al"
@@ -3719,7 +3719,7 @@
           "objectId": 70089,
           "description": "Lake_WHT_Entry_PHL",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70089.WHT_Entry_PHL.al"
@@ -3729,7 +3729,7 @@
           "objectId": 70099,
           "description": "Lake_User",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/Page70099.Lake_User.al"
@@ -3739,7 +3739,7 @@
           "objectId": 70090,
           "description": "Lake_Purchase_Invoice_Header",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/page70090.Lake_Purchase Invoice Header.al"
@@ -3749,7 +3749,7 @@
           "objectId": 70091,
           "description": "Lake_FA Depreciation Book",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/page70091.Lake_FA Depreciation Book.al"
@@ -3759,7 +3759,7 @@
           "objectId": 70092,
           "description": "Lake_Customer",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/page70092.Lake_Customer.al"
@@ -3769,7 +3769,7 @@
           "objectId": 70093,
           "description": "Lake_Transfer Receipt Line",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/page70093.Lake_Transfer Receipt Line.al"
@@ -3779,7 +3779,7 @@
           "objectId": 70094,
           "description": "Lake_HO MPAOrderLine",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/page70094.Lake_HO_MPAOrderLine.al"
@@ -3789,7 +3789,7 @@
           "objectId": 70095,
           "description": "Lake_WHT Posting Setup",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/page70095.Lake_Witholding Tax Posting Setup.al"
@@ -3799,7 +3799,7 @@
           "objectId": 70096,
           "description": "Lake_VAT Posting Setup",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/page70096.Lake_Vat Posting Setup.al"
@@ -3809,7 +3809,7 @@
           "objectId": 70097,
           "description": "Lake_LSC Offer",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/page70097.Lake_LSC Offer.al"
@@ -3819,7 +3819,7 @@
           "objectId": 70098,
           "description": "Lake_LSC Information Subcode",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/page70098.Lake_LSC Information Subcode.al"
@@ -3829,7 +3829,7 @@
           "objectId": 70100,
           "description": "Lake_Sales Invoice Line",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/page70100.Lake_Sales Invoice Line.al"
@@ -3839,7 +3839,7 @@
           "objectId": 70101,
           "description": "Lake_Vendor Ledger Entry",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/page70101.Lake_Vendor Ledger Entry.al"
@@ -3849,7 +3849,7 @@
           "objectId": 70102,
           "description": "Lake_LSC CO Reservation Entry",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/Pages",
           "filePath": "root/Data Team API/Pages/page70102.Lake_LSC CO Reservation Entry.al"
@@ -3859,7 +3859,7 @@
           "objectId": 70000,
           "description": "Lake_HOAPIPermission",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/permissionset",
           "filePath": "root/Data Team API/permissionset/Data.permissionset.al"
@@ -3869,7 +3869,7 @@
           "objectId": 98000,
           "description": "HOAPIPermission",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Data Team API/permissionset",
           "filePath": "root/Data Team API/permissionset/HOAPIPermission.permissionset.al"
@@ -3879,7 +3879,7 @@
           "objectId": 75014,
           "description": "HOXT NAV App Installed App",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/GitHub Snapshots API",
           "filePath": "root/GitHub Snapshots API/Pag75014.HOXT NAV App Installed App.al"
@@ -3889,7 +3889,7 @@
           "objectId": 98076,
           "description": "LSC_Trans__Coupon_Entry",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Merkle API",
           "filePath": "root/Merkle API/Pag98076.LSCTransCouponEntry.al"
@@ -3899,7 +3899,7 @@
           "objectId": 98086,
           "description": "LSC_Member_Account",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Merkle API",
           "filePath": "root/Merkle API/Pag98086.LSCMemberAccount.al"
@@ -3909,7 +3909,7 @@
           "objectId": 98087,
           "description": "LSC_Member_Contact",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Merkle API",
           "filePath": "root/Merkle API/Pag98087.LSCMemberContact.al"
@@ -3919,7 +3919,7 @@
           "objectId": 98088,
           "description": "LSC_Membership_Card",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Merkle API",
           "filePath": "root/Merkle API/Pag98088.LSCMembershipCard.al"
@@ -3929,7 +3929,7 @@
           "objectId": 98089,
           "description": "LSC_Member_Point_Entry",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Merkle API",
           "filePath": "root/Merkle API/Pag98089.LSCMemberPointEntry.al"
@@ -3939,7 +3939,7 @@
           "objectId": 98090,
           "description": "LSC_Member_Account_Upgr__Entry",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Merkle API",
           "filePath": "root/Merkle API/Pag98090.LSCMemberAccountUpgrEntry.al"
@@ -3949,7 +3949,7 @@
           "objectId": 98091,
           "description": "LSC_Member_Scheme",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Merkle API",
           "filePath": "root/Merkle API/Pag98091.LSCMemberScheme.al"
@@ -3959,7 +3959,7 @@
           "objectId": 98000,
           "description": "InsertInventoryAndSalesData",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Relex API/Codeunit",
           "filePath": "root/Relex API/Codeunit/Cod98000.InsertInventoryAndSalesData.al"
@@ -3969,7 +3969,7 @@
           "objectId": 98001,
           "description": "InsertInventoryAndSalesDataV2",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Relex API/Codeunit",
           "filePath": "root/Relex API/Codeunit/Cod98001.InsertInventoryAndSalesDataV2.al"
@@ -3979,7 +3979,7 @@
           "objectId": 98000,
           "description": "Process Actual Inv by Loc List",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Relex API/Page",
           "filePath": "root/Relex API/Page/Pag98000.ProcessActualInvbyLocList.al"
@@ -3989,7 +3989,7 @@
           "objectId": 98001,
           "description": "Actual Inv by Loc API",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Relex API/Page",
           "filePath": "root/Relex API/Page/Pag98001.ActualInvbyLocAPI.al"
@@ -3999,7 +3999,7 @@
           "objectId": 98002,
           "description": "HO Items by Location",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Relex API/Page",
           "filePath": "root/Relex API/Page/Pag98002.HOItemsbyLocation.al"
@@ -4009,7 +4009,7 @@
           "objectId": 98003,
           "description": "HO Items by Location Matrix",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Relex API/Page",
           "filePath": "root/Relex API/Page/Pag98003.HOItemsbyLocationMatrix.al"
@@ -4019,7 +4019,7 @@
           "objectId": 98004,
           "description": "HOPurchanseLineAPI",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Relex API/Page",
           "filePath": "root/Relex API/Page/Pag98004.HOPurchanseLineAPI.al"
@@ -4029,7 +4029,7 @@
           "objectId": 98020,
           "description": "Purchase_Header",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Relex API/Page",
           "filePath": "root/Relex API/Page/Pag98020.PurchaseHeader.al"
@@ -4039,7 +4039,7 @@
           "objectId": 98021,
           "description": "Purchase_Line",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Relex API/Page",
           "filePath": "root/Relex API/Page/Pag98021.PurchaseLine.al"
@@ -4049,7 +4049,7 @@
           "objectId": 98036,
           "description": "Transfer_Headers",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Relex API/Page",
           "filePath": "root/Relex API/Page/Pag98036.TransferHeaders.al"
@@ -4059,7 +4059,7 @@
           "objectId": 98037,
           "description": "Transfer_Line API",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Relex API/Page",
           "filePath": "root/Relex API/Page/Pag98037.TransferLineAPI.al"
@@ -4069,7 +4069,7 @@
           "objectId": 98100,
           "description": "RELX Sales Price",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Relex API/Page",
           "filePath": "root/Relex API/Page/Pag98100.RELX_SalesPrice.al"
@@ -4079,7 +4079,7 @@
           "objectId": 98101,
           "description": "RELX Purchase Price",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Relex API/Page",
           "filePath": "root/Relex API/Page/Pag98101.RELX_PurchasePrice.al"
@@ -4089,7 +4089,7 @@
           "objectId": 98102,
           "description": "RELX LSC Transaction Header",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Relex API/Page",
           "filePath": "root/Relex API/Page/Pag98102.RELX_LSCTransactionHeader.al"
@@ -4099,7 +4099,7 @@
           "objectId": 98103,
           "description": "RELX LSC Trans. Sales Entry",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Relex API/Page",
           "filePath": "root/Relex API/Page/Pag98103.RELX_LSCTransSalesEntry.al"
@@ -4109,7 +4109,7 @@
           "objectId": 98104,
           "description": "RELX CustomerPriceGroup",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Relex API/Page",
           "filePath": "root/Relex API/Page/Pag98104.RELX_CustomerPriceGroup.al"
@@ -4119,7 +4119,7 @@
           "objectId": 98105,
           "description": "RELX Items",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Relex API/Page",
           "filePath": "root/Relex API/Page/Pag98105.RELX_Item.al"
@@ -4129,7 +4129,7 @@
           "objectId": 98106,
           "description": "RELX LSC Attribute Value",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Relex API/Page",
           "filePath": "root/Relex API/Page/Pag98106.RELX_LSC Attribute Value.al"
@@ -4139,7 +4139,7 @@
           "objectId": 98107,
           "description": "RELX Location",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Relex API/Page",
           "filePath": "root/Relex API/Page/Pag98107.RELX_Location.al"
@@ -4149,7 +4149,7 @@
           "objectId": 98000,
           "description": "InventoryPerLocation",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Relex API/Query",
           "filePath": "root/Relex API/Query/Que98000.InventoryPerLocation.al"
@@ -4159,7 +4159,7 @@
           "objectId": 98001,
           "description": "QtySoldNotPosted",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Relex API/Query",
           "filePath": "root/Relex API/Query/Que98001.QtySoldNotPosted.al"
@@ -4169,7 +4169,7 @@
           "objectId": 98000,
           "description": "Actual Inv by Loc",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Relex API/Table",
           "filePath": "root/Relex API/Table/Tab98000.ActualInvbyLoc.al"
@@ -4179,7 +4179,7 @@
           "objectId": 98001,
           "description": "Actual Inv by Loc Entries",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Relex API/Table",
           "filePath": "root/Relex API/Table/Tab98001.ActualInvbyLocEntries.al"
@@ -4189,7 +4189,7 @@
           "objectId": 98002,
           "description": "RELX Actual Inv by Loc v2",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Relex API/Table",
           "filePath": "root/Relex API/Table/Tab98002.RELX_ActualInvbyLocV2.al"
@@ -4199,7 +4199,7 @@
           "objectId": 75000,
           "description": "NAV_Inventory Posting Group",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Replication To NAV API",
           "filePath": "root/Replication To NAV API/Pag75000.RNAV_InventoryPostingGroup.al"
@@ -4209,7 +4209,7 @@
           "objectId": 75001,
           "description": "NAV_Gen. Bus. Posting Group",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Replication To NAV API",
           "filePath": "root/Replication To NAV API/Pag75001.RNAV_GenBusinessPostingGroup.al"
@@ -4219,7 +4219,7 @@
           "objectId": 75002,
           "description": "NAV_Gen. Prod. Posting Group",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Replication To NAV API",
           "filePath": "root/Replication To NAV API/Pag75002.RNAV_GenProdPostingGroup.al"
@@ -4229,7 +4229,7 @@
           "objectId": 75003,
           "description": "NAV_General Posting Setup",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Replication To NAV API",
           "filePath": "root/Replication To NAV API/Pag75003.RNAV_GeneralPostingSetup.al"
@@ -4239,7 +4239,7 @@
           "objectId": 75004,
           "description": "NAV_VATBusPostingGroup",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Replication To NAV API",
           "filePath": "root/Replication To NAV API/Pag75004.RNAV_VATBusinessPostingGroup.al"
@@ -4249,7 +4249,7 @@
           "objectId": 75005,
           "description": "NAV_VATProdPostingGroup",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Replication To NAV API",
           "filePath": "root/Replication To NAV API/Pag75005.RNAV_VATProductPostingGroup.al"
@@ -4259,7 +4259,7 @@
           "objectId": 75006,
           "description": "NAV_VATPostingGroup",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Replication To NAV API",
           "filePath": "root/Replication To NAV API/Pag75006.RNAV_VATPostingSetup.al"
@@ -4269,7 +4269,7 @@
           "objectId": 75007,
           "description": "NAV_Item Category",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Replication To NAV API",
           "filePath": "root/Replication To NAV API/Pag75007.RNAV_ItemCategory.al"
@@ -4279,7 +4279,7 @@
           "objectId": 75008,
           "description": "NAV_Retail Product Group",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Replication To NAV API",
           "filePath": "root/Replication To NAV API/Pag75008.RNAV_ProductGroup.al"
@@ -4289,7 +4289,7 @@
           "objectId": 75009,
           "description": "NAV_Division",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Replication To NAV API",
           "filePath": "root/Replication To NAV API/Pag75009.RNAV_Division.al"
@@ -4299,7 +4299,7 @@
           "objectId": 75010,
           "description": "NAV_Item",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Replication To NAV API",
           "filePath": "root/Replication To NAV API/Pag75010.RNAV_Item.al"
@@ -4309,7 +4309,7 @@
           "objectId": 75011,
           "description": "NAV_ItemUnitofMeasurement",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Replication To NAV API",
           "filePath": "root/Replication To NAV API/Pag75011.RNAV_ItemUnitofMeasurement.al"
@@ -4319,7 +4319,7 @@
           "objectId": 75012,
           "description": "NAV_SalesPrice",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Replication To NAV API",
           "filePath": "root/Replication To NAV API/Pag75012.RNAV_SalesPrice.al"
@@ -4329,27 +4329,41 @@
           "objectId": 75013,
           "description": "NAV_UnitOfMeasure",
           "appName": "HOXT - Custom API",
-          "appVersion": "26.10.0.1",
+          "appVersion": "26.10.0.2",
           "appDir": "",
           "fileDir": "root/Replication To NAV API",
           "filePath": "root/Replication To NAV API/Pag75013.RNAV_UnitofMeasure.al"
         }
       ],
-      "lastSyncedAt": "2026-10-29T21:22:11.354Z",
+      "lastSyncedAt": "2026-10-30T21:00:10.758Z",
       "apps": [
         {
           "name": "HOXT - Custom API",
-          "version": "26.10.0.1",
+          "version": "26.10.0.2",
           "path": ""
         }
       ],
       "autoNotes": [
         {
-          "id": "cf66a4d7e8ac78a3e052f96a9841291cc555a2ef",
-          "version": "26.10.0.1",
+          "id": "7c720f5f2eb69d41ba5e14024c9b7d8163f83f6c",
+          "version": "26.10.0.2",
           "appName": "HOXT - Custom API",
-          "date": "2026-10-23T06:22:36Z",
+          "date": "2026-10-30T02:22:35Z",
           "commits": [
+            {
+              "sha": "7c720f5f2eb69d41ba5e14024c9b7d8163f83f6c",
+              "summary": "Includes relex new API",
+              "details": "",
+              "author": "Mike Tinchay",
+              "date": "2026-10-30T02:22:35Z"
+            },
+            {
+              "sha": "78e5e4b45c7fe96537627daaf8ecca4f4dad230f",
+              "summary": "version update to 26.10.0.1",
+              "details": "",
+              "author": "glreyes",
+              "date": "2026-10-23T06:27:30Z"
+            },
             {
               "sha": "cf66a4d7e8ac78a3e052f96a9841291cc555a2ef",
               "summary": "version update to 26.10.0.1",
@@ -4363,37 +4377,29 @@
               "details": "",
               "author": "mntinchay",
               "date": "2026-10-23T06:03:41Z"
-            }
-          ]
-        },
-        {
-          "id": "a513efcbd4a6d7a0171c16b1aa960617a5b8fbda",
-          "version": "26.10.0.0",
-          "appName": "HOXT - Custom API",
-          "date": "2026-10-23T05:57:36Z",
-          "commits": [
+            },
             {
               "sha": "52e373e4809c3cc03a1c042a38619a7bda26cd6b",
               "summary": "RELEX Additional API (CustomerPriceGrou, Item, LSC Attribute Value, L…",
               "details": "",
               "author": "mntinchay",
               "date": "2026-10-23T05:56:15Z"
-            },
+            }
+          ]
+        },
+        {
+          "id": "2f01b3b147516e303f89b7892adb236824848cca",
+          "version": "26.10.0.0",
+          "appName": "HOXT - Custom API",
+          "date": "2026-10-23T05:48:20Z",
+          "commits": [
             {
               "sha": "2f01b3b147516e303f89b7892adb236824848cca",
               "summary": "RELEX Additional API (CustomerPriceGrou, Item, LSC Attribute Value, Location)",
               "details": "",
               "author": "Mike Tinchay",
               "date": "2026-10-23T05:48:20Z"
-            }
-          ]
-        },
-        {
-          "id": "793c7aec8dead37a242933a69785842cd00d6453",
-          "version": "26.9.2.15",
-          "appName": "HOXT - Custom API",
-          "date": "2026-10-23T04:46:29Z",
-          "commits": [
+            },
             {
               "sha": "793c7aec8dead37a242933a69785842cd00d6453",
               "summary": "Add Lake APIs for Vendor Ledger Entry, CO Reservation Entry and LSC Division (v26.9.2.15)",
@@ -4779,7 +4785,8 @@
         "793c7aec8dead37a242933a69785842cd00d6453": "26.9.2.15",
         "2f01b3b147516e303f89b7892adb236824848cca": "26.10.0.0",
         "a513efcbd4a6d7a0171c16b1aa960617a5b8fbda": "26.10.0.0",
-        "cf66a4d7e8ac78a3e052f96a9841291cc555a2ef": "26.10.0.1"
+        "cf66a4d7e8ac78a3e052f96a9841291cc555a2ef": "26.10.0.1",
+        "7c720f5f2eb69d41ba5e14024c9b7d8163f83f6c": "26.10.0.2"
       },
       "notesError": "",
       "scanInfo": {
@@ -4954,7 +4961,7 @@
           "filePath": "root/table/tab99044.HOXT Custom API Owner.al"
         }
       ],
-      "lastSyncedAt": "2026-10-29T21:22:16.483Z",
+      "lastSyncedAt": "2026-10-30T21:00:15.369Z",
       "apps": [
         {
           "name": "HOXT - Developer's Tool",
@@ -5040,7 +5047,7 @@
       ]
     }
   },
-  "lastRunAt": "2026-10-29T21:22:16.483Z",
+  "lastRunAt": "2026-10-30T21:00:15.369Z",
   "lastRunStatus": "success",
   "lastRunError": ""
 }
