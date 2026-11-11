@@ -539,7 +539,7 @@ async function acquireGraphToken(interactive){
   const accounts = msalInstance.getAllAccounts();
   if(accounts.length){
     try{
-      const res = await msalInstance.acquireTokenSilent({ scopes:GRAPH_SCOPES, account:accounts[0] });
+      const res = await msalInstance.acquireTokenSilent({ scopes:GRAPH_SCOPES, account:msalInstance.getActiveAccount() || accounts[0] });
       return res.accessToken;
     }catch(e){ /* fall through to interactive */ }
   }
@@ -781,6 +781,9 @@ function normalizeDB(db){
     }
     delete db.settings.onpremRepoUrl;
     db.settings.storecustRepoUrl = db.settings.storecustRepoUrl || '';
+    // How people sign in. 'password' = the user list + passwords kept in this app (how it always worked);
+    // 'microsoft' = the Microsoft account they're already signed in with must match a user's Email.
+    db.settings.auth = Object.assign({ mode:'password', sessionHours:8, passwordFallback:true }, db.settings.auth || {});
     db.settings.extMgmt = db.settings.extMgmt || {};
     db.settings.extMgmt.tenantId = db.settings.extMgmt.tenantId || '';
     db.settings.extMgmt.clientId = db.settings.extMgmt.clientId || '';
@@ -898,6 +901,71 @@ const SESSION_KEY = 'bcovc_session_user';
 let authStage = 'login'; // 'login' | 'changepw' | 'app'
 let pendingChangeForced = false;
 let loginError = '';
+const MS_LOGIN_AT_KEY = 'bcovc_ms_login_at';     // when this tab's Microsoft sign-in was accepted
+const PW_FALLBACK_KEY = 'bcovc_pw_fallback';     // this tab chose "use a password instead"
+let usePasswordInstead = false;
+try{ usePasswordInstead = sessionStorage.getItem(PW_FALLBACK_KEY)==='1'; }catch(e){}
+let deniedReason = '', signedOutMessage = '';
+function reloadPage(){ window.location.reload(); }
+
+function authSettings(){
+  const a = DB.settings.auth || (DB.settings.auth = {});
+  if(a.mode!=='microsoft') a.mode = 'password';
+  a.sessionHours = Math.max(1, Math.min(72, parseInt(a.sessionHours,10) || 8));
+  if(a.passwordFallback===undefined) a.passwordFallback = true;
+  return a;
+}
+// Is "sign in with the Microsoft account" what applies to this tab right now?
+function msModeActive(){ return !IS_LOCAL_DEV && authSettings().mode==='microsoft' && !usePasswordInstead; }
+
+// Who is signed in to Microsoft in this tab. The library has already checked the token (signature,
+// audience, issuer, expiry) before it hands the account over — the same checks auth.php does by hand.
+function msIdentity(){
+  if(!msalInstance) return null;
+  const a = msalInstance.getActiveAccount() || msalInstance.getAllAccounts()[0];
+  if(!a) return null;
+  const c = a.idTokenClaims || {};
+  const emails = [];
+  const add = v=>{ v = String(v||'').trim().toLowerCase(); if(v && !emails.includes(v)) emails.push(v); };
+  [a.username, c.preferred_username, c.email, c.upn].concat(Array.isArray(c.emails)?c.emails:[]).forEach(v=>{
+    add(v);
+    // A guest invited from another organisation signs in as  jane_gmail.com#EXT#@tenant.onmicrosoft.com
+    const m = /^(.+)_([^_#@]+)#ext#@/i.exec(String(v||'').trim());
+    if(m) add(m[1]+'@'+m[2]);
+  });
+  return { email: emails[0] || '', emails, name: a.name || c.name || emails[0] || '', oid: c.oid || '', tenantId: a.tenantId || c.tid || '' };
+}
+// The user (and so the role and permissions) this Microsoft account stands for, or null = not on the list.
+function userForMsIdentity(idn){
+  if(!idn) return null;
+  return DB.users.find(u=> idn.emails.includes(String(u.email||'').trim().toLowerCase())) || null;
+}
+// Forget this tab's Microsoft sign-in without signing the person out of Microsoft everywhere else.
+// The library keeps its cache in this tab's sessionStorage; everything there that isn't ours (bcovc_*) is its.
+function msClearBrowserSignIn(){
+  try{
+    Object.keys(sessionStorage).filter(k=>!k.startsWith('bcovc_')).forEach(k=>sessionStorage.removeItem(k));
+    [SESSION_KEY, MS_LOGIN_AT_KEY, PW_FALLBACK_KEY].forEach(k=>sessionStorage.removeItem(k));
+  }catch(e){}
+  usePasswordInstead = false;
+  cachedSiteId = null;
+}
+function msSignOut(message){
+  msClearBrowserSignIn();
+  authStage = 'signedout'; signedOutMessage = message || '';
+  paint();
+}
+// Always lets the person choose the account (so a signed-in browser can switch), then loads everything again under it.
+async function msSignInAgain(){
+  if(!msalInstance){ reloadPage(); return; }
+  try{
+    const res = await msalInstance.loginPopup({ scopes:GRAPH_SCOPES, prompt:'select_account' });
+    msalInstance.setActiveAccount(res.account);
+    reloadPage();
+  }catch(e){
+    toast(`Microsoft sign-in did not finish: ${e && e.message ? e.message : e}`, 'danger');
+  }
+}
 
 async function sha256Hex(text){
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
@@ -924,6 +992,8 @@ function genTempPassword(){
 function paint(){
   if(authStage==='login') renderLogin();
   else if(authStage==='changepw') renderChangePassword(pendingChangeForced);
+  else if(authStage==='denied') renderNotAllowed();
+  else if(authStage==='signedout') renderSignedOut();
   else {
     render();
     loadExtMgmtFromGithub().then(loaded=>{ if(loaded) render(); }).catch(e=>console.warn('Extension Management GitHub load failed:', e.message));
@@ -931,6 +1001,7 @@ function paint(){
   }
 }
 function boot(){
+  if(msModeActive()){ bootMicrosoft(); return; }
   const sid = sessionStorage.getItem(SESSION_KEY);
   if(sid && DB.users.find(u=>u.id===sid)){
     DB.currentUserId = sid;
@@ -940,7 +1011,31 @@ function boot(){
   } else { authStage='login'; }
   paint();
 }
+// "Sign in with the Microsoft account": the person is already signed in to Microsoft (that is how this database
+// was opened), so there is no user list or password — their account either is on the user list or it isn't.
+function bootMicrosoft(){
+  const idn = msIdentity();
+  const u = userForMsIdentity(idn);
+  if(!u){
+    deniedReason = idn && idn.email ? `Your Microsoft account (${idn.email}) is not a user of this system.` : 'Could not tell which Microsoft account you are signed in with.';
+    authStage = 'denied'; paint(); return;
+  }
+  const hours = authSettings().sessionHours;
+  const startedAt = Number(sessionStorage.getItem(MS_LOGIN_AT_KEY) || 0);
+  if(startedAt && Date.now() - startedAt > hours*3600*1000){
+    msSignOut(`Your sign-in ended after ${hours} hour${hours===1?'':'s'}. Sign in again to continue.`);
+    return;
+  }
+  if(!startedAt) sessionStorage.setItem(MS_LOGIN_AT_KEY, String(Date.now()));
+  const firstTime = sessionStorage.getItem(SESSION_KEY) !== u.id;
+  DB.currentUserId = u.id;
+  sessionStorage.setItem(SESSION_KEY, u.id);
+  authStage = 'app';
+  if(firstTime) log('Logged in','user', u.name, `Microsoft account ${idn.email}`);
+  paint();
+}
 function logout(){
+  if(!IS_LOCAL_DEV && authSettings().mode==='microsoft'){ msSignOut(''); return; }
   sessionStorage.removeItem(SESSION_KEY);
   if(IS_LOCAL_DEV){
     sessionStorage.setItem(SESSION_KEY, DB.currentUserId);
@@ -953,6 +1048,41 @@ function logout(){
 }
 
 /* ---------------------------- LOGIN SCREEN ---------------------------- */
+function authScreenShell(inner){
+  document.documentElement.setAttribute('data-theme', DB && DB.settings ? DB.settings.theme : 'dark');
+  document.getElementById('app').innerHTML = `
+  <div class="auth-wrap">
+    <div class="glass auth-card">
+      <div class="brand" style="padding:0 0 22px;justify-content:center;">
+        ${brandMarkHtml()}
+        <div class="brand-text"><b>BC Object & Version Control Monitoring</b><span>Healthy Options - BS Dev Team</span></div>
+      </div>
+      ${inner}
+    </div>
+  </div>`;
+}
+function renderNotAllowed(){
+  const a = authSettings();
+  authScreenShell(`
+    <h3 style="text-align:center;font-size:16px;margin-bottom:6px;">Not allowed</h3>
+    <p style="text-align:center;font-size:12.5px;color:var(--text-dim);margin-bottom:6px;">${escapeHtml(deniedReason)}</p>
+    <p style="text-align:center;font-size:12px;color:var(--text-faint);margin-bottom:20px;">Ask an administrator to add you in User Management. The Email on your user must be the one you sign in to Microsoft with.</p>
+    <button class="btn btn-primary" id="msSwitchBtn" style="width:100%;justify-content:center;">Sign in with a different account</button>
+    ${a.passwordFallback?`<button class="btn btn-ghost" id="msUsePwBtn" style="width:100%;justify-content:center;margin-top:8px;">Use a password instead</button>`:''}`);
+  document.getElementById('msSwitchBtn').addEventListener('click', ()=>{ msClearBrowserSignIn(); authStage='signedout'; signedOutMessage=''; paint(); msSignInAgain(); });
+  const pw = document.getElementById('msUsePwBtn');
+  if(pw) pw.addEventListener('click', ()=>{
+    usePasswordInstead = true; sessionStorage.setItem(PW_FALLBACK_KEY,'1');
+    authStage='login'; loginError=''; paint();
+  });
+}
+function renderSignedOut(){
+  authScreenShell(`
+    <h3 style="text-align:center;font-size:16px;margin-bottom:6px;">Signed out</h3>
+    <p style="text-align:center;font-size:12.5px;color:var(--text-dim);margin-bottom:22px;">${escapeHtml(signedOutMessage || 'You are signed out of this system. Your browser may still be signed in to Microsoft, so you will be asked which account to use.')}</p>
+    <button class="btn btn-primary" id="msSignInAgainBtn" style="width:100%;justify-content:center;">Sign in again</button>`);
+  document.getElementById('msSignInAgainBtn').addEventListener('click', msSignInAgain);
+}
 function renderLogin(){
   document.documentElement.setAttribute('data-theme', DB.settings.theme);
   const app = document.getElementById('app');
@@ -1296,7 +1426,7 @@ function renderSidebar(){
         </div>
       </div>
       <div style="display:flex;gap:6px;margin-top:8px;">
-        ${IS_LOCAL_DEV?'':'<button class="btn btn-sm btn-ghost" id="changePwLink" style="flex:1;">Change Password</button>'}
+        ${(IS_LOCAL_DEV||msModeActive())?'':'<button class="btn btn-sm btn-ghost" id="changePwLink" style="flex:1;">Change Password</button>'}
         <button class="btn btn-sm btn-ghost" id="logoutBtn" style="flex:1;">Log Out</button>
       </div>
     </div>
@@ -1607,7 +1737,7 @@ function viewUsers(){
 
 /* ---------------------------- SETTINGS VIEW ---------------------------- */
 function viewSettings(){
-  const tabs = [['general','General'],['repos','Repositories'],['excel','Excel Import/Export'],['appearance','Appearance'],['objecttypes','Object Types'],['ranges','ID Ranges'],['password','Password Policy'],['extmgmt','Extension Management'],['devtoolsync','Dev-tool Sync']];
+  const tabs = [['general','General'],['repos','Repositories'],['excel','Excel Import/Export'],['appearance','Appearance'],['objecttypes','Object Types'],['ranges','ID Ranges'],['password','Password Policy'],['signin','Sign-in'],['extmgmt','Extension Management'],['devtoolsync','Dev-tool Sync']];
   return `
   <div class="tabs">
     ${tabs.map(([id,label])=>`<div class="tab ${state.settingsTab===id?'active':''}" data-stab="${id}">${label}</div>`).join('')}
@@ -1619,6 +1749,7 @@ function viewSettings(){
   ${state.settingsTab==='objecttypes'?settingsObjectTypes():''}
   ${state.settingsTab==='ranges'?settingsRanges():''}
   ${state.settingsTab==='password'?settingsPasswordPolicy():''}
+  ${state.settingsTab==='signin'?settingsSignIn():''}
   ${state.settingsTab==='extmgmt'?settingsExtMgmt():''}
   ${state.settingsTab==='devtoolsync'?settingsDevToolSync():''}
   `;
@@ -1796,6 +1927,66 @@ function settingsRanges(){
       <div class="form-row"><label>To</label><input type="number" id="apiDataTo" value="${hoxtApiDataRange().to}" ${locked?'disabled':''}></div>
     </div>
     ${locked?'':`<button class="btn btn-primary" id="saveApiDataRange">Save Data Range</button>`}
+  </div>`;
+}
+function settingsSignIn(){
+  const locked = !can('setup','modify');
+  const a = authSettings();
+  const idn = IS_LOCAL_DEV ? null : msIdentity();
+  const me = currentUser();
+  const myEmail = String((me&&me.email)||'').trim().toLowerCase();
+  const meMatches = !!(idn && myEmail && idn.emails.includes(myEmail));
+  // two users sharing an email would both "be" the same Microsoft account — the first one wins, which is rarely intended
+  const seen = {}, dupes = new Set();
+  DB.users.forEach(u=>{ const e = String(u.email||'').trim().toLowerCase(); if(!e) return; if(seen[e]) dupes.add(e); seen[e]=true; });
+  return `
+  <div class="card" style="max-width:760px;margin-bottom:18px;">
+    <div class="section-title"><h3>${icon('users')||''} How people sign in</h3><span class="pill ${a.mode==='microsoft'?'on':''}" style="font-size:11.5px;">${a.mode==='microsoft'?'Microsoft account':'Password'}</span></div>
+    ${IS_LOCAL_DEV?`<div class="hint" style="font-size:12px;color:var(--warning);margin-bottom:10px;">Local access mode (the file opened straight from disk) skips sign-in completely, so this setting has no effect here.</div>`:''}
+    <div class="form-row">
+      <label>Who is allowed in is decided by</label>
+      <select id="siMode" ${(locked||IS_LOCAL_DEV)?'disabled':''}>
+        <option value="password" ${a.mode==='password'?'selected':''}>A user and password kept in this app</option>
+        <option value="microsoft" ${a.mode==='microsoft'?'selected':''}>The Microsoft account they are signed in with</option>
+      </select>
+      <div class="hint" style="font-size:11.5px;margin-top:4px;">With the Microsoft account there is no password screen: the sign-in name must match a user's <b>Email</b> under User Management, and that user's role and permissions apply. Anyone else sees "Not allowed".</div>
+    </div>
+    <div class="form-row">
+      <label>Stay signed in for <span class="hint">(hours, 1–72)</span></label>
+      <input type="number" id="siHours" min="1" max="72" value="${a.sessionHours}" style="max-width:120px;" ${(locked||IS_LOCAL_DEV)?'disabled':''}>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin:12px 0 4px;">
+      <span style="font-size:12.5px;color:var(--text-dim);">Let someone who isn't on the list sign in with a password instead <span class="hint">(a safety net — turn off once everyone gets in)</span></span>
+      <div class="toggle ${a.passwordFallback?'on':''}" id="siFallback" style="${(locked||IS_LOCAL_DEV)?'pointer-events:none;opacity:.5;':''}"></div>
+    </div>
+    ${locked?'':`<button class="btn btn-primary" id="saveSignIn" ${IS_LOCAL_DEV?'disabled':''} style="margin-top:10px;">Save</button>`}
+    ${IS_LOCAL_DEV?'':`<div class="hint" style="font-size:12px;margin-top:12px;">
+      You're signed in to Microsoft as <b>${idn?escapeHtml(idn.email||'(unknown)'):'(not signed in)'}</b>
+      ${idn?(meMatches?`— that matches your user <b>${escapeHtml(me.name)}</b>, so you can safely turn this on.`:`— that does <b>not</b> match your user's email (${escapeHtml(me&&me.email||'none')}), so turning this on is blocked until it does (you'd be locked out).`):''}
+    </div>`}
+  </div>
+
+  <div class="card" style="max-width:760px;margin-bottom:18px;">
+    <div class="section-title"><h3>Users and the email they sign in with</h3><span class="hint">Email must equal the Microsoft sign-in name (not case-sensitive)</span></div>
+    ${dupes.size?`<div class="hint" style="color:var(--warning);font-size:12px;margin-bottom:8px;">More than one user has the email ${[...dupes].map(escapeHtml).join(', ')} — only the first would ever be matched.</div>`:''}
+    <div class="table-wrap"><table>
+      <thead><tr><th>User</th><th>Email</th><th>Role</th><th></th></tr></thead>
+      <tbody>${DB.users.map(u=>{
+        const e = String(u.email||'').trim().toLowerCase();
+        const isMe = !!(idn && e && idn.emails.includes(e));
+        return `<tr><td>${escapeHtml(u.name)}</td><td class="mono">${e?escapeHtml(u.email):'<span style="color:var(--danger);">no email — can\'t sign in with Microsoft</span>'}</td><td>${escapeHtml(u.role)}</td><td>${isMe?'<span class="badge active"><span class="badge-dot"></span>You</span>':''}</td></tr>`;
+      }).join('')}</tbody>
+    </table></div>
+  </div>
+
+  <div class="card" style="max-width:760px;">
+    <div class="section-title"><h3>What this needs in Azure</h3><span class="hint">Set in the code, because they're needed before this database can even be read</span></div>
+    <div style="font-size:12.5px;color:var(--text-dim);line-height:1.8;">
+      <div>Tenant <span class="mono">${escapeHtml(MSAL_TENANT)}</span> · Client ID <span class="mono">${escapeHtml(MSAL_CLIENT_ID)}</span></div>
+      <div>App registration type: <b>Single-page application</b> · Permission: Microsoft Graph, delegated, <span class="mono">${escapeHtml(GRAPH_SCOPES.join(', '))}</span>, admin consent granted</div>
+      <div>Redirect URI to register — exactly this page's address: <span class="mono">${escapeHtml(MSAL_REDIRECT_URI)}</span></div>
+      <div class="hint" style="margin-top:6px;font-size:11.5px;">If this app moves to another address, add that address as a redirect URI too, or Microsoft refuses the sign-in.</div>
+    </div>
   </div>`;
 }
 function settingsPasswordPolicy(){
@@ -2163,6 +2354,7 @@ function viewHoxtColl(kind){
     <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">
       <button class="btn" id="hoxtReleaseNotesBtn">${icon('history')} Release Notes</button>
       ${canEdit?`<button class="btn btn-primary" id="hoxtInfoSaveBtn">Save</button>`:''}
+      ${canEdit?`<button class="btn btn-primary" id="hoxtAddMonitoredPageBtn">${icon('upload')} Add Object for Monitoring</button>`:''}
     </div>
   </div>
   ${pendingObjectsPanel(kind, devToolSyncSettings().sources[kind])}
@@ -2331,7 +2523,7 @@ function renderHoxtDraftObjects(kind, itemId, canEdit){
         ${canEdit && itemId ? `<button class="btn btn-sm btn-primary" id="hoAddMonitoredBtn">${icon('upload')} Add Object for Monitoring</button>` : ''}
       </div>
     </div>
-    ${(canEdit && !itemId) ? `<div class="hint" style="font-size:11px;color:var(--text-faint);margin:0 0 6px;">Save this ${cc.singular.toLowerCase()} first to unlock "Add Object for Monitoring" (it needs to know this ${cc.singular.toLowerCase()}'s own folder in the repo).</div>` : ''}
+    ${(canEdit && !itemId) ? `<div class="hint" style="font-size:11px;color:var(--text-faint);margin:0 0 6px;">To add an object to a ${cc.singular.toLowerCase()} folder in GitHub, use <b>Add Object for Monitoring</b> on the page (or save this ${cc.singular.toLowerCase()} first and use it here).</div>` : ''}
     ${kind==='apis'?`<div class="hint" style="font-size:11.5px;margin:0 0 8px;color:var(--text-faint);">Data (Table) objects use their own ID range: <b>${dr.from}–${dr.to}</b> (Settings → ID Ranges). Other types follow their normal range.</div>`:''}
     <div class="card" style="padding:0;"><div class="table-wrap" style="max-height:260px;">
       <table>
@@ -2369,15 +2561,11 @@ function renderHoxtDraftObjects(kind, itemId, canEdit){
   if(addMonitored) addMonitored.onclick = ()=>{
     const item = hoxtData(kind).projects.find(p=>p.id===itemId);
     if(!item) return;
-    const sourceKey = kind; // 'projects' / 'apis' are themselves Dev-tool Sync sources (see SYNC_SOURCES)
-    const cfg = devToolSyncSettings().sources[sourceKey];
-    const root = (cfg.projectsFolder || cfg.folder || '').replace(/\/+$/,'');
-    const folderName = (item.name||item.code||'').trim();
-    const lockedFolder = root ? `${root}/${folderName}` : folderName;
-    openAddMonitoredObjectModal(sourceKey, {
-      lockedFolder, lockedFolderLabel: `${item.name||''} (${item.code||''})`,
-      onDone: ()=> openHoxtItemModal(kind, itemId),
-    });
+    // The record's name is only used to PRE-SELECT the matching folder; the person still picks (and can change) it.
+    const cfg = devToolSyncSettings().sources[kind];   // 'projects' / 'apis' are themselves Dev-tool Sync sources
+    const want = [item.name, item.code].map(x=>String(x||'').trim().toLowerCase()).filter(Boolean);
+    const preselect = (projectFolderChoices(cfg)||[]).find(c=>want.includes(c.toLowerCase())) || '';
+    openAddMonitoredObjectModal(kind, { pickFolder:true, preselect, onDone: ()=> openHoxtItemModal(kind, itemId) });
   };
 }
 
@@ -3057,6 +3245,9 @@ async function createPendingObjects(key, cfg) {
         dirsByBranch[branch] = (t.tree || []).filter(e => e.type === 'tree').map(e => e.path);
       }
       const base = (p.folderPath || '').replace(/\\/+$/, '');
+      if (p.requireExistingBase && base && !dirsByBranch[branch].includes(base)) {
+        throw new Error(\`The folder "\${base}" does not exist on branch "\${branch}". New API/project folders are never created from here — pick an existing one.\`);
+      }
       let folder = findTypeFolder(dirsByBranch[branch], base, p.objectType);
       const folderExisted = !!folder;
       if (!folder) {
@@ -3407,6 +3598,16 @@ function alObjectKind(kw){ return AL_OBJECT_KINDS.find(k=>k.kw===kw); }
 // Where NEW .al files go: the type folders (Tables/, Pages/…) are created
 // inside this folder. Separate from "Folder" (what gets scanned), which has to
 // stay blank when app.json sits outside the folder the objects live in.
+// HOXT Projects / Custom API: each project or API is a folder directly inside the Projects Folder (e.g. root/Data Team API).
+// These are the ones that really exist in the repo — a new object goes INTO one of them; none is ever created from here.
+function projectsBase(cfg){ return (cfg.projectsFolder || cfg.folder || '').replace(/\/+$/,''); }
+function projectFolderChoices(cfg){
+  if(!Array.isArray(cfg.repoFolders)) return null;                  // not read from GitHub yet
+  const base = projectsBase(cfg), prefix = base ? base+'/' : '';
+  return cfg.repoFolders
+    .filter(d=> d.length>prefix.length && d.startsWith(prefix) && !d.slice(prefix.length).includes('/'))
+    .map(d=> d.slice(prefix.length)).sort((a,b)=>a.localeCompare(b));
+}
 function devObjectsBase(cfg){ return (cfg.objectsFolder || cfg.folder || '').replace(/\/+$/,''); }
 // <ObjectName>.<Suffix>.al, in a /<TypeFolder>/ subfolder — per your house
 // convention. House style for Table/Page/Codeunit is confirmed from your
@@ -3673,14 +3874,19 @@ function openAddMonitoredObjectModal(sourceKey, opts){
   bindAddMonitoredObjectModal(sourceKey, cfg, apps, opts);
 }
 function addMonitoredObjectModalHtml(sourceKey, cfg, apps, opts, draft){
-  draft = draft || { kw:'table', name:'', sourceTable:'', extends:'', folder: opts.lockedFolder || devObjectsBase(cfg), branch:'', remarks:'' };
+  draft = draft || { kw:'table', name:'', sourceTable:'', extends:'', folder: opts.lockedFolder || devObjectsBase(cfg), projFolder: opts.preselect || '', branch:'', remarks:'' };
   const kind = alObjectKind(draft.kw);
   const range = alKindRange(sourceKey, draft.kw);
   const nextId = kind.hasId ? nextFreeIdForAlKind(sourceKey, draft.kw) : null;
-  const base = (opts.lockedFolder || draft.folder || devObjectsBase(cfg) || '').replace(/\/+$/,'');
-  const existing = findExistingTypeFolder(cfg, base, draft.kw);   // string | null | undefined
+  const pickLabel = (HOXT_COLL[sourceKey]||{}).singular || 'Project';
+  const choices = opts.pickFolder ? projectFolderChoices(cfg) : null;
+  const picked = !opts.pickFolder || !!draft.projFolder;
+  const base = opts.pickFolder
+    ? (draft.projFolder ? (projectsBase(cfg)?projectsBase(cfg)+'/':'')+draft.projFolder : '')
+    : (opts.lockedFolder || draft.folder || devObjectsBase(cfg) || '').replace(/\/+$/,'');
+  const existing = picked ? findExistingTypeFolder(cfg, base, draft.kw) : undefined;   // string | null | undefined
   const folderLine = `<span class="mono">${escapeHtml(base||'(repo root)')}/${escapeHtml(existing || AL_TYPE_FOLDER[draft.kw])}</span>`;
-  const folderNote = existing ? `<div class="hint" style="color:var(--success);font-size:11.5px;margin-top:4px;">✓ This type already has a folder here — the file goes into it.</div>`
+  const folderNote = !picked ? '' : existing ? `<div class="hint" style="color:var(--success);font-size:11.5px;margin-top:4px;">✓ This type already has a folder here — the file goes into it.</div>`
     : existing===null ? `<div class="hint" style="color:var(--warning);font-size:11.5px;margin-top:4px;">There is no folder for this type here yet. You'll be asked whether to create it — if you say no, nothing is created.</div>`
     : `<div class="hint" style="font-size:11.5px;margin-top:4px;">Folders haven't been read yet. After the next sync (push the updated automation first) this shows whether the folder exists.</div>`;
   const branches = selectableBranches(cfg);
@@ -3725,8 +3931,16 @@ function addMonitoredObjectModalHtml(sourceKey, cfg, apps, opts, draft){
         ${branchNote}
       </div>
       <div class="form-row">
-        <label>Target Location</label>
-        ${opts.lockedFolder
+        ${opts.pickFolder ? '' : '<label>Target Location</label>'}
+        ${opts.pickFolder ? `
+          <label>${pickLabel} folder <span class="hint">(an existing one — ${pickLabel.toLowerCase()} folders are never created from here)</span></label>
+          ${choices===null
+            ? `<div class="hint" style="color:var(--warning);font-size:11.5px;">The folders haven't been read from GitHub yet. Push the updated automation, Run Sync Now, then reopen this form.</div>`
+            : !choices.length
+              ? `<div class="hint" style="color:var(--danger);font-size:11.5px;">No folders found inside <span class="mono">${escapeHtml(projectsBase(cfg)||'(repo root)')}</span>. Check "Projects Folder" under Settings → Dev-tool Sync, then Run Sync Now.</div>`
+              : `<select id="amoProjFolder"><option value="">Select a ${pickLabel.toLowerCase()} folder…</option>${choices.map(c=>`<option value="${escapeAttr(c)}" ${c===draft.projFolder?'selected':''}>${escapeHtml(c)}</option>`).join('')}</select>`}
+          ${draft.projFolder ? `<div style="margin-top:6px;">${folderLine}</div>` : ''}`
+        : opts.lockedFolder
           ? `<div class="readonly-field">${folderLine} <span class="hint">(${escapeHtml(opts.lockedFolderLabel||'this item')})</span></div>`
           : apps.length>1
             ? `<select id="amoFolder">
@@ -3799,12 +4013,14 @@ function bindAddMonitoredObjectModal(sourceKey, cfg, apps, opts){
     sourceTable: document.getElementById('amoSourceTable') ? document.getElementById('amoSourceTable').value : '',
     extends: document.getElementById('amoExtends') ? document.getElementById('amoExtends').value : '',
     folder: document.getElementById('amoFolder') ? document.getElementById('amoFolder').value : (opts.lockedFolder || devObjectsBase(cfg)),
+    projFolder: document.getElementById('amoProjFolder') ? document.getElementById('amoProjFolder').value : (opts.preselect || ''),
     branch: document.getElementById('amoBranch') ? document.getElementById('amoBranch').value : '',
     remarks: document.getElementById('amoRemarks') ? document.getElementById('amoRemarks').value : '',
   });
   const rerender = ()=>{ swapModal(addMonitoredObjectModalHtml(sourceKey, cfg, apps, opts, readDraft())); bindAddMonitoredObjectModal(sourceKey, cfg, apps, opts); };
   const typeSel = document.getElementById('amoType'); if(typeSel) typeSel.addEventListener('change', rerender);
   const folderSel = document.getElementById('amoFolder'); if(folderSel) folderSel.addEventListener('change', rerender); // the folder check depends on it
+  const projSel = document.getElementById('amoProjFolder'); if(projSel) projSel.addEventListener('change', rerender);
   document.getElementById('amoSubmitBtn').onclick = ()=>{
     const d = readDraft();
     const kind = alObjectKind(d.kw);
@@ -3815,7 +4031,15 @@ function bindAddMonitoredObjectModal(sourceKey, cfg, apps, opts){
     if(!d.branch){ toast('Pick a branch — new objects can\'t be added to main.', 'warning'); return; }
     if(blockedBranchSet(cfg).has(d.branch)){ toast(`New objects can't be added to "${d.branch}". Pick a different branch.`, 'warning'); return; }
     if(!selectableBranches(cfg).includes(d.branch)){ toast('That branch is not in the list any more — Run Sync Now to refresh the branch list.', 'warning'); return; }
-    const folderPath = (opts.lockedFolder || d.folder || devObjectsBase(cfg) || '').replace(/\/+$/,'');
+    let folderPath;
+    if(opts.pickFolder){
+      const lbl = ((HOXT_COLL[sourceKey]||{}).singular || 'project');
+      if(!d.projFolder){ toast(`Choose the ${lbl} folder first.`, 'warning'); return; }
+      if(!(projectFolderChoices(cfg)||[]).includes(d.projFolder)){ toast(`"${d.projFolder}" is not an existing folder, and ${lbl.toLowerCase()} folders are not created from here. Run Sync Now to refresh the list.`, 'warning'); return; }
+      folderPath = (projectsBase(cfg)?projectsBase(cfg)+'/':'')+d.projFolder;
+    } else {
+      folderPath = (opts.lockedFolder || d.folder || devObjectsBase(cfg) || '').replace(/\/+$/,'');
+    }
     let objectId = null;
     if(kind.hasId){
       objectId = nextFreeIdForAlKind(sourceKey, d.kw);
@@ -3825,7 +4049,7 @@ function bindAddMonitoredObjectModal(sourceKey, cfg, apps, opts){
     const entry = {
       id: uid(), objectType: d.kw, objectId, name,
       sourceTable: d.sourceTable.trim(), extends: d.extends.trim(),
-      folderPath, typeFolder: existing || '', createFolder: false, newFolderName: '', branch: d.branch,
+      folderPath, requireExistingBase: !!opts.pickFolder, typeFolder: existing || '', createFolder: false, newFolderName: '', branch: d.branch,
       requestedBy: currentUser().name || currentUser().email || 'Someone',
       requestedAt: new Date().toISOString(), status:'pending', error:'', filePath:'',
     };
@@ -5449,7 +5673,7 @@ function openUserModal(userId){
       <div class="modal-body">
         <div class="form-grid">
           <div class="form-row"><label>Full Name</label><input type="text" id="uName" value="${existing?escapeAttr(existing.name):''}"></div>
-          <div class="form-row"><label>Email</label><input type="email" id="uEmail" value="${existing?escapeAttr(existing.email):''}"></div>
+          <div class="form-row"><label>Email ${authSettings().mode==='microsoft'?'<span class="hint">(must be their Microsoft sign-in name)</span>':''}</label><input type="email" id="uEmail" value="${existing?escapeAttr(existing.email):''}"></div>
         </div>
         <div class="form-row"><label>Role Label</label><input type="text" id="uRole" value="${existing?escapeAttr(existing.role):'Developer'}" placeholder="e.g. Developer, QA, Lead"></div>
 
@@ -5661,6 +5885,8 @@ function attachContentHandlers(){
     toast(`Created ${folders.length} ${folders.length===1?HOXT_COLL[hoxtKind].singular:HOXT_COLL[hoxtKind].plural} from the repo folders.`, 'success');
     render();
   });
+  const hoxtAddMonitoredPageBtn = document.getElementById('hoxtAddMonitoredPageBtn');
+  if(hoxtAddMonitoredPageBtn) hoxtAddMonitoredPageBtn.addEventListener('click', ()=> openAddMonitoredObjectModal(hoxtKind, { pickFolder:true }));
   const hoxtAddItemBtn = document.getElementById('hoxtAddItemBtn');
   if(hoxtAddItemBtn) hoxtAddItemBtn.addEventListener('click', ()=> openHoxtItemModal(hoxtKind, null));
   document.querySelectorAll('[data-hoxt-item]').forEach(el=>{
@@ -6183,6 +6409,32 @@ function attachContentHandlers(){
     });
     if(!ok){ toast('Check that every "To" is greater than or equal to "From", and "Last No. Used" falls within that range.', 'warning'); return; }
     saveDB(); log('Updated','settings','ID ranges'); toast('Ranges saved.', 'success'); render();
+  });
+
+  let siFallbackOn = authSettings().passwordFallback;
+  const siFallback = document.getElementById('siFallback');
+  if(siFallback) siFallback.addEventListener('click', ()=>{ siFallbackOn = !siFallbackOn; siFallback.classList.toggle('on', siFallbackOn); });
+  const saveSignIn = document.getElementById('saveSignIn');
+  if(saveSignIn) saveSignIn.addEventListener('click', ()=>{
+    const mode = document.getElementById('siMode').value;
+    const hours = parseInt(document.getElementById('siHours').value, 10);
+    if(isNaN(hours) || hours<1 || hours>72){ toast('Stay signed in for between 1 and 72 hours.', 'warning'); return; }
+    if(mode==='microsoft'){
+      // Same safety as the viewer's "add at least one address, otherwise nobody could use it": the person
+      // switching this on must themselves be able to get back in afterwards.
+      const idn = msIdentity();
+      const me = currentUser();
+      const myEmail = String((me&&me.email)||'').trim().toLowerCase();
+      if(!idn){ toast("You're not signed in to Microsoft in this tab, so this can't be checked.", 'warning'); return; }
+      if(!myEmail || !idn.emails.includes(myEmail)){
+        toast(`Your Microsoft account (${idn.email}) doesn't match your user's email (${(me&&me.email)||'none'}). Fix it under User Management first — otherwise you'd be locked out.`, 'warning');
+        return;
+      }
+    }
+    const a = authSettings();
+    a.mode = mode; a.sessionHours = hours; a.passwordFallback = siFallbackOn;
+    saveDB(); log('Updated','settings','Sign-in method', mode==='microsoft'?'Microsoft account':'Password');
+    toast('Sign-in settings saved.', 'success'); render();
   });
 
   const workingPolicy = JSON.parse(JSON.stringify(passwordPolicy()));
