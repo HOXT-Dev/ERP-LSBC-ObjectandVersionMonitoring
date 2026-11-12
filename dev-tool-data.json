@@ -2882,6 +2882,12 @@
           "status": "active",
           "remarks": "",
           "updatedAt": "2026-11-12T00:10:21.381Z"
+        },
+        "page:99005": {
+          "definition": "Test page",
+          "status": "active",
+          "remarks": "",
+          "updatedAt": "2026-11-12T02:07:48.630Z"
         }
       },
       "releaseNotes": [],
@@ -2926,6 +2932,25 @@
           "filePath": "root/tableextension/Test123.TableExtension.al",
           "doneAt": "2026-11-12T00:12:09.779Z",
           "url": "https://github.com/HOXT-Dev/HOXT-OnPrem-Enhancements/blob/GLR/root/tableextension/Test123.TableExtension.al"
+        },
+        {
+          "id": "o199edyerfk8",
+          "objectType": "page",
+          "objectId": 99005,
+          "name": "Test page",
+          "sourceTable": "Customer",
+          "extends": "",
+          "folderPath": "root",
+          "requireExistingBase": false,
+          "typeFolder": "",
+          "createFolder": true,
+          "newFolderName": "Pages",
+          "branch": "ESM",
+          "requestedBy": "Gene Manahan",
+          "requestedAt": "2026-11-12T02:07:46.568Z",
+          "status": "pending",
+          "error": "",
+          "filePath": ""
         }
       ],
       "version": "26.9.0.0",
