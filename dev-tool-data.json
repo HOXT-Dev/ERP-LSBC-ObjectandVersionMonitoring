@@ -2878,10 +2878,10 @@
           "updatedAt": "2026-10-19T01:31:25.985Z"
         },
         "tableextension:99013": {
-          "definition": "test",
+          "definition": "Test123",
           "status": "active",
           "remarks": "",
-          "updatedAt": "2026-11-12T00:09:01.360Z"
+          "updatedAt": "2026-11-12T00:10:21.381Z"
         }
       },
       "releaseNotes": [],
@@ -2907,10 +2907,10 @@
           "url": "https://github.com/HOXT-Dev/HOXT-OnPrem-Enhancements/blob/ESM/root/tableextension/TEST.TableExtension.al"
         },
         {
-          "id": "npkrq2o3ipps",
+          "id": "91eoumpjkfgl",
           "objectType": "tableextension",
           "objectId": 99013,
-          "name": "test",
+          "name": "Test123",
           "sourceTable": "",
           "extends": "Users",
           "folderPath": "root",
@@ -2920,7 +2920,7 @@
           "newFolderName": "",
           "branch": "GLR",
           "requestedBy": "Gian Karlo Reyes",
-          "requestedAt": "2026-11-12T00:09:01.360Z",
+          "requestedAt": "2026-11-12T00:10:21.381Z",
           "status": "pending",
           "error": "",
           "filePath": ""
