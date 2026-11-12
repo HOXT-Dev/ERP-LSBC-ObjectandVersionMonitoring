@@ -16,6 +16,20 @@
         "label": "Membership_Envi_D",
         "companyId": "0ab67702-3f46-ee11-b18d-b6f29f9adee5",
         "type": "production"
+      },
+      {
+        "id": "pou5470u3yi9",
+        "name": "Debug_Env_D250829",
+        "label": "Debug_Env_D",
+        "companyId": "0ab67702-3f46-ee11-b18d-b6f29f9adee5",
+        "type": "sandbox"
+      },
+      {
+        "id": "7pzgfg68501t",
+        "name": "",
+        "label": "",
+        "companyId": "",
+        "type": "sandbox"
       }
     ],
     "retentionDays": 35,
