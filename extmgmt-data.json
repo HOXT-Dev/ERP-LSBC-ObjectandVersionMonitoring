@@ -15,7 +15,7 @@
         "name": "Membership_Envi_D251123",
         "label": "Membership_Envi_D",
         "companyId": "0ab67702-3f46-ee11-b18d-b6f29f9adee5",
-        "type": "sandbox"
+        "type": "production"
       },
       {
         "id": "fdxojxpjznbi",
@@ -26,9 +26,9 @@
       },
       {
         "id": "tho27qkg0b7m",
-        "name": "",
-        "label": "",
-        "companyId": "",
+        "name": "Test_D260320",
+        "label": "Test_D",
+        "companyId": "0ab67702-3f46-ee11-b18d-b6f29f9adee5",
         "type": "sandbox"
       }
     ],
