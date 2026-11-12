@@ -2,9 +2,24 @@
   "settings": {
     "tenantId": "ac0408c6-8c09-49d7-bc70-59fd6a76f70d",
     "clientId": "20af3c97-fced-4982-846c-9082909f31d9",
-    "environments": [],
+    "environments": [
+      {
+        "id": "vrxhwwmjsnx6",
+        "name": "Production",
+        "label": "Production",
+        "companyId": "0ab67702-3f46-ee11-b18d-b6f29f9adee5",
+        "type": "production"
+      },
+      {
+        "id": "ujyknocnsz8h",
+        "name": "Membership_Envi_D251123",
+        "label": "Membership_Envi_D",
+        "companyId": "0ab67702-3f46-ee11-b18d-b6f29f9adee5",
+        "type": "sandbox"
+      }
+    ],
     "retentionDays": 35,
-    "basisEnvId": "",
+    "basisEnvId": "vrxhwwmjsnx6",
     "customStatuses": [],
     "lastRunAt": "2026-09-10T18:51:56.025Z",
     "lastRunStatus": "error",
