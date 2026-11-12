@@ -284,6 +284,9 @@ async function createPendingObjects(key, cfg) {
         dirsByBranch[branch] = (t.tree || []).filter(e => e.type === 'tree').map(e => e.path);
       }
       const base = (p.folderPath || '').replace(/\/+$/, '');
+      if (p.requireExistingBase && base && !dirsByBranch[branch].includes(base)) {
+        throw new Error(`The folder "${base}" does not exist on branch "${branch}". New API/project folders are never created from here — pick an existing one.`);
+      }
       let folder = findTypeFolder(dirsByBranch[branch], base, p.objectType);
       const folderExisted = !!folder;
       if (!folder) {
