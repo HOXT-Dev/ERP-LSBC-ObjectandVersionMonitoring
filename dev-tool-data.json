@@ -2031,7 +2031,7 @@
         "5591bba13d376ba9e3fc1c1f87ef21f1b3326324": "26.11.0.0"
       },
       "notesError": "",
-      "lastSyncedAt": "2026-11-24T00:27:01.123Z",
+      "lastSyncedAt": "2026-11-22T21:57:17.075Z",
       "scanInfo": {
         "alFiles": 124,
         "withObjects": 124,
@@ -2522,7 +2522,7 @@
           "filePath": "root/tableextension/tabext99024.HOXT Store.al"
         }
       ],
-      "lastSyncedAt": "2026-11-24T00:27:11.192Z",
+      "lastSyncedAt": "2026-11-22T21:57:26.405Z",
       "apps": [
         {
           "name": "HOXT - Cloud Enhancements",
@@ -2968,7 +2968,7 @@
           "filePath": "root/tableextension/tabext85000.HOXT LSC POS Trans. Line.al"
         }
       ],
-      "lastSyncedAt": "2026-11-24T00:27:13.090Z",
+      "lastSyncedAt": "2026-11-22T21:57:27.955Z",
       "apps": [
         {
           "name": "HOXT - OnPrem Enhancements",
@@ -3026,9 +3026,36 @@
       "folder": "",
       "projectsFolder": "root",
       "objectsFolder": "",
-      "objectMeta": {},
+      "objectMeta": {
+        "page:99015": {
+          "definition": "Lake_WHI Device Activity Entry",
+          "status": "active",
+          "remarks": "",
+          "updatedAt": "2026-11-24T00:28:36.878Z"
+        }
+      },
       "releaseNotes": [],
-      "pendingObjects": [],
+      "pendingObjects": [
+        {
+          "id": "zklyys1li4r2",
+          "objectType": "page",
+          "objectId": 99015,
+          "name": "Lake_WHI Device Activity Entry",
+          "sourceTable": "WHI Device Activity Entry",
+          "extends": "",
+          "folderPath": "root/Data Team API",
+          "requireExistingBase": true,
+          "typeFolder": "Pages",
+          "createFolder": false,
+          "newFolderName": "",
+          "branch": "GLR",
+          "requestedBy": "Gian Karlo Reyes",
+          "requestedAt": "2026-11-24T00:28:36.878Z",
+          "status": "pending",
+          "error": "",
+          "filePath": ""
+        }
+      ],
       "notesOnly": true,
       "version": "26.11.3.0",
       "objects": [
@@ -4743,7 +4770,7 @@
           "filePath": "root/Replication To NAV API/Pag75013.RNAV_UnitofMeasure.al"
         }
       ],
-      "lastSyncedAt": "2026-11-24T00:27:50.419Z",
+      "lastSyncedAt": "2026-11-22T21:58:00.819Z",
       "apps": [
         {
           "name": "HOXT - Custom API",
@@ -5523,7 +5550,7 @@
           "filePath": "root/table/tab99044.HOXT Custom API Owner.al"
         }
       ],
-      "lastSyncedAt": "2026-11-24T00:27:54.442Z",
+      "lastSyncedAt": "2026-11-22T21:58:04.505Z",
       "apps": [
         {
           "name": "HOXT - Developer's Tool",
@@ -5609,7 +5636,7 @@
       ]
     }
   },
-  "lastRunAt": "2026-11-24T00:27:54.443Z",
+  "lastRunAt": "2026-11-22T21:58:04.505Z",
   "lastRunStatus": "success",
   "lastRunError": ""
 }
